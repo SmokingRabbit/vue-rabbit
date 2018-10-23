@@ -1,0 +1,12 @@
+{
+    "presets": [
+        ["@babel/env", {
+            "modules": false
+        }]
+    ],
+    "plugins": [
+        "@babel/syntax-jsx",
+        "transform-class-properties",
+        "transform-vue-jsx"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "extends": "tslint-config-standard",
+    "globals": {
+        "require": true
+    },
+    "rules":{
+        "indent": [true, "spaces", 4],
+        "semicolon": [true, "always"],
+        "arrow-parens": true,
+        "no-empty-interface": true,
+        "no-namespace": [true, "allpw-declarations"],
+        "triple-equals": [true, "allow-null-check"]
+    }
+}
