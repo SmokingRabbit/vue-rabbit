@@ -1,7 +1,7 @@
 import Vue, { CreateElement, VNode } from 'vue';
 import Component from 'vue-class-component';
 
-export interface ButtonProps {
+export interface RbtButtonProps {
     type?: '' | 'prmary' | 'default' | 'info' | 'waring' | 'danger';
 }
 
@@ -13,11 +13,11 @@ export interface ButtonProps {
 
 class RbtButton extends Vue {
 
- get className(): string {
+    private get className(): string {
         return 'rbt-buton';
     }
 
-    render(h: CreateElement): VNode {
+    public render(h: CreateElement): VNode {
         const { $slots, className } = this;
 
         return (<button class={className}>{$slots.default}</button>);

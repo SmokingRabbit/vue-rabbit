@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './app';
-import "@/styles/index.less";
+import '@/styles/index.less';
 import VueRabbit from '@/';
 
 Vue.use(VueRouter);
@@ -20,9 +20,10 @@ const router = new VueRouter({
     ]
 });
 
-new Vue({
-    el: '#root',
+const app = new Vue({
     router,
     template: '<App/>',
     components: { App }
 });
+
+app.$mount('#root');

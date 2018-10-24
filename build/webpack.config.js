@@ -16,6 +16,20 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
+                enforce: 'pre',
+                use: [
+                    {
+                        loader: 'tslint-loader',
+                        options: {
+                            formattersDirectory: 'node_modules/tslint-formatter-beauty',
+                            formatter: 'beauty'
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
                 use: [
                     'babel-loader',
                     {
@@ -24,10 +38,15 @@ module.exports = {
                 ]
             },
             {
-                test: /\.tsx?$/,
-                exclude: /node_modules/,
-                enforce: 'pre',
-                loader: 'tslint-loader'
+                 test: /\.vue|js$/,
+                 enforce: 'pre',
+                 exclude: /node_modules/,
+                 use: [{
+                     loader: 'eslint-loader',
+                     options: {
+                         formatter: require('eslint-friendly-formatter')
+                     }
+                 }]
             },
             {
                 test: /\.vue$/,

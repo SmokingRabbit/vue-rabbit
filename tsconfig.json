@@ -18,11 +18,19 @@
     "removeComments": true,
     "listFiles": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "declaration": true,
+    "declarationDir": "./dist/typings",
+    "inlineSources": true
   },
   "exclude": [
-    "./examples",
-    "node_modules"
+    "examples",
+    "node_modules",
+    "dist"
   ],
-  "compileOnSave": false
+  "compileOnSave": false,
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  }
 }

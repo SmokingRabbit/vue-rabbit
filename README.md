@@ -1,5 +1,7 @@
 ## vue-rabbit [暂定]
 
+>开发请注意，请使用4个空格作为缩进。
+
 ### 开发环境
 
 * vue2.5
@@ -8,6 +10,7 @@
 * less
 * vue-class-component
 * eslint
+* tslint
 * stylelint
 * webpack4
 
@@ -28,13 +31,13 @@
 |-- src
 |   |-- components          /* 组件库 */
 |   |   |-- button          /* 组件名 */
-|   |       |-- index.js    /* 对外接口 */
+|   |       |-- index.ts    /* 对外接口 */
 |   |       |-- button.tsx  /* button组件核心代码 */
 |   |
 |   |-- locale              /* 多语音 */
-|   |   |-- index.js        /* 对外接口 */
+|   |   |-- index.ts        /* 对外接口 */
 |   |   |-- lang            /* 语言目录 */
-|   |       |-- zh-CH.js    /* 简体中文 */
+|   |       |-- zh-CH.ts    /* 简体中文 */
 |   |
 |   |-- mixins              /* 基类组件 */
 |   |
@@ -50,12 +53,14 @@
 |
 |-- package.json
 |-- README.md
-|-- stylelintrc
+|-- .stylelintrc
 |-- postcss.config.js
 |-- .babelrc
 |-- tslint.json
 |-- .gitattributes
 |-- .travis.yml
+|-- .eslintrc
+|-- .eslintignore
 |
 |-- build
 ```
@@ -135,3 +140,16 @@
 - tooltip​ 文字提示
 - transfer​ 穿梭狂
 - uploader 上传
+
+
+### ts规则
+
+连接<https://palantir.github.io/tslint/rules/>
+
+
+### commit 标准
+
+>开发阶段都在master开发
+
+* 组件 `component 组件名称 开发行为（dev、bugfix：bug详情、update：更新了哪些）`
+* 示例 `example 组件名称`
