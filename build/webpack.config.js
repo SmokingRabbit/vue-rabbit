@@ -83,8 +83,20 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(jpg|png|woff|svg|eot|ttf)\??.*$/,
-                loader: 'url-loader'
+                test: /\.(jpg|png)\??.*$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 1000,
+                    name: 'images/[name].[ext]'
+                }
+            },
+            {
+                test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 1000,
+                    name: 'fonts/[name].[ext]'
+                }
             }
         ]
     },

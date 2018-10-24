@@ -1,6 +1,7 @@
 import Vue, { CreateElement, VNode } from 'vue';
 import Component from 'vue-class-component';
 import { oneOf, prefixCls } from '../../utils/assist';
+import RbtSpin from '../spin';
 
 export interface RbtButtonProps {
     type?: 'default' | 'prmary' | 'success' | 'info' | 'waring' | 'danger';
@@ -8,6 +9,7 @@ export interface RbtButtonProps {
     disabled?: boolean;
     shape?: boolean;
     ghost?: boolean;
+    dashed?: boolean;
     block?: boolean;
     text?: boolean;
     customClass?: string;
@@ -41,6 +43,10 @@ export interface RbtButtonProps {
             type: Boolean,
             default: false
         },
+        dashed: {
+            type: Boolean,
+            default: false
+        },
         block: {
             type: Boolean,
             default: false
@@ -65,6 +71,9 @@ export interface RbtButtonProps {
                 return oneOf(param, ['_blank', '_self', '_parent', '_top']);
             }
         }
+    },
+    components: {
+        RbtSpin
     }
 })
 
@@ -75,6 +84,7 @@ class RbtButton extends Vue {
     protected disabled!: boolean;
     protected shape!: boolean;
     protected ghost!: boolean;
+    protected dashed!: boolean;
     protected block!: boolean;
     protected text!: boolean;
     protected customClass!: string;
@@ -90,6 +100,7 @@ class RbtButton extends Vue {
             [`${prefixCls}btn-disabled`]: this.disabled,
             [`${prefixCls}btn-shape`]: this.shape,
             [`${prefixCls}btn-ghost`]: this.ghost,
+            [`${prefixCls}btn-dashed`]: this.dashed,
             [`${prefixCls}btn-block`]: this.block,
             [`${prefixCls}btn-text`]: this.text,
             [`${prefixCls}btn-size-${this.size}`]: true,
@@ -98,10 +109,13 @@ class RbtButton extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const { $slots, className, to, target } = this;
+        const { $slots, className, to, target, loading, type } = this;
 
         const slot: VNode = (
-            <span>{$slots.default}</span>
+            <span>
+                {loading && <rbt-spin type={type === 'default' ? 'primary' : 'default'}/>}
+                {$slots.default}
+            </span>
         );
 
         if (to !== undefined) {

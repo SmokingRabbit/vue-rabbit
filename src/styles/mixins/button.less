@@ -1,0 +1,59 @@
+.btn-size(@font-size; @padding) {
+    font-size: @font-size;
+    padding: @padding;
+}
+
+.btn-color(@text-color, @bg-color, @normal: true) when (@normal = true) {
+    background-color: @bg-color;
+    border-color: @bg-color;
+    color: @text-color;
+
+    &:hover,
+    &:active {
+        background-color: darken(@bg-color, 10%);
+        border-color: darken(@bg-color, 10%);
+        color: @text-color;
+    }
+}
+
+.btn-color(@text-color, @bg-color, @normal: true) when (@normal = false) {
+    &:hover,
+    &:active {
+        background-color: darken(@bg-color, 10%);
+        border-color: darken(@bg-color, 10%);
+        color: @text-color;
+    }
+}
+
+.btn-disabled(@bg-color) {
+    &:hover {
+        background-color: @bg-color;
+        border-color: @bg-color;
+    }
+}
+
+.btn-ghost(@bg-color) {
+    border-color: @bg-color;
+    color: @bg-color;
+    background-color: transparent;
+
+    &:hover,
+    &:active {
+        color: darken(@bg-color, 10%);
+        border-color: darken(@bg-color, 10%);
+        background-color: transparent;
+    }
+}
+
+.btn-text(@text-color) {
+    border-color: transparent;
+    background-color: transparent;
+    color: @text-color;
+
+    &:hover,
+    &:active {
+        color: darken(@text-color, 10%);
+        border-color: transparent;
+        background-color: transparent;
+    }
+}

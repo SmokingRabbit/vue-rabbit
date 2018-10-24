@@ -1,0 +1,26 @@
+@keyframes spinRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.@{prefix}spin {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    line-height: 18px;
+    animation: spinRotate 1s infinite linear;
+    font-size: 18px;
+
+    &-default {
+        color: @light-color;
+    }
+
+    &-primary {
+        color: @primary-color;
+    }
+}

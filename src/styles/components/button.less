@@ -1,6 +1,7 @@
 .@{prefix}btn {
     font-size: @font-size-default;
     color: @text-color-gray;
+    background-color: @light-color;
     border-width: 1px;
     border-style: solid;
     border-color: transparent;
@@ -9,74 +10,166 @@
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
-    line-height: @btn-height-default - 2;
-    padding: 0 @btn-padding-default;
-    height: @btn-height-default;
+    line-height: 1.5;
     cursor: pointer;
     transition: border-color @transition-duration linear, background-color @transition-duration linear, color @transition-duration linear;
 
+    .@{prefix}spin {
+        margin-top: -2px;
+        vertical-align: middle;
+        margin-right: 6px;
+    }
+
+    // 尺寸
+    &-size-default {
+        .btn-size(@font-size-default, @btn-padding-default);
+    }
+
+    &-size-small {
+        .btn-size(@font-size-small, @btn-padding-small);
+    }
+
+    &-size-large {
+        .btn-size(@font-size-large, @btn-padding-large);
+    }
+
+    // 主题
     &-default {
         border-color: @border-color;
-
-        &:hover {
-            color: @light-color;
-            background-color: @primary-color;
-            border-color: @primary-color;
-        }
+        .btn-color(@light-color, @primary-color, false);
     }
 
     &-primary {
-        background-color: @primary-color;
-        border-color: @primary-color;
-        color: @light-color;
-
-        &:hover {
-            background-color: darken(@primary-color, 10%);
-            border-color: darken(@primary-color, 10%);
-        }
+        .btn-color(@light-color, @primary-color);
     }
 
     &-info {
-        background-color: @info-color;
-        border-color: @info-color;
-        color: @light-color;
-
-        &:hover {
-            background-color: darken(@info-color, 10%);
-            border-color: darken(@info-color, 10%);
-        }
+        .btn-color(@light-color, @info-color);
     }
 
     &-success {
-        background-color: @success-color;
-        border-color: @success-color;
-        color: @light-color;
-
-        &:hover {
-            background-color: darken(@success-color, 10%);
-            border-color: darken(@success-color, 10%);
-        }
+        .btn-color(@light-color, @success-color);
     }
 
     &-warning {
-        background-color: @warning-color;
-        border-color: @warning-color;
-        color: @light-color;
-
-        &:hover {
-            background-color: darken(@warning-color, 10%);
-            border-color: darken(@warning-color, 10%);
-        }
+        .btn-color(@light-color, @warning-color);
     }
 
     &-danger {
-        background-color: @danger-color;
-        border-color: @danger-color;
-        color: @light-color;
+        .btn-color(@light-color, @danger-color);
+    }
 
+    // 禁用
+    &-disabled {
+        .disabled();
+    }
+
+    // 加载
+    &-loading {
+        cursor: default;
+    }
+
+    &-loading&-default,
+    &-disabled&-default {
         &:hover {
-            background-color: darken(@danger-color, 10%);
-            border-color: darken(@danger-color, 10%);
+            border-color: @border-color;
+            color: @text-color-gray;
+            background-color: @light-color;
         }
+    }
+
+    &-loading&-primary,
+    &-disabled&-primary {
+        .btn-disabled(@primary-color);
+    }
+
+    &-loading&-info,
+    &-disabled&-info {
+        .btn-disabled(@info-color);
+    }
+
+    &-loading&-success,
+    &-disabled&-success {
+        .btn-disabled(@success-color);
+    }
+
+    &-loading&-warning,
+    &-disabled&-warning {
+        .btn-disabled(@warning-color);
+    }
+
+    &-loading&-danger,
+    &-disabled&-danger {
+        .btn-disabled(@danger-color);
+    }
+
+    &-block {
+        display: block;
+        width: 100%;
+    }
+
+    &-shape {
+        border-radius: 999px;
+    }
+
+    &-dashed {
+        border-style: dashed;
+    }
+
+    // 幽灵
+    &-ghost&-default {
+        .btn-ghost(@light-color);
+    }
+
+    &-ghost&-primary {
+        .btn-ghost(@primary-color);
+    }
+
+    &-ghost&-info {
+        .btn-ghost(@info-color);
+    }
+
+    &-ghost&-success {
+        .btn-ghost(@success-color);
+    }
+
+    &-ghost&-warning {
+        .btn-ghost(@warning-color);
+    }
+
+    &-ghost&-danger {
+        .btn-ghost(@danger-color);
+    }
+
+    // 文字
+    &-text&-default {
+        border-color: transparent;
+
+        &:hover,
+        &:active {
+            color: @primary-color;
+            border-color: transparent;
+            background-color: transparent;
+        }
+    }
+
+    &-text&-primary {
+        .btn-text(@primary-color);
+    }
+
+    &-text&-info {
+        .btn-text(@info-color);
+    }
+
+    &-text&-success {
+        .btn-text(@success-color);
+    }
+
+    &-text&-warning {
+        .btn-text(@warning-color);
+    }
+
+    &-text&-danger {
+        .btn-text(@danger-color);
     }
 }
