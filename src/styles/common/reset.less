@@ -86,6 +86,12 @@ video {
     box-sizing: border-box;
 }
 
+body {
+    font-family: @font-family;
+    color: @text-color-gray;
+    line-height: 1.5;
+}
+
 article,
 aside,
 details,
@@ -98,13 +104,6 @@ menu,
 nav,
 section {
     display: block;
-}
-
-body {
-    line-height: 1.5;
-    font-family: @font-family;
-    font-size: @font-size-base;
-    color: @text-color-gray;
 }
 
 ol,
@@ -165,19 +164,10 @@ main {
     display: block;
 }
 
-figure {
-    margin: 1em 40px;
-}
-
 hr {
     box-sizing: content-box;
     height: 0;
     overflow: visible;
-}
-
-pre {
-    font-family: monospace;
-    font-size: 1em;
 }
 
 abbr[title] {
@@ -191,11 +181,11 @@ strong {
     font-weight: 600;
 }
 
+pre,
 code,
 kbd,
 samp {
     font-family: monospace;
-    font-size: 1em;
 }
 
 dfn {
@@ -217,14 +207,6 @@ sup {
     line-height: 0;
     position: relative;
     vertical-align: baseline;
-}
-
-sub {
-    bottom: -0.25em;
-}
-
-sup {
-    top: -0.5em;
 }
 
 audio,
@@ -295,33 +277,27 @@ template {
     display: none;
 }
 
-a {
-    text-decoration: none;
-    color: @link-color;
-    transition: color 0.2s ease-in;
-    cursor: pointer;
-}
-
 select {
     border: 0;
 }
 
 a,
-a:focus,
-a:hover,
 button,
 input,
-input:focus,
 select,
-select:focus,
-textarea,
-textarea:focus {
+textarea {
     outline: none;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
-a:hover {
-    color: @link-active-color;
+a {
+    text-decoration: none;
+    color: @link-color;
+    transition: color 0.2s ease-in;
+    cursor: pointer;
+
+    &:hover {
+        color: darken(@link-color, 10%);
+    }
 }
 
 div {
@@ -354,8 +330,4 @@ del {
 table {
     border-collapse: collapse;
     border-spacing: 0;
-}
-
-input[disabled] {
-    background-color: transparent;
 }

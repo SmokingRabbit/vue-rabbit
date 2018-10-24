@@ -61,7 +61,7 @@
         "new-parens": true,
         "no-consecutive-blank-lines": true,
         "no-console": [
-            true,
+            false,
             "log",
             "error"
         ],
@@ -165,6 +165,9 @@
         "switch-final-break": [
             true,
             "always"
+        ],
+        "ordered-imports": [
+            false
         ]
     },
     "rulesDirectory": []

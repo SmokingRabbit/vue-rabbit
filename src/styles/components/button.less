@@ -1,0 +1,82 @@
+.@{prefix}btn {
+    font-size: @font-size-default;
+    color: @text-color-gray;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    display: inline-block;
+    border-radius: @border-radius;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    line-height: @btn-height-default - 2;
+    padding: 0 @btn-padding-default;
+    height: @btn-height-default;
+    cursor: pointer;
+    transition: border-color @transition-duration linear, background-color @transition-duration linear, color @transition-duration linear;
+
+    &-default {
+        border-color: @border-color;
+
+        &:hover {
+            color: @light-color;
+            background-color: @primary-color;
+            border-color: @primary-color;
+        }
+    }
+
+    &-primary {
+        background-color: @primary-color;
+        border-color: @primary-color;
+        color: @light-color;
+
+        &:hover {
+            background-color: darken(@primary-color, 10%);
+            border-color: darken(@primary-color, 10%);
+        }
+    }
+
+    &-info {
+        background-color: @info-color;
+        border-color: @info-color;
+        color: @light-color;
+
+        &:hover {
+            background-color: darken(@info-color, 10%);
+            border-color: darken(@info-color, 10%);
+        }
+    }
+
+    &-success {
+        background-color: @success-color;
+        border-color: @success-color;
+        color: @light-color;
+
+        &:hover {
+            background-color: darken(@success-color, 10%);
+            border-color: darken(@success-color, 10%);
+        }
+    }
+
+    &-warning {
+        background-color: @warning-color;
+        border-color: @warning-color;
+        color: @light-color;
+
+        &:hover {
+            background-color: darken(@warning-color, 10%);
+            border-color: darken(@warning-color, 10%);
+        }
+    }
+
+    &-danger {
+        background-color: @danger-color;
+        border-color: @danger-color;
+        color: @light-color;
+
+        &:hover {
+            background-color: darken(@danger-color, 10%);
+            border-color: darken(@danger-color, 10%);
+        }
+    }
+}
