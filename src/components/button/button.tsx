@@ -108,6 +108,14 @@ class RbtButton extends Vue {
         };
     }
 
+    private onClickHandler(e: MouseEvent): void {
+        const { disabled, loading } = this;
+
+        if (!disabled && !loading) {
+            this.$emit('click', e);
+        }
+    }
+
     public render(h: CreateElement): VNode {
         const { $slots, className, to, target, loading, type } = this;
 
@@ -119,10 +127,18 @@ class RbtButton extends Vue {
         );
 
         if (to !== undefined) {
-            return (<a class={className} href={to} target={target}>{slot}</a>);
+            return (
+                <a class={className} href={to} target={target} onClick={this.onClickHandler}>
+                    {slot}
+                </a>
+            );
         }
 
-        return (<button class={className}>{slot}</button>);
+        return (
+            <button class={className} onClick={this.onClickHandler}>
+                {slot}
+            </button>
+        );
     }
 }
 
