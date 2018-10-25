@@ -1,9 +1,9 @@
 import Vue, { CreateElement, VNode } from 'vue';
-import Component from 'vue-class-component';
+import { Component } from 'vue-property-decorator';
 import { oneOf, prefixCls } from '../../utils/assist';
-import RbtSpin from '../spin';
+import Spin from '../spin';
 
-export interface RbtButtonProps {
+export interface ButtonProps {
     type?: 'default' | 'prmary' | 'success' | 'info' | 'waring' | 'danger';
     loading?: boolean;
     disabled?: boolean;
@@ -73,11 +73,11 @@ export interface RbtButtonProps {
         }
     },
     components: {
-        RbtSpin
+        Spin
     }
 })
 
-class RbtButton extends Vue {
+class Button extends Vue {
 
     protected type!: string;
     protected loading!: boolean;
@@ -121,7 +121,7 @@ class RbtButton extends Vue {
 
         const slot: VNode = (
             <span>
-                {loading && <rbt-spin type={type === 'default' ? 'primary' : 'default'}/>}
+                {loading && <spin type={type === 'default' ? 'primary' : 'default'}/>}
                 {$slots.default}
             </span>
         );
@@ -142,4 +142,4 @@ class RbtButton extends Vue {
     }
 }
 
-export default RbtButton;
+export default Button;

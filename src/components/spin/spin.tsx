@@ -1,9 +1,9 @@
 import Vue, { CreateElement, VNode } from 'vue';
-import Component from 'vue-class-component';
+import { Component } from 'vue-property-decorator';
 import { oneOf, prefixCls } from '../../utils/assist';
-import RbtIcon from '../icon';
+import Icon from '../icon';
 
-export interface RbtSpinProps {
+export interface SpinProps {
     type?: 'default' | 'primary';
 }
 
@@ -18,11 +18,11 @@ export interface RbtSpinProps {
         }
     },
     components: {
-        RbtIcon
+        Icon
     }
 })
 
-class RbtSpin extends Vue {
+class Spin extends Vue {
 
     protected type!: string;
 
@@ -38,10 +38,10 @@ class RbtSpin extends Vue {
 
         return (
             <span class={className}>
-                <rbt-icon type='spin'/>
+                <icon type='spin'/>
             </span>
         );
     }
 }
 
-export default RbtSpin;
+export default Spin;

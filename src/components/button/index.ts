@@ -1,3 +1,3 @@
-import RbtButton from './button';
+import Button from './button';
 
-export default RbtButton;
+export default Button;

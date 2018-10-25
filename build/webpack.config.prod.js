@@ -30,6 +30,12 @@ module.exports = webapckMerge(webpackBaseConfig, {
             commonjs2: 'vue-class-component',
             commonjs: 'vue-class-component',
             amd: 'vue-class-component',
+        },
+        'vue-property-decorator': {
+            root: 'vue-property-decorator',
+            commonjs2: 'vue-property-decorator',
+            commonjs: 'vue-property-decorator',
+            amd: 'vue-property-decorator',
         }
     },
     module: {

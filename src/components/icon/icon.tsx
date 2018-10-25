@@ -1,8 +1,8 @@
 import Vue, { CreateElement, VNode } from 'vue';
-import Component from 'vue-class-component';
+import { Component } from 'vue-property-decorator';
 import { prefixCls } from '../../utils/assist';
 
-export interface RbtIconProps {
+export interface IconProps {
     type: string;
 }
 
@@ -16,7 +16,7 @@ export interface RbtIconProps {
     }
 })
 
-class RbtIcon extends Vue {
+class Icon extends Vue {
 
     protected type!: string;
 
@@ -34,4 +34,4 @@ class RbtIcon extends Vue {
     }
 }
 
-export default RbtIcon;
+export default Icon;

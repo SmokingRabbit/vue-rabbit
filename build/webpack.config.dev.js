@@ -8,7 +8,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 module.exports = webapckMerge(webpackBaseConfig, {
     entry: {
         app: [path.join(__dirname, '../examples/index.js')],
-        vender: ['vue', 'vue-router']
+        vender: ['vue', 'vue-router', 'vue-property-decorator', 'vue-class-component']
     },
     mode: 'development',
     output: {

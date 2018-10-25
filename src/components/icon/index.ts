@@ -1,3 +1,3 @@
-import RbtIcon from './icon';
+import Icon from './icon';
 
-export default RbtIcon;
+export default Icon;

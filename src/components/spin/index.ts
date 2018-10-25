@@ -1,3 +1,3 @@
-import RbtSpin from './spin';
+import Spin from './spin';
 
-export default RbtSpin;
+export default Spin;
