@@ -1,13 +1,13 @@
-import Button from './components/button';
-import Icon from './components/icon';
-import Spin from './components/spin';
-import Popup from './components/popup';
+import {
+    Button,
+    Icon,
+    Spin
+} from './components';
 
 const components: {[key: string]: any} = {
     Button,
     Icon,
-    Spin,
-    Popup
+    Spin
 };
 
 function install(Vue: any): void {

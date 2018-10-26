@@ -1,24 +1,13 @@
 import Vue, { CreateElement, VNode } from 'vue';
-import { Component } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 import { prefixCls } from '../../utils/assist';
 
-export interface IconProps {
-    type: string;
-}
-
-@Component({
-    props: {
-        type: {
-            type: String,
-            required: true
-        }
-
-    }
-})
+@Component
 
 class Icon extends Vue {
 
-    protected type!: string;
+    @Prop({ type: String, required: true })
+    public type!: string;
 
     private get className(): object {
         return {

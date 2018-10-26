@@ -1,22 +1,9 @@
 import Vue, { CreateElement, VNode } from 'vue';
-import { Component } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 import { oneOf, prefixCls } from '../../utils/assist';
 import Icon from '../icon';
 
-export interface SpinProps {
-    type?: 'default' | 'primary';
-}
-
 @Component({
-    props: {
-        type: {
-            type: String,
-            default: 'default',
-            validator(param) {
-                return oneOf(param, ['default', 'primary']);
-            }
-        }
-    },
     components: {
         Icon
     }
@@ -24,7 +11,14 @@ export interface SpinProps {
 
 class Spin extends Vue {
 
-    protected type!: string;
+    @Prop({
+        type: String,
+        default: 'default',
+        validator(param) {
+            return oneOf(param, ['default', 'primary']);
+        }
+    })
+    public type!: string;
 
     private get className(): object {
         return {

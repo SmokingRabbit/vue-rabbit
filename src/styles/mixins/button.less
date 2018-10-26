@@ -9,8 +9,8 @@
 
     &:hover,
     &:active {
-        background-color: darken(@bg-color, 10%);
-        border-color: darken(@bg-color, 10%);
+        background-color: lighten(@bg-color, 10%);
+        border-color: lighten(@bg-color, 10%);
         color: @text-color;
     }
 }
@@ -18,8 +18,8 @@
 .btn-color(@text-color, @bg-color, @normal: true) when (@normal = false) {
     &:hover,
     &:active {
-        background-color: darken(@bg-color, 10%);
-        border-color: darken(@bg-color, 10%);
+        background-color: lighten(@bg-color, 10%);
+        border-color: lighten(@bg-color, 10%);
         color: @text-color;
     }
 }
@@ -38,8 +38,8 @@
 
     &:hover,
     &:active {
-        color: darken(@bg-color, 10%);
-        border-color: darken(@bg-color, 10%);
+        color: lighten(@bg-color, 10%);
+        border-color: lighten(@bg-color, 10%);
         background-color: transparent;
     }
 }
@@ -51,7 +51,7 @@
 
     &:hover,
     &:active {
-        color: darken(@text-color, 10%);
+        color: lighten(@text-color, 10%);
         border-color: transparent;
         background-color: transparent;
     }
