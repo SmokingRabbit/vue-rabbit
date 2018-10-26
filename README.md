@@ -85,7 +85,7 @@
 - badge​ 徽章
 - breadcrumb​ 面包屑
 - button-group​ 按钮租
-- button​ 按钮 [smokingRabbit]
+- button​ 按钮 [rabbit]
     * 支持圆角
     * 支持disabled和loading
     * 支持块级
@@ -147,6 +147,9 @@
 
 连接<https://palantir.github.io/tslint/rules/>
 
+### 开发分支规范
+
+>开发阶段统一 使用 dev/[用户名]
 
 ### commit 标准
 
