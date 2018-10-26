@@ -43,6 +43,7 @@
 |   |
 |   |-- styles              /* 样式 */
 |   |   |-- common          /* 公共样式 */
+|   |   |-- animation       /* 动画 */
 |   |   |-- mixins          /* 基类样式 */
 |   |   |-- components      /* 组件样式 */
 |   |       |-- button.less /* button组件样式代码 */
