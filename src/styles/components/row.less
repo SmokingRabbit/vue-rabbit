@@ -1,3 +1,42 @@
+@import "../mixins/clearfix";
+
 .@{prefix}row {
+    position: relative;
+    box-sizing: border-box;
+    .clearfix();
+
+    &::before,
+    &::after {
+        display: none;
+    }
+
+    &-flex {
+        // justify
+        &-justify-center {
+            justify-content: center;
+        }
+
+        &-justify-end {
+            justify-content: flex-end;
+        }
+
+        &-justify-space-between {
+            justify-content: space-between;
+        }
+
+        &-justify-space-around {
+            justify-content: space-around;
+        }
+
+        // align
+        &-align-middle {
+            align-items: center;
+        }
+
+        &__align-bottom {
+            align-items: flex-end;
+        }
+    }
+
 
 }

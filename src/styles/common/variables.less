@@ -45,3 +45,17 @@
 
 // 过度动画时间
 @transition-duration: 0.3s;
+
+// 断点
+@sm: 768px;
+@md: 992px;
+@lg: 1200px;
+@xl: 1920px;
+
+@break-xs: ~"(max-width: @{sm})";
+@break-sm: ~"(min-width: @{sm})";
+@break-md: ~"(min-width: @{md})";
+@break-lg: ~"(min-width: @{lg})";
+@break-xl: ~"(min-width: @{xl})";
+
+@col-count: 24;

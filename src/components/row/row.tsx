@@ -1,12 +1,17 @@
 import {CreateElement, VNode} from 'vue';
-import {Component, Prop } from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 import {oneOf, prefixCls} from '../../utils/assist';
 import CustomClass from '../../mixins/custom-class';
 
-@Component({
-})
+@Component({})
 
 class Row extends CustomClass {
+
+    @Prop({
+        type: String,
+        default: ''
+    })
+    public type !: '' | 'flex';
 
     @Prop({
         type: String,
@@ -39,12 +44,13 @@ class Row extends CustomClass {
     public align !: 'top' | 'middle' | 'bottom';
 
     private get className(): object {
-        const {align, justify, getCustomClass} = this;
+        const {align, justify, type, getCustomClass} = this;
 
         return {
-            [`${prefixCls}row`]: true,
-            [`${prefixCls}row-${align}`]: true,
-            [`${prefixCls}row-${justify}`]: true,
+            [`${prefixCls}row`]                         : true,
+            [`${prefixCls}row-flex`]                    : type === 'flex',
+            [`${prefixCls}row-flex-align-${align}`]     : align !== 'top',
+            [`${prefixCls}row-flex-justify-${justify}`] : justify !== 'start',
             ...getCustomClass
         };
     }
