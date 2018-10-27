@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Layout</h2>
-        <rbt-row :gutter="10"></rbt-row>
+        <rbt-row custom-class="est test ts" :gutter="10"></rbt-row>
 
     </div>
 

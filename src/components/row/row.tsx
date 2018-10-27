@@ -1,11 +1,12 @@
-import Vue, {CreateElement, VNode} from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {CreateElement, VNode} from 'vue';
+import {Component, Prop } from 'vue-property-decorator';
 import {oneOf, prefixCls} from '../../utils/assist';
 import CustomClass from '../../mixins/custom-class';
 
-@Component
+@Component({
+})
 
-class Row extends Vue {
+class Row extends CustomClass {
 
     @Prop({
         type: String,
@@ -38,12 +39,13 @@ class Row extends Vue {
     public align !: 'top' | 'middle' | 'bottom';
 
     private get className(): object {
-        const {align, justify} = this;
+        const {align, justify, getCustomClass} = this;
 
         return {
             [`${prefixCls}row`]: true,
             [`${prefixCls}row-${align}`]: true,
             [`${prefixCls}row-${justify}`]: true,
+            ...getCustomClass
         };
     }
 

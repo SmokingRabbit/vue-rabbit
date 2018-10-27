@@ -1,6 +1,9 @@
-import {Prop} from 'vue-property-decorator';
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
 
-class CustomClass {
+@Component
+
+class CustomClass extends Vue {
     @Prop({
         type: String,
         default: ''
@@ -9,11 +12,11 @@ class CustomClass {
 
     public get getCustomClass(): object {
         const {customClass} = this;
-        let result = {};
+        const result: any = {};
 
-        if (!customClass) {
-            result = customClass.split(' ').map((each: string) => {
-                return {[each]: true};
+        if (customClass) {
+            customClass.split(' ').forEach((each: string) => {
+                result[each] = true;
             });
         }
 
