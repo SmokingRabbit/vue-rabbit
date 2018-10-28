@@ -1,0 +1,12 @@
+.loop(@i: length(@break-spec-val)) when (@i > 0) {
+    @val: extract(@break-spec-val, @i);
+    @name: extract(@break-spec-name, @i);
+
+    .res(@val; {
+        .hidden-@{name} {
+            display: none !important;
+        }
+    });
+    .loop(@i - 1);
+}
+.loop;

@@ -3,9 +3,9 @@ import {Component, Prop} from 'vue-property-decorator';
 import {oneOf, prefixCls} from '../../utils/assist';
 import CustomClass from '../../mixins/custom-class';
 
-@Component({})
+@Component
 
-class Row extends CustomClass {
+class Row extends CustomClass implements Row {
 
     @Prop({
         type: String,
@@ -29,10 +29,10 @@ class Row extends CustomClass {
         type: String,
         default: 'start',
         validator(prop: string): boolean {
-            return oneOf(prop, ['start', 'end', 'center', 'space-around', 'space-between']);
+            return oneOf(prop, ['start', 'end', 'center', 'around', 'between']);
         }
     })
-    public justify !: 'start' | 'end' | 'center' | 'space-around' | 'space-between';
+    public justify !: 'start' | 'end' | 'center' | 'around' | 'between';
 
     @Prop({
         type: String,
@@ -47,10 +47,10 @@ class Row extends CustomClass {
         const {align, justify, type, getCustomClass} = this;
 
         return {
-            [`${prefixCls}row`]                         : true,
-            [`${prefixCls}row-flex`]                    : type === 'flex',
-            [`${prefixCls}row-flex-align-${align}`]     : align !== 'top',
-            [`${prefixCls}row-flex-justify-${justify}`] : justify !== 'start',
+            [`${prefixCls}row`]: true,
+            [`${prefixCls}row-flex`]: type === 'flex',
+            [`${prefixCls}row-flex-align-${align}`]: align !== 'top',
+            [`${prefixCls}row-flex-justify-${justify}`]: justify !== 'start',
             ...getCustomClass
         };
     }
@@ -70,11 +70,11 @@ class Row extends CustomClass {
     }
 
     public render(h: CreateElement): VNode {
-        const {tag: Tag, gutterValue, className} = this;
+        const {tag: Tag, gutterValue, className, $slots} = this;
 
         return (
             <Tag class={className} style={gutterValue}>
-                test
+                {$slots.default}
             </Tag>
         );
     }

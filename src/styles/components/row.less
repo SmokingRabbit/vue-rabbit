@@ -3,14 +3,18 @@
 .@{prefix}row {
     position: relative;
     box-sizing: border-box;
+
     .clearfix();
 
-    &::before,
-    &::after {
-        display: none;
-    }
-
+    // flex styles
     &-flex {
+        display: flex;
+
+        &::before,
+        &::after {
+            display: none;
+        }
+
         // justify
         &-justify-center {
             justify-content: center;
@@ -20,11 +24,11 @@
             justify-content: flex-end;
         }
 
-        &-justify-space-between {
+        &-justify-between {
             justify-content: space-between;
         }
 
-        &-justify-space-around {
+        &-justify-around {
             justify-content: space-around;
         }
 
@@ -37,6 +41,4 @@
             align-items: flex-end;
         }
     }
-
-
 }
