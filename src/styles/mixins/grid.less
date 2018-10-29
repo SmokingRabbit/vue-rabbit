@@ -1,0 +1,36 @@
+.col-loop(@count , @sz:~'') when (@grid-col-count >= @count ) {
+    .col-loop(@count + 1,@sz);
+
+    .@{prefix}col-@{sz} {
+        // span
+        &@{count} {
+            width: (1/@grid-col-count * @count * 100) * 1%;
+        }
+
+        &offset-@{count} {
+            margin-left: (1 / 24 * @count * 100) * 1%;
+        }
+
+        &pull-@{count} {
+            position: relative;
+            right: (1 / 24 * @count * 100) * 1%;
+        }
+
+        &push-@{count} {
+            position: relative;
+            left: (1 / 24 * @count * 100) * 1%;
+        }
+    }
+}
+
+.col-media-display(@i: length(@grid-break-spec-values)) when (@i > 0) {
+    @val: extract(@grid-break-spec-values, @i);
+    @name: extract(@grid-break-spec-names, @i);
+
+    .media(@val; {
+        .hidden-@{name} {
+            display: none !important;
+        }
+    });
+    .col-media-display(@i - 1);
+}

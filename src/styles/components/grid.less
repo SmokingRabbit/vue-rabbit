@@ -1,8 +1,5 @@
-@import "../mixins/clearfix";
-
 .@{prefix}row {
     position: relative;
-    box-sizing: border-box;
 
     .clearfix();
 
@@ -42,3 +39,50 @@
         }
     }
 }
+
+[class*="@{prefix}col-"] {
+    float: left;
+}
+
+.@{prefix}col-0 {
+    display: none;
+}
+
+.col-loop(0);
+
+.col-media-display();
+
+.media(@grid-break-xs; {
+    .@{prefix}col-xs-0 {
+        display: none;
+    }
+    .col-loop(0,xs-);
+});
+
+.media(@grid-break-sm; {
+    .@{prefix}col-sm-0 {
+        display: none;
+    }
+    .col-loop(0,sm-);
+});
+
+.media(@grid-break-md; {
+    .@{prefix}col-md-0 {
+        display: none;
+    }
+    .col-loop(0,md-);
+});
+
+.media(@grid-break-lg; {
+    .@{prefix}col-lg-0 {
+        display: none;
+    }
+    .col-loop(0,lg-);
+});
+
+.media(@grid-break-xl; {
+    .@{prefix}col-xl-0 {
+        display: none;
+    }
+    .col-loop(0,~'xl-');
+});

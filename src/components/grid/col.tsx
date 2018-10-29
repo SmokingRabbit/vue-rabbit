@@ -1,20 +1,15 @@
-import {CreateElement, VNode} from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
-import CustomClass from '../../mixins/custom-class';
-import {prefixCls} from '../../utils/assist';
-
-interface Col {
-    readonly [key: string]: any;
-}
+import Vue, { CreateElement, VNode } from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
+import { prefixCls } from '../../utils/assist';
 
 @Component
 
-class Col extends CustomClass implements Col {
+class Col extends Vue {
     @Prop({
         type: String,
         default: 'div'
     })
-    public tag !: string;
+    public tag!: string;
 
     @Prop({
         type: Number,
@@ -23,7 +18,7 @@ class Col extends CustomClass implements Col {
             return (prop >= 0 && prop <= 24);
         }
     })
-    public span !: number;
+    public span!: number;
 
     @Prop({
         type: Number,
@@ -31,7 +26,7 @@ class Col extends CustomClass implements Col {
             return (prop >= 0 && prop <= 24);
         }
     })
-    public offset !: number;
+    public offset!: number;
 
     @Prop({
         type: Number,
@@ -47,54 +42,53 @@ class Col extends CustomClass implements Col {
             return (prop >= 0 && prop <= 24);
         }
     })
-    public pull !: number;
+    public pull!: number;
 
     @Prop({
         type: [Number, Object],
     })
-    public xl !: number | object;
+    public xl!: number | object;
 
     @Prop({
         type: [Number, Object],
     })
-    public lg !: number | object;
+    public lg!: number | object;
 
     @Prop({
         type: [Number, Object],
     })
-    public md !: number | object;
+    public md!: number | object;
 
     @Prop({
         type: [Number, Object],
     })
-    public sm !: number | object;
+    public sm!: number | object;
 
     @Prop({
         type: [Number, Object],
     })
-    public xs !: number | object;
+    public xs!: number | object;
 
-    @Prop({
-        type: String,
-        default: ''
-    })
+    @Prop({ type: String, default: '' })
     public customClass !: string;
 
     public get propsSizeClass(): object {
-        const result: any = {};
+        const result: { [key: string]: boolean } = {};
 
         ['xl', 'lg', 'md', 'sm', 'xs'].forEach(item => {
             const size = this[item];
+
             if (typeof size === 'number') {
-                result[`${prefixCls}col-${item}-${size}`] = true;
-            } else if (typeof  size === 'object') {
+                result [`${prefixCls}col-${item}-${size}`] = true;
+            }
+            else if (typeof  size === 'object') {
                 Object.keys(size).forEach(prop => {
                     if (prop === 'hide') {
                         result[`hidden-${item}-${(size[prop] === 'only' ? '' : 'and-')}${size[prop]}`] = true;
-                    } else {
+                    }
+                    else {
                         result[`${prefixCls}col-${item}${(prop === 'span' ? '' : `-${prop}`)}-${size[prop]}`] = true;
                     }
-
                 });
             }
         });
@@ -102,7 +96,8 @@ class Col extends CustomClass implements Col {
     }
 
     public get propsClass(): object {
-        const {span, offset, push, pull} = this;
+        const { span, offset, push, pull } = this;
+
         return {
             [`${prefixCls}col-${span}`]: !!span,
             [`${prefixCls}col-offset-${offset}`]: !!offset,
@@ -113,7 +108,7 @@ class Col extends CustomClass implements Col {
 
     public get gutterStyle(): object {
         let parent: any = this.$parent;
-        let result: any = {};
+        let result: { [key: string]: string } = {};
 
         while (parent && parent.$options._componentTag !== `${prefixCls}row`) {
             parent = parent.$parent;
@@ -131,16 +126,17 @@ class Col extends CustomClass implements Col {
     }
 
     public get className(): object {
-        const {propsSizeClass, getCustomClass, propsClass} = this;
+        const { propsSizeClass, propsClass, customClass } = this;
+
         return {
             ...propsSizeClass,
             ...propsClass,
-            ...getCustomClass
+            [customClass]: customClass !== undefined
         };
     }
 
     public render(h: CreateElement): VNode {
-        const {tag: Tag, className, gutterStyle, $slots} = this;
+        const { tag: Tag, className, gutterStyle, $slots } = this;
 
         return (
             <Tag class={className} style={gutterStyle}>{$slots.default}</Tag>

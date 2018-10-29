@@ -1,29 +1,28 @@
-import {CreateElement, VNode} from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
-import {oneOf, prefixCls} from '../../utils/assist';
-import CustomClass from '../../mixins/custom-class';
+import Vue, { CreateElement, VNode } from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
+import { oneOf, prefixCls } from '../../utils/assist';
 
 @Component
 
-class Row extends CustomClass implements Row {
+class Row extends Vue {
 
     @Prop({
         type: String,
         default: ''
     })
-    public type !: '' | 'flex';
+    public type!: '' | 'flex';
 
     @Prop({
         type: String,
         default: 'div'
     })
-    public tag !: string;
+    public tag!: string;
 
     @Prop({
         type: Number,
         default: 0
     })
-    public gutter !: number;
+    public gutter!: number;
 
     @Prop({
         type: String,
@@ -32,7 +31,7 @@ class Row extends CustomClass implements Row {
             return oneOf(prop, ['start', 'end', 'center', 'around', 'between']);
         }
     })
-    public justify !: 'start' | 'end' | 'center' | 'around' | 'between';
+    public justify!: 'start' | 'end' | 'center' | 'around' | 'between';
 
     @Prop({
         type: String,
@@ -41,22 +40,25 @@ class Row extends CustomClass implements Row {
             return oneOf(prop, ['top', 'middle', 'bottom']);
         }
     })
-    public align !: 'top' | 'middle' | 'bottom';
+    public align!: 'top' | 'middle' | 'bottom';
+
+    @Prop({ type: String, default: '' })
+    public customClass !: string;
 
     private get className(): object {
-        const {align, justify, type, getCustomClass} = this;
+        const {align, justify, type, customClass} = this;
 
         return {
             [`${prefixCls}row`]: true,
             [`${prefixCls}row-flex`]: type === 'flex',
             [`${prefixCls}row-flex-align-${align}`]: align !== 'top',
             [`${prefixCls}row-flex-justify-${justify}`]: justify !== 'start',
-            ...getCustomClass
+            [customClass]: customClass !== undefined
         };
     }
 
     private get gutterValue(): object {
-        const {gutter} = this;
+        const { gutter } = this;
         let result = {};
 
         if (gutter) {
@@ -70,7 +72,7 @@ class Row extends CustomClass implements Row {
     }
 
     public render(h: CreateElement): VNode {
-        const {tag: Tag, gutterValue, className, $slots} = this;
+        const { tag: Tag, gutterValue, className, $slots } = this;
 
         return (
             <Tag class={className} style={gutterValue}>

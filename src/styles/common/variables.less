@@ -46,35 +46,46 @@
 // 过度动画时间
 @transition-duration: 0.3s;
 
+// 栅格部分
 // 断点
-@sm: 576px;
-@md: 768px;
-@lg: 992px;
-@xl: 1200px;
+@grid-sm: 576px;
+@grid-md: 768px;
+@grid-lg: 992px;
+@grid-xl: 1200px;
 
-@sm-: @sm - 1;
-@md-: @md - 1;
-@lg-: @lg - 1;
-@xl-: @xl - 1;
+@grid-sm-: @grid-sm - 1;
+@grid-md-: @grid-md - 1;
+@grid-lg-: @grid-lg - 1;
+@grid-xl-: @grid-xl - 1;
 
-@break-xs: ~"(max-width: @{sm})";
-@break-sm: ~"(min-width: @{sm})";
-@break-md: ~"(min-width: @{md})";
-@break-lg: ~"(min-width: @{lg})";
-@break-xl: ~"(min-width: @{xl})";
+@grid-break-xs: ~"(max-width: @{grid-sm})";
+@grid-break-sm: ~"(min-width: @{grid-sm})";
+@grid-break-md: ~"(min-width: @{grid-md})";
+@grid-break-lg: ~"(min-width: @{grid-lg})";
+@grid-break-xl: ~"(min-width: @{grid-xl})";
 
-@col-count: 24;
+@grid-col-count: 24;
 
-@break-spec-val: ~"(max-width: @{sm-})",
- ~"(max-width: @{md-})",
- ~"(min-width: @{sm}) and (max-width: @{md-})",
- ~"(max-width: @{md-})",
- ~"(min-width: @{md})",
- ~"(min-width: @{md}) and (max-width: @{lg-})",
- ~"(max-width: @{lg-})",
- ~"(min-width: @{lg})",
- ~"(min-width: @{lg}) and (max-width: @{xl})",
- ~"(max-width: @{xl-})",
- ~"(min-width: @{xl})";
+@grid-break-spec-values: ~"(max-width: @{grid-sm-})",
+ ~"(max-width: @{grid-md-})",
+ ~"(min-width: @{grid-sm}) and (max-width: @{grid-md-})",
+ ~"(max-width: @{grid-md-})",
+ ~"(min-width: @{grid-md})",
+ ~"(min-width: @{grid-md}) and (max-width: @{grid-lg-})",
+ ~"(max-width: @{grid-lg-})",
+ ~"(min-width: @{grid-lg})",
+ ~"(min-width: @{grid-lg}) and (max-width: @{grid-xl})",
+ ~"(max-width: @{grid-xl-})",
+ ~"(min-width: @{grid-xl})";
 
-@break-spec-name: xs-only ,sm-and-up ,sm-only ,sm-and-down ,md-and-up ,md-only ,md-and-down ,lg-and-up ,lg-only ,lg-and-down ,xl-only;
+@grid-break-spec-names: grid-xs-only,
+grid-sm-and-up,
+grid-sm-only,
+grid-sm-and-down,
+grid-md-and-up,
+grid-md-only,
+grid-md-and-down,
+grid-lg-and-up,
+grid-lg-only,
+grid-lg-and-down,
+grid-xl-only;
