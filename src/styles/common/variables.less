@@ -45,3 +45,36 @@
 
 // 过度动画时间
 @transition-duration: 0.3s;
+
+// 断点
+@sm: 576px;
+@md: 768px;
+@lg: 992px;
+@xl: 1200px;
+
+@sm-: @sm - 1;
+@md-: @md - 1;
+@lg-: @lg - 1;
+@xl-: @xl - 1;
+
+@break-xs: ~"(max-width: @{sm})";
+@break-sm: ~"(min-width: @{sm})";
+@break-md: ~"(min-width: @{md})";
+@break-lg: ~"(min-width: @{lg})";
+@break-xl: ~"(min-width: @{xl})";
+
+@col-count: 24;
+
+@break-spec-val: ~"(max-width: @{sm-})",
+ ~"(max-width: @{md-})",
+ ~"(min-width: @{sm}) and (max-width: @{md-})",
+ ~"(max-width: @{md-})",
+ ~"(min-width: @{md})",
+ ~"(min-width: @{md}) and (max-width: @{lg-})",
+ ~"(max-width: @{lg-})",
+ ~"(min-width: @{lg})",
+ ~"(min-width: @{lg}) and (max-width: @{xl})",
+ ~"(max-width: @{xl-})",
+ ~"(min-width: @{xl})";
+
+@break-spec-name: xs-only ,sm-and-up ,sm-only ,sm-and-down ,md-and-up ,md-only ,md-and-down ,lg-and-up ,lg-only ,lg-and-down ,xl-only;

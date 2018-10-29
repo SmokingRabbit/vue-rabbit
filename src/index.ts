@@ -1,13 +1,17 @@
 import {
     Button,
     Icon,
-    Spin
+    Spin,
+    Row,
+    Col
 } from './components';
 
 const components: {[key: string]: any} = {
     Button,
     Icon,
-    Spin
+    Spin,
+    Row,
+    Col
 };
 
 function install(Vue: any): void {

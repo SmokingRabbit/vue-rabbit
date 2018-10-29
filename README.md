@@ -109,7 +109,7 @@
 - icon​ 图标
 - image​ 图片
 - input​ 输入框
-- layout​ 布局
+- layout​ 布局 [yuan1998]
 - list​ 列表
 - menu 菜单
 - message 消息​弹窗
