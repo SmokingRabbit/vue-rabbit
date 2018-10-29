@@ -69,9 +69,6 @@ class Col extends Vue {
     })
     public xs!: number | object;
 
-    @Prop({ type: String, default: '' })
-    public customClass !: string;
-
     public get propsSizeClass(): object {
         const result: { [key: string]: boolean } = {};
 
@@ -126,12 +123,11 @@ class Col extends Vue {
     }
 
     public get className(): object {
-        const { propsSizeClass, propsClass, customClass } = this;
+        const { propsSizeClass, propsClass } = this;
 
         return {
             ...propsSizeClass,
-            ...propsClass,
-            [customClass]: customClass !== undefined
+            ...propsClass
         };
     }
 

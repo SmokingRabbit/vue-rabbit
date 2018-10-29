@@ -42,18 +42,14 @@ class Row extends Vue {
     })
     public align!: 'top' | 'middle' | 'bottom';
 
-    @Prop({ type: String, default: '' })
-    public customClass !: string;
-
     private get className(): object {
-        const {align, justify, type, customClass} = this;
+        const {align, justify, type} = this;
 
         return {
             [`${prefixCls}row`]: true,
             [`${prefixCls}row-flex`]: type === 'flex',
             [`${prefixCls}row-flex-align-${align}`]: align !== 'top',
-            [`${prefixCls}row-flex-justify-${justify}`]: justify !== 'start',
-            [customClass]: customClass !== undefined
+            [`${prefixCls}row-flex-justify-${justify}`]: justify !== 'start'
         };
     }
 

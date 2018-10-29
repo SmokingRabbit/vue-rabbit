@@ -4,7 +4,7 @@
         <p>This is Buttons……</p>
         <div>
             <h4>basic</h4>
-            <rbt-button @click="testClick">按钮测试</rbt-button>
+            <rbt-button @click="testClick" class="test">按钮测试</rbt-button>
             <rbt-button type="primary">按钮测试</rbt-button>
             <rbt-button type="info">按钮测试</rbt-button>
             <rbt-button type="success">按钮测试</rbt-button>

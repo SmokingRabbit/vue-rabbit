@@ -41,15 +41,6 @@ class Button extends Vue {
     @Prop({ type: Boolean, default: false })
     public text!: boolean;
 
-    @Prop({
-        type: String,
-        default: 'default',
-        validator(param: string): boolean {
-            return oneOf(param, ['default', 'small', 'large']);
-        }
-    })
-    public customClass!: string;
-
     @Prop({ type: String, default: 'default' })
     public size!: 'default' | 'small' | 'large';
 
@@ -67,7 +58,7 @@ class Button extends Vue {
     private get className(): object {
         return {
             [`${prefixCls}btn`]: true,
-            [`${prefixCls}btn-${this.type}`]: true,
+            [`${prefixCls}btn-type-${this.type}`]: true,
             [`${prefixCls}btn-loading`]: this.loading,
             [`${prefixCls}btn-disabled`]: this.disabled,
             [`${prefixCls}btn-shape`]: this.shape,
@@ -75,8 +66,7 @@ class Button extends Vue {
             [`${prefixCls}btn-dashed`]: this.dashed,
             [`${prefixCls}btn-block`]: this.block,
             [`${prefixCls}btn-text`]: this.text,
-            [`${prefixCls}btn-size-${this.size}`]: true,
-            [this.customClass]: this.customClass !== undefined
+            [`${prefixCls}btn-size-${this.size}`]: true
         };
     }
 

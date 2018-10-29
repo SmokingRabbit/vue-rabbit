@@ -1,4 +1,4 @@
-import Vue, { CreateElement, VNode } from 'vue';
+import Vue, { VNode } from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { oneOf } from '../../utils/assist';
 
@@ -65,7 +65,7 @@ class RbtPopup extends Vue {
     // }
 
     public mounted(): void {
-
+        console.log(1);
     }
 
     public render(): VNode | null {
