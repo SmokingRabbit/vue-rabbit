@@ -1,0 +1,103 @@
+.@{prefix}tooltip {
+    text-align: center;
+
+    .@{prefix}tooltip-inner {
+        font-size: @font-size-default;
+        border-radius: @border-radius;
+        background-color: @dark-color;
+        color: @light-color;
+        padding: @tooltip-padding;
+        white-space: nowrap;
+    }
+
+    &::before {
+        content: '';
+        border: 5px solid transparent;
+        display: inline-block;
+        position: absolute;
+    }
+
+    &-placement-top,
+    &-placement-top-left,
+    &-placement-top-right {
+        padding-bottom: 5px;
+        transform-origin: bottom;
+
+        &::before {
+            border-top-color: @dark-color;
+            bottom: -5px;
+            left: 50%;
+            margin-left: -5px;
+        }
+    }
+
+    &-placement-bottom,
+    &-placement-bottom-left,
+    &-placement-bottom-right {
+        padding-top: 5px;
+        transform-origin: top;
+
+        &::before {
+            border-bottom-color: @dark-color;
+            top: -5px;
+            left: 50%;
+            margin-left: -5px;
+        }
+    }
+
+    &-placement-bottom-left,
+    &-placement-top-left {
+        &::before {
+            left: 20%;
+        }
+    }
+
+    &-placement-bottom-right,
+    &-placement-top-right {
+        &::before {
+            left: 80%;
+        }
+    }
+
+    &-placement-left,
+    &-placement-left-bottom,
+    &-placement-left-top {
+        padding-right: 5px;
+        transform-origin: right;
+
+        &::before {
+            border-left-color: @dark-color;
+            right: -5px;
+            top: 50%;
+            margin-top: -5px;
+        }
+    }
+
+    &-placement-right,
+    &-placement-right-bottom,
+    &-placement-right-top {
+        padding-left: 5px;
+        transform-origin: left;
+
+        &::before {
+            border-right-color: @dark-color;
+            left: -5px;
+            top: 50%;
+            margin-top: -5px;
+        }
+    }
+
+    &-placement-left-top,
+    &-placement-right-top {
+        &::before {
+            top: 20%;
+        }
+    }
+
+    &-placement-left-bottom,
+    &-placement-right-bottom {
+        &::before {
+            top: 80%;
+        }
+    }
+}
