@@ -6,9 +6,6 @@ import { oneOf } from '../../utils/assist';
 
 class RbtPopup extends Vue {
 
-    @Prop(Object)
-    public trigger!: VNode | HTMLElement;
-
     @Prop({
         type: String,
         default: 'click',
@@ -29,9 +26,6 @@ class RbtPopup extends Vue {
     public placement!: 'none' | 'top' | 'left' | 'bottom' | 'right' | 'left-top' | 'left-bottom'
         | 'right-top' | 'right-bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
-    @Prop({ type: Boolean, default: false })
-    public visible!: boolean;
-
     @Prop({ type: Number, default: 2 })
     public offsetX!: number;
 
@@ -46,8 +40,46 @@ class RbtPopup extends Vue {
     //
     // }
 
-    public render(h: CreateElement): VNode | void {
-        return <div></div>;
+    // private onClickHandler(e: MouseEvent): void {
+    //     console.log(e);
+    // }
+    //
+    // private onMouseEnterHandler(e: MouseEvent): void {
+    //     console.log(e);
+    // }
+    //
+    // private onMouseLeaveHandler(e: MouseEvent): void {
+    //     console.log(e);
+    // }
+    //
+    // private onFocusHandler(e: MouseEvent): void {
+    //     console.log(e);
+    // }
+    //
+    // private onBlurHandler(e: MouseEvent): void {
+    //     console.log(e);
+    // }
+    //
+    // private onContextMenuHandler(e: MouseEvent): void {
+    //     console.log(e);
+    // }
+
+    public mounted(): void {
+
+    }
+
+    public render(): VNode | null {
+        const { $slots } = this;
+
+        if (!$slots.default) {
+            return null;
+        }
+
+        if ($slots.default.length > 1) {
+            throw new Error('Child element must wrapped in tag');
+        }
+
+        return $slots.default[0];
     }
 }
 

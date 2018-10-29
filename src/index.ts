@@ -3,7 +3,9 @@ import {
     Icon,
     Spin,
     Row,
-    Col
+    Col,
+    Popup,
+    Tooltip
 } from './components';
 
 const components: {[key: string]: any} = {
@@ -11,7 +13,9 @@ const components: {[key: string]: any} = {
     Icon,
     Spin,
     Row,
-    Col
+    Col,
+    Popup,
+    Tooltip
 };
 
 function install(Vue: any): void {

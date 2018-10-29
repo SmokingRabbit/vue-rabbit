@@ -20,6 +20,10 @@ const router = new VueRouter({
         {
             path: '/layout',
             component: (resolve) => require(['./routers/layout'], resolve)
+        },
+        {
+            path: '/tooltip',
+            component: (resolve) => require(['./routers/tooltip'], resolve)
         }
     ]
 });

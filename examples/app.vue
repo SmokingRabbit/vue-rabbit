@@ -4,6 +4,7 @@
             <ul>
                 <li><router-link to="/button">Button</router-link></li>
                 <li><router-link to="/layout">Layout</router-link></li>
+                <li><router-link to="/tooltip">Tooltip</router-link></li>
             </ul>
         </aside>
         <section class="examples-content">
