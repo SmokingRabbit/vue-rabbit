@@ -1,88 +1,99 @@
 .@{prefix}row {
     position: relative;
+    display: flex;
 
-    .clearfix();
+    &::before,
+    &::after {
+        display: none;
+    }
 
-    // flex styles
-    &-flex {
-        display: flex;
-
-        &::before,
-        &::after {
-            display: none;
+    &-wrap- {
+        &wrap {
+            flex-wrap: wrap;
         }
 
-        // justify
-        &-justify-center {
+        &no {
+            flex-wrap: nowrap;
+        }
+
+        &reverse {
+            flex-wrap: wrap-reverse;
+        }
+    }
+
+    // justify
+    &-justify- {
+        &start {
+            justify-content: start;
+        }
+
+        &center {
             justify-content: center;
         }
 
-        &-justify-end {
+        &end {
             justify-content: flex-end;
         }
 
-        &-justify-between {
+        &between {
             justify-content: space-between;
         }
 
-        &-justify-around {
+        &around {
             justify-content: space-around;
         }
+    }
 
-        // align
-        &-align-middle {
+    &-align- {
+        &top {
+            align-items: flex-start;
+        }
+
+        &middle {
             align-items: center;
         }
 
-        &__align-bottom {
+        &stretch {
+            align-items: stretch;
+        }
+
+        &bottom {
             align-items: flex-end;
+        }
+
+        &baseline {
+            align-items: baseline;
+        }
+    }
+
+    &-direction- {
+        &row {
+            flex-direction: row;
+        }
+
+        &row-reverse {
+            flex-direction: row-reverse;
+        }
+
+        &column {
+            flex-direction: column;
+        }
+
+        &column-reverse {
+            flex-direction: column-reverse;
         }
     }
 }
-
-[class*="@{prefix}col-"] {
-    float: left;
-}
-
-.@{prefix}col-0 {
-    display: none;
-}
-
 .col-loop(0);
 
 .col-media-display();
 
-.media(@grid-break-xs; {
-    .@{prefix}col-xs-0 {
-        display: none;
-    }
-    .col-loop(0,xs-);
-});
+.media(@grid-break-xs; { .col-loop(0, xs-); });
 
-.media(@grid-break-sm; {
-    .@{prefix}col-sm-0 {
-        display: none;
-    }
-    .col-loop(0,sm-);
-});
+.media(@grid-break-sm; { .col-loop(0, sm-); });
 
-.media(@grid-break-md; {
-    .@{prefix}col-md-0 {
-        display: none;
-    }
-    .col-loop(0,md-);
-});
+.media(@grid-break-md; { .col-loop(0, md-); });
 
-.media(@grid-break-lg; {
-    .@{prefix}col-lg-0 {
-        display: none;
-    }
-    .col-loop(0,lg-);
-});
+.media(@grid-break-lg; { .col-loop(0, lg-); });
 
-.media(@grid-break-xl; {
-    .@{prefix}col-xl-0 {
-        display: none;
-    }
-    .col-loop(0,~'xl-');
-});
+.media(@grid-break-xl; { .col-loop(0, xl-); });

@@ -1,16 +1,10 @@
-import Vue, { CreateElement, VNode } from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
-import { oneOf, prefixCls } from '../../utils/assist';
+import Vue, {CreateElement, VNode} from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+import {oneOf, prefixCls} from '../../utils/assist';
 
 @Component
 
 class Row extends Vue {
-
-    @Prop({
-        type: String,
-        default: ''
-    })
-    public type!: '' | 'flex';
 
     @Prop({
         type: String,
@@ -26,6 +20,15 @@ class Row extends Vue {
 
     @Prop({
         type: String,
+        default: 'wrap',
+        validator(prop: string): boolean {
+            return oneOf(prop, ['wrap', 'no', 'reverse']);
+        }
+    })
+    public wrap!: 'wrap' | 'no' | 'reverse';
+
+    @Prop({
+        type: String,
         default: 'start',
         validator(prop: string): boolean {
             return oneOf(prop, ['start', 'end', 'center', 'around', 'between']);
@@ -35,32 +38,43 @@ class Row extends Vue {
 
     @Prop({
         type: String,
-        default: 'top',
+        default: 'row',
         validator(prop: string): boolean {
-            return oneOf(prop, ['top', 'middle', 'bottom']);
+            return oneOf(prop, ['row', 'row-reverse', 'column', 'column-reverse']);
         }
     })
-    public align!: 'top' | 'middle' | 'bottom';
+    public direction!: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+
+    @Prop({
+        type: String,
+        default: 'top',
+        validator(prop: string): boolean {
+            return oneOf(prop, ['top', 'middle', 'bottom', 'baseline', 'stretch']);
+        }
+    })
+    public align!: 'top' | 'middle' | 'bottom' | 'stretch' | 'baseline';
 
     private get className(): object {
-        const {align, justify, type} = this;
+        const {align, justify, wrap , direction} = this;
 
         return {
             [`${prefixCls}row`]: true,
-            [`${prefixCls}row-flex`]: type === 'flex',
-            [`${prefixCls}row-flex-align-${align}`]: align !== 'top',
-            [`${prefixCls}row-flex-justify-${justify}`]: justify !== 'start'
+            [`${prefixCls}row-wrap-${wrap}`]: true,
+            [`${prefixCls}row-align-${align}`]: true,
+            [`${prefixCls}row-justify-${justify}`]: true,
+            [`${prefixCls}row-direction-${direction}`]: true,
         };
     }
 
     private get gutterValue(): object {
-        const { gutter } = this;
+        const {gutter} = this;
         let result = {};
 
         if (gutter) {
+            const val = `-${gutter / 2}px`;
             result = {
-                marginLeft: `-${gutter / 2}px`,
-                marginRight: `-${gutter / 2}px`
+                marginLeft: val,
+                marginRight: val
             };
         }
 
@@ -68,7 +82,7 @@ class Row extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const { tag: Tag, gutterValue, className, $slots } = this;
+        const {tag: Tag, gutterValue, className, $slots} = this;
 
         return (
             <Tag class={className} style={gutterValue}>

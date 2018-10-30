@@ -1,6 +1,6 @@
-import Vue, { CreateElement, VNode } from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
-import { prefixCls } from '../../utils/assist';
+import Vue, {CreateElement, VNode} from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+import {oneOf, prefixCls} from '../../utils/assist';
 
 @Component
 
@@ -45,59 +45,123 @@ class Col extends Vue {
     public pull!: number;
 
     @Prop({
-        type: [Number, Object],
+        type: Number,
+        validator(prop: number): boolean {
+            return (prop >= 0 && prop <= 24);
+        }
     })
-    public xl!: number | object;
+    public order!: number;
+
+    @Prop({
+        type: String,
+        validator(prop: string): boolean {
+            return oneOf(prop, ['top', 'bottom', 'middle', 'baseline', 'stretch']);
+        }
+    })
+    public align!: 'top' | 'bottom' | 'middle' | 'baseline' | 'stretch';
 
     @Prop({
         type: [Number, Object],
     })
-    public lg!: number | object;
+    public xl!: number | {
+        span: number,
+        pull?: number,
+        push?: number,
+        order?: number,
+        hide?: 'only' | 'down' | 'up',
+        align?: 'top' | 'middle' | 'bottom' | 'baseline' | 'stretch'
+    };
 
     @Prop({
         type: [Number, Object],
     })
-    public md!: number | object;
+    public lg!: number | {
+        span: number,
+        pull?: number,
+        push?: number,
+        order?: number,
+        hide?: 'only' | 'down' | 'up',
+        align?: 'top' | 'middle' | 'bottom' | 'baseline' | 'stretch'
+    };
 
     @Prop({
         type: [Number, Object],
     })
-    public sm!: number | object;
+    public md!: number | {
+        span: number,
+        pull?: number,
+        push?: number,
+        order?: number,
+        hide?: 'only' | 'down' | 'up',
+        align?: 'top' | 'middle' | 'bottom' | 'baseline' | 'stretch'
+    };
 
     @Prop({
         type: [Number, Object],
     })
-    public xs!: number | object;
+    public sm!: number | {
+        span: number,
+        pull?: number,
+        push?: number,
+        order?: number,
+        hide?: 'only' | 'down' | 'up',
+        align?: 'top' | 'middle' | 'bottom' | 'baseline' | 'stretch'
+    };
 
-    public get propsSizeClass(): object {
-        const result: { [key: string]: boolean } = {};
+    @Prop({
+        type: [Number, Object],
+    })
+    public xs!: number | {
+        span: number,
+        pull?: number,
+        push?: number,
+        order?: number,
+        hide?: 'only' | 'down' | 'up',
+        align?: 'top' | 'middle' | 'bottom' | 'baseline' | 'stretch'
+    };
 
-        ['xl', 'lg', 'md', 'sm', 'xs'].forEach(item => {
-            const size = this[item];
+    public get propsSizeClass(): string {
+        const result: any = [];
 
-            if (typeof size === 'number') {
-                result [`${prefixCls}col-${item}-${size}`] = true;
+        ['xl', 'lg', 'md', 'sm', 'xs'].forEach((item) => {
+            let data = this[item];
+            if (!data && data !== 0) {
+                return;
             }
-            else if (typeof  size === 'object') {
-                Object.keys(size).forEach(prop => {
-                    if (prop === 'hide') {
-                        result[`hidden-${item}-${(size[prop] === 'only' ? '' : 'and-')}${size[prop]}`] = true;
-                    }
-                    else {
-                        result[`${prefixCls}col-${item}${(prop === 'span' ? '' : `-${prop}`)}-${size[prop]}`] = true;
-                    }
-                });
+
+            data = (typeof data === 'number')
+                ? {span: data}
+                : data;
+            this.propSizeRead(data, item, result);
+        });
+
+        return result.join(' ');
+    }
+
+    private propSizeRead(data: object, size: string, result): void {
+        const prefix = `${prefixCls}col-${size}`;
+
+        Object.keys(data).forEach(prop => {
+            const val = data[prop];
+
+            if (prop === 'hide') {
+                const type = (val === 'only') ? '' : 'and-';
+                result.push(`hidden-grid-${size}-${type}${val}`);
+            }
+            else {
+                result.push(`${prefix}-${prop}-${val}`);
             }
         });
-        return result;
     }
 
     public get propsClass(): object {
-        const { span, offset, push, pull } = this;
+        const {span, offset, push, pull, order, align} = this;
 
         return {
-            [`${prefixCls}col-${span}`]: !!span,
+            [`${prefixCls}col-span-${span}`]: !!span,
             [`${prefixCls}col-offset-${offset}`]: !!offset,
+            [`${prefixCls}col-align-${align}`]: !!align,
+            [`${prefixCls}col-order-${order}`]: !!order,
             [`${prefixCls}col-push-${push}`]: !!push,
             [`${prefixCls}col-pull-${pull}`]: !!pull,
         };
@@ -123,16 +187,16 @@ class Col extends Vue {
     }
 
     public get className(): object {
-        const { propsSizeClass, propsClass } = this;
+        const {propsSizeClass, propsClass} = this;
 
         return {
-            ...propsSizeClass,
-            ...propsClass
+            ...propsClass,
+            [propsSizeClass]: !!propsSizeClass
         };
     }
 
     public render(h: CreateElement): VNode {
-        const { tag: Tag, className, gutterStyle, $slots } = this;
+        const {tag: Tag, className, gutterStyle, $slots} = this;
 
         return (
             <Tag class={className} style={gutterStyle}>{$slots.default}</Tag>

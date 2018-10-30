@@ -11,7 +11,7 @@
             </h2>
             <rbt-row>
                 <!--// full row-->
-                <rbt-col custom-class="rbt-col" :span="24">
+                <rbt-col class="rbt-col" :span="24">
                     <div class="col-box l3">
                         24
                     </div>
@@ -20,7 +20,7 @@
             </rbt-row>
             <rbt-row>
                 <!--// Span 12-->
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in range(12)">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in range(12)">
                     <div class="col-box l3">
                         12
                     </div>
@@ -30,7 +30,7 @@
 
             <rbt-row>
                 <!--// Span 8-->
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in range(8)">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in range(8)">
                     <div class="col-box l3">
                         {{item}}
                     </div>
@@ -44,14 +44,14 @@
                 spacing
             </h2>
             <rbt-row :gutter="10">
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in range(12)">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in range(12)">
                     <div class="col-box l3">
                         {{item}}
                     </div>
                 </rbt-col>
             </rbt-row>
             <rbt-row :gutter="10">
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in range(4)">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in range(4)">
                     <div class="col-box l3">
                         {{item}}
                     </div>
@@ -64,7 +64,7 @@
                 hybrid
             </h2>
             <rbt-row :gutter="10">
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in [14,10]">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [14,10]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
@@ -72,7 +72,7 @@
             </rbt-row>
 
             <rbt-row :gutter="10">
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in [5,5,10,4]">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [5,5,10,4]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
@@ -80,7 +80,7 @@
             </rbt-row>
 
             <rbt-row :gutter="10">
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in [4,16,4]">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [4,16,4]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
@@ -94,28 +94,28 @@
                 Offset
             </h2>
             <rbt-row>
-                <rbt-col custom-class="rbt-col" :span="6">
+                <rbt-col class="rbt-col" :span="6">
                     <div class="col-box l3">
                         6
                     </div>
                 </rbt-col>
             </rbt-row>
             <rbt-row>
-                <rbt-col custom-class="rbt-col" :span="6" :offset="6">
+                <rbt-col class="rbt-col" :span="6" :offset="6">
                     <div class="col-box l3">
                         6
                     </div>
                 </rbt-col>
             </rbt-row>
             <rbt-row>
-                <rbt-col custom-class="rbt-col" :span="item" :offset="item" :key="index" v-for="(item , index) in [6 , 6]">
+                <rbt-col class="rbt-col" :span="item" :offset="item" :key="index" v-for="(item , index) in [6 , 6]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
                 </rbt-col>
             </rbt-row>
             <rbt-row>
-                <rbt-col custom-class="rbt-col" :span="12" :offset="6">
+                <rbt-col class="rbt-col" :span="12" :offset="6">
                     <div class="col-box l3">
                         12
                     </div>
@@ -129,28 +129,28 @@
                 Flex
             </h2>
             <rbt-row type="flex">
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
                 </rbt-col>
             </rbt-row>
             <rbt-row type="flex" justify="center">
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
                 </rbt-col>
             </rbt-row>
             <rbt-row type="flex" justify="between">
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
                 </rbt-col>
             </rbt-row>
             <rbt-row type="flex" justify="around">
-                <rbt-col custom-class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
+                <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
@@ -166,19 +166,19 @@
                 xs , sm , md , lg , xl
             </p>
             <rbt-row :gutter="10">
-                <rbt-col custom-class="rbt-col" :xl="4" :md="6" :sm="12" :xs="24">
+                <rbt-col class="rbt-col" :xl="4" :md="6" :sm="12" :xs="24">
                     <div class="col-box l3">
                     </div>
                 </rbt-col>
-                <rbt-col custom-class="rbt-col" :xl="8" :md="6" :sm="12" :xs="24">
+                <rbt-col class="rbt-col" :xl="8" :md="6" :sm="12" :xs="24">
                     <div class="col-box l3">
                     </div>
                 </rbt-col>
-                <rbt-col custom-class="rbt-col" :xl="8" :md="6" :sm="12" :xs="24">
+                <rbt-col class="rbt-col" :xl="8" :md="6" :sm="12" :xs="24">
                     <div class="col-box l3">
                     </div>
                 </rbt-col>
-                <rbt-col custom-class="rbt-col" :xl="4" :md="6" :sm="12" :xs="24">
+                <rbt-col class="rbt-col" :xl="4" :md="6" :sm="12" :xs="24">
                     <div class="col-box l3">
                     </div>
                 </rbt-col>
@@ -195,12 +195,12 @@
                 need reset push : 0
             </p>
             <rbt-row :gutter="10">
-                <rbt-col custom-class="rbt-col" :xl="{span:14,push:0}"  :sm="{span:14,push:0}"  :md="{span:14 ,push:10}">
+                <rbt-col class="rbt-col" :xl="{span:14,push:0}"  :sm="{span:14,push:0}"  :md="{span:14 ,push:10}">
                     <div class="col-box l3">
                         I'm Mr.Left
                     </div>
                 </rbt-col>
-                <rbt-col custom-class="rbt-col" :xl="{span:10,pull:0}"  :sm="{span:10,pull:0}"  :md="{span:10 ,pull:14}">
+                <rbt-col class="rbt-col" :xl="{span:10,pull:0}"  :sm="{span:10,pull:0}"  :md="{span:10 ,pull:14}">
                     <div class="col-box l3">
                         I'm Mr.Right
                     </div>
@@ -219,12 +219,12 @@
                 left md and down hidden . Right alway display
             </h3>
             <rbt-row :gutter="10">
-                <rbt-col custom-class="rbt-col" :xl="{span:14}"  :md="{span:14,hide:'down'}" >
+                <rbt-col class="rbt-col" :xl="{span:14}"  :md="{span:14,hide:'down'}" align="middle" >
                     <div class="col-box l3">
                         I'm md down Hidden.
                     </div>
                 </rbt-col>
-                <rbt-col custom-class="rbt-col" :span="10" >
+                <rbt-col class="rbt-col" :span="10" >
                     <div class="col-box l3">
                         I'm alway display.
                     </div>

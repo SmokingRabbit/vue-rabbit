@@ -1,10 +1,41 @@
 .col-loop(@count , @sz:~'') when (@grid-col-count >= @count ) {
-    .col-loop(@count + 1,@sz);
+    .col-loop(@count + 1, @sz);
+
+    .run() when (@count = 0) {
+        .@{prefix}col-@{sz}span-@{count} {
+            display: none;
+        }
+
+        .@{prefix}col-@{sz}align-top {
+            align-self: flex-start;
+        }
+
+        .@{prefix}col-@{sz}align-bottom {
+            align-self: flex-end;
+        }
+
+        .@{prefix}col-@{sz}align-middle {
+            align-self: center;
+        }
+
+        .@{prefix}col-@{sz}align-baseline {
+            align-self: baseline;
+        }
+
+        .@{prefix}col-@{sz}align-stretch {
+            align-self: stretch;
+        }
+    }
+    .run;
 
     .@{prefix}col-@{sz} {
         // span
-        &@{count} {
-            width: (1/@grid-col-count * @count * 100) * 1%;
+        &span-@{count} {
+            flex-basis: (1/@grid-col-count * @count * 100) * 1%;
+        }
+
+        &order-@{count} {
+            order: @count;
         }
 
         &offset-@{count} {
@@ -27,10 +58,8 @@
     @val: extract(@grid-break-spec-values, @i);
     @name: extract(@grid-break-spec-names, @i);
 
-    .media(@val; {
-        .hidden-@{name} {
-            display: none !important;
-        }
-    });
+    .media(@val; { .hidden-@{name} {
+        display: none !important;
+    } });
     .col-media-display(@i - 1);
 }
