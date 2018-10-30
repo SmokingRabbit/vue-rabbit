@@ -5,7 +5,12 @@ import {
     Row,
     Col,
     Popup,
-    Tooltip
+    Tooltip,
+    Layout,
+    Header,
+    Footer,
+    Main,
+    Aside
 } from './components';
 
 const components: {[key: string]: any} = {
@@ -15,7 +20,12 @@ const components: {[key: string]: any} = {
     Row,
     Col,
     Popup,
-    Tooltip
+    Tooltip,
+    Layout,
+    Header,
+    Footer,
+    Main,
+    Aside
 };
 
 function install(Vue: any): void {
