@@ -1,6 +1,6 @@
 import Vue, {CreateElement, VNode} from 'vue';
 import {Component} from 'vue-property-decorator';
-import {prefixCls} from "../../utils/assist";
+import {prefixCls} from '../../utils/assist';
 
 @Component
 
