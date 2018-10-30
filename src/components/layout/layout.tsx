@@ -32,7 +32,7 @@ class Layout extends Vue {
     }
 
 
-    public get propClass(): object {
+    public get className(): object {
         const { isVertical } = this;
 
         return {
@@ -43,10 +43,10 @@ class Layout extends Vue {
 
 
     public render(h: CreateElement): VNode {
-        const { $slots , propClass} = this;
+        const { $slots , className} = this;
 
         return (
-            <section class={propClass}>{$slots.default}</section>
+            <section class={className}>{$slots.default}</section>
         );
     }
 }
