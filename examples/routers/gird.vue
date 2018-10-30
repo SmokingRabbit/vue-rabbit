@@ -348,6 +348,19 @@
 
             </rbt-row>
         </div>
+
+        <h2>
+            还有
+        </h2>
+        <h3>
+            Self Align.
+        </h3>
+        <h3>
+            Breakpoints order.
+        </h3>
+        <h3>
+            Breakpoints align.
+        </h3>
     </div>
 
 </template>
@@ -357,7 +370,7 @@
             range (column) {
                 const arr = [];
                 const count = 24 / column;
-                for (let i = 1 ; i <= count ; i++) {
+                for (let i = 1; i <= count; i++) {
                     arr.push(column);
                 }
                 return arr;

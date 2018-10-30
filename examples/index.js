@@ -18,8 +18,8 @@ const router = new VueRouter({
             component: (resolve) => require(['./routers/button'], resolve)
         },
         {
-            path: '/layout',
-            component: (resolve) => require(['./routers/layout'], resolve)
+            path: '/gird',
+            component: (resolve) => require(['./routers/gird'], resolve)
         },
         {
             path: '/tooltip',
