@@ -124,38 +124,153 @@
 
         </div>
 
-        <div class="flex-line">
+        <div class="justify-line">
             <h2>
-                Flex
+                Justify
             </h2>
-            <rbt-row type="flex">
+            <rbt-row>
                 <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
                 </rbt-col>
             </rbt-row>
-            <rbt-row type="flex" justify="center">
+            <rbt-row justify="center">
                 <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
                 </rbt-col>
             </rbt-row>
-            <rbt-row type="flex" justify="between">
+            <rbt-row justify="between">
                 <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
                 </rbt-col>
             </rbt-row>
-            <rbt-row type="flex" justify="around">
+            <rbt-row justify="around">
                 <rbt-col class="rbt-col" :span="item" :key="index" v-for="(item , index) in [6,6,6]">
                     <div class="col-box l3">
                         {{item}}
                     </div>
                 </rbt-col>
             </rbt-row>
+        </div>
+
+        <div class="order-line">
+            <h2>
+                Order
+            </h2>
+            <rbt-row :gutter="10">
+                <rbt-col class="rbt-col" :span="12" :order="2">
+                    <div class="col-box l3">
+                        明明是我先的
+                    </div>
+                </rbt-col>
+                <rbt-col class="rbt-col" :span="12" :order="1">
+                    <div class="col-box l3">
+                        又到了白色的季节
+                    </div>
+                </rbt-col>
+            </rbt-row>
+        </div>
+
+        <div class="align-line">
+            <h2>
+                Align Items.
+            </h2>
+            <rbt-row :gutter="10" align="top" class="align-row">
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        top
+                    </div>
+                </rbt-col>
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        top
+                    </div>
+                </rbt-col>
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        top
+                    </div>
+                </rbt-col>
+
+            </rbt-row>
+            <rbt-row :gutter="10" align="middle" class="align-row" >
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        middle
+                    </div>
+                </rbt-col>
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        middle
+                    </div>
+                </rbt-col>
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        middle
+                    </div>
+                </rbt-col>
+
+            </rbt-row>
+            <rbt-row :gutter="10" align="bottom" class="align-row">
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        bottom
+                    </div>
+                </rbt-col>
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        bottom
+                    </div>
+                </rbt-col>
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        bottom
+                    </div>
+                </rbt-col>
+
+            </rbt-row>
+            <rbt-row :gutter="10" align="baseline" class="align-row">
+                <rbt-col :span="8">
+                    <div class="col-box l3" style=" height: 66px;">
+                        baseline
+                    </div>
+                </rbt-col>
+                <rbt-col :span="8">
+                    <div class="col-box l3" style=" height: 88px;">
+                        baseline
+                    </div>
+                </rbt-col>
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        baseline
+                    </div>
+                </rbt-col>
+
+            </rbt-row>
+            <rbt-row :gutter="10" align="middle" class="align-row" >
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        middle
+                    </div>
+                </rbt-col>
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        middle
+                    </div>
+                </rbt-col>
+                <rbt-col :span="8">
+                    <div class="col-box l3">
+                        middle
+                    </div>
+                </rbt-col>
+
+            </rbt-row>
+
         </div>
 
         <div class="breakpoints-line">
@@ -195,12 +310,12 @@
                 need reset push : 0
             </p>
             <rbt-row :gutter="10">
-                <rbt-col class="rbt-col" :xl="{span:14,push:0}"  :sm="{span:14,push:0}"  :md="{span:14 ,push:10}">
+                <rbt-col class="rbt-col" :xl="{span:14,push:0}" :sm="{span:14,push:0}" :md="{span:14 ,push:10}">
                     <div class="col-box l3">
                         I'm Mr.Left
                     </div>
                 </rbt-col>
-                <rbt-col class="rbt-col" :xl="{span:10,pull:0}"  :sm="{span:10,pull:0}"  :md="{span:10 ,pull:14}">
+                <rbt-col class="rbt-col" :xl="{span:10,pull:0}" :sm="{span:10,pull:0}" :md="{span:10 ,pull:14}">
                     <div class="col-box l3">
                         I'm Mr.Right
                     </div>
@@ -219,17 +334,16 @@
                 left md and down hidden . Right alway display
             </h3>
             <rbt-row :gutter="10">
-                <rbt-col class="rbt-col" :xl="{span:14}"  :md="{span:14,hide:'down'}" align="middle" >
+                <rbt-col class="rbt-col" :xl="{span:14}" :md="{span:14,hide:'down'}" align="middle">
                     <div class="col-box l3">
                         I'm md down Hidden.
                     </div>
                 </rbt-col>
-                <rbt-col class="rbt-col" :span="10" >
+                <rbt-col class="rbt-col" :span="10">
                     <div class="col-box l3">
                         I'm alway display.
                     </div>
                 </rbt-col>
-
 
 
             </rbt-row>
@@ -243,7 +357,7 @@
             range (column) {
                 const arr = [];
                 const count = 24 / column;
-                for (let i = 1; i <= count; i++) {
+                for (let i = 1 ; i <= count ; i++) {
                     arr.push(column);
                 }
                 return arr;
@@ -257,6 +371,16 @@
 
     .rbt-col {
         padding-bottom: 12px;
+    }
+
+    .align-row {
+        height: 100px;
+        border-radius: 3px;
+        border: 1px solid #9aa9bf;
+        margin-top: 6px;
+        margin-bottom: 6px;
+        padding-top: 6px;
+        padding-bottom: 6px;
     }
 
     .col-box {
