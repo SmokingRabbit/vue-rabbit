@@ -14,7 +14,7 @@ class Layout extends Vue {
     public direction!: 'vertical' | 'horizontal';
 
     public get isVertical(): boolean {
-        const { direction, $slots } = this;
+        const {direction, $slots} = this;
 
         if (direction === 'vertical') {
             return true;
@@ -26,14 +26,13 @@ class Layout extends Vue {
         return ($slots && $slots.default)
             ? $slots.default.some(vnode => {
                 const tag = vnode.componentOptions && vnode.componentOptions.tag;
-                return tag ===  `${prefixCls}header` || tag === `${prefixCls}footer`;
+                return tag === `${prefixCls}header` || tag === `${prefixCls}footer`;
             })
             : false;
     }
 
-
     public get className(): object {
-        const { isVertical } = this;
+        const {isVertical} = this;
 
         return {
             [`${prefixCls}-layout`]: true,
@@ -41,9 +40,8 @@ class Layout extends Vue {
         };
     }
 
-
     public render(h: CreateElement): VNode {
-        const { $slots , className} = this;
+        const {$slots, className} = this;
 
         return (
             <section class={className}>{$slots.default}</section>

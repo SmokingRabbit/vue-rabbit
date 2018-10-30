@@ -12,25 +12,25 @@ class Aside extends Vue {
     })
     public width!: string;
 
-    private get className (): object {
+    private get className(): object {
         return {
-            [`${prefixCls}aside`] : true
-        }
+            [`${prefixCls}aside`]: true
+        };
     }
 
-    private get styleName (): object {
-        const { width } = this;
+    private get styleName(): object {
+        const {width} = this;
 
         return {
             width,
-        }
+        };
     }
 
     public render(h: CreateElement): VNode {
-        const { $slots , className , styleName } = this;
+        const {$slots, className, styleName} = this;
         return (
             <aside style={styleName} class={className}>{$slots.default}</aside>
-        )
+        );
     }
 }
 

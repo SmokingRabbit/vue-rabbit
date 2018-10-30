@@ -12,25 +12,25 @@ class Footer extends Vue {
     })
     public height!: string;
 
-    private get className (): object {
+    private get className(): object {
         return {
-            [`${prefixCls}footer`] : true
-        }
+            [`${prefixCls}footer`]: true
+        };
     }
 
-    private get styleName (): object {
-        const { height } = this;
+    private get styleName(): object {
+        const {height} = this;
 
         return {
             height,
-        }
+        };
     }
 
     public render(h: CreateElement): VNode {
-        const { $slots , className , styleName } = this;
+        const {$slots, className, styleName} = this;
         return (
             <footer style={styleName} class={className}>{$slots.default}</footer>
-        )
+        );
     }
 }
 
