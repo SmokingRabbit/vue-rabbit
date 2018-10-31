@@ -22,6 +22,10 @@ const router = new VueRouter({
             component: (resolve) => require(['./routers/gird'], resolve)
         },
         {
+            path: '/layout',
+            component: (resolve) => require(['./routers/layout'], resolve)
+        },
+        {
             path: '/tooltip',
             component: (resolve) => require(['./routers/tooltip'], resolve)
         }
