@@ -2,14 +2,8 @@
     <section class="examples-container">
         <aside class="examples-nav">
             <ul>
-                <li>
-                    <router-link to="/button">Button</router-link>
-                </li>
-                <li>
-                    <router-link to="/layout">Gird</router-link>
-                </li>
-                <li>
-                    <router-link to="/tooltip">Tooltip</router-link>
+                <li v-for="item in list">
+                    <router-link :to="item.path">{{item.name}}</router-link>
                 </li>
             </ul>
         </aside>
@@ -18,7 +12,32 @@
         </section>
     </section>
 </template>
-
+<script>
+    export default {
+        data () {
+            return {
+                list: [
+                    {
+                        name: 'Button',
+                        path: '/button'
+                    },
+                    {
+                        name: 'Gird',
+                        path: '/gird'
+                    },
+                    {
+                        name: 'Layout',
+                        path: '/layout'
+                    },
+                    {
+                        name: 'Tooltip',
+                        path: '/tooltip'
+                    }
+                ]
+            }
+        }
+    };
+</script>
 <style lang="less">
     .examples-container {
         min-height: 100vh;

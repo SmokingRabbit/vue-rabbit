@@ -35,8 +35,8 @@ class Layout extends Vue {
         const {isVertical} = this;
 
         return {
-            [`${prefixCls}-layout`]: true,
-            [`${prefixCls}-layout-vertical`]: isVertical
+            [`${prefixCls}layout`]: true,
+            [`${prefixCls}layout-vertical`]: isVertical
         };
     }
 
