@@ -8,7 +8,7 @@
             <h2>
                 Basis Layout.
             </h2>
-            <rbt-layout class="center">
+            <rbt-layout class="center layout">
                 <rbt-header class="header">
                     Header
                 </rbt-header>
@@ -19,48 +19,89 @@
                     Footer
                 </rbt-footer>
             </rbt-layout>
-        </div>
-
-        <div class="side-layout">
-            <h2>
-                Aside Layout.
-            </h2>
-            <rbt-layout>
-                <rbt-aside class="aside">
+            <rbt-layout class="layout">
+                <rbt-aside class="aside" style="line-height: 200px;">
                     Aside
                 </rbt-aside>
                 <rbt-main class="main">
                     Main
-
                 </rbt-main>
             </rbt-layout>
+            <rbt-layout class="layout">
+                <rbt-header class="header">
+                    Header
+                </rbt-header>
+                <rbt-layout>
+                    <rbt-aside class="aside" style="line-height: 255px;">
+                        Aside
+                    </rbt-aside>
+                    <rbt-layout>
+                        <rbt-main class="main">
+                            Main
+                        </rbt-main>
+                        <rbt-footer class="footer">
+                            Footer
+                        </rbt-footer>
+                    </rbt-layout>
+                </rbt-layout>
+            </rbt-layout>
+            <rbt-layout class="layout">
+                <rbt-header class="header">
+                    Header
+                </rbt-header>
+                <rbt-layout>
+                    <rbt-aside class="aside" style="line-height: 200px;">
+                        Aside
+                    </rbt-aside>
+                    <rbt-main class="main">
+                        Main
+                    </rbt-main>
+                </rbt-layout>
+            </rbt-layout>
+            <rbt-layout class="layout">
+                <rbt-aside class="aside" style="line-height: 255px;">
+                    Aside
+                </rbt-aside>
+                <rbt-layout>
+                    <rbt-header class="header">
+                        Header
+                    </rbt-header>
+                    <rbt-main class="main">
+                        Main
+                    </rbt-main>
+                </rbt-layout>
+            </rbt-layout>
+
+
         </div>
+
     </div>
 
 </template>
 <style lang="less" scoped>
-    .center {
+    @color: #a6d1ff;
+    @color-: #bddeff;
+    @color--: #cfe7ff;
+
+    .layout {
+        margin-bottom: 40px;
         text-align: center;
     }
 
-    .line-height-55 {
+    .header,
+    .footer {
+        background-color: @color;
         line-height: 55px;
-        color: #fff;
     }
 
-    .footer,
-    .aside,
-    .header {
-        background-color: #2d8cf0;
-        .line-height-55;
+    .aside {
+        background-color: @color-;
     }
 
     .main {
-        background-color: #ccc;
-    }
-
-    .footer {
-        background-color: #2d8cf0;
-        .line-height-55;
+        background-color: @color--;
+        line-height: 200px;
+        padding: 0;
+        height: 200px;
     }
 </style>
