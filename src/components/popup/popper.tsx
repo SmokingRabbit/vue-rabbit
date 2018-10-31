@@ -1,13 +1,13 @@
 import Vue, { CreateElement, VNode } from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
-import { rect } from '../../utils/doms';
+import { rect, on, off } from '../../utils/doms';
 
 @Component
 
 class Popper extends Vue {
 
     @Prop({ type: Boolean, default: false })
-    public visible!: boolean;
+    public isVisible!: boolean;
 
     @Prop(Object)
     public popup!: VNode;
@@ -42,32 +42,39 @@ class Popper extends Vue {
     @Prop(String)
     public placement!: string;
 
-    @Prop([String, Object, Array])
-    public popperClass!: string | object | [];
-
     private top: number = 0;
 
     private left: number = 0;
+
+    private timer: null | number = null;
+
+    @Watch('isVisible')
+    public watchIsVisibleChange(cur: boolean): void {
+        if (cur) {
+            on(window, 'resize', this.onResizeHandler);
+            this.$nextTick(() => {
+                this.updatePosition();
+            });
+        }
+        else {
+            off(window, 'resize', this.onResizeHandler);
+        }
+    }
+
+    private onResizeHandler(): void {
+        if (this.timer !== null) {
+            clearTimeout(this.timer);
+        }
+
+        this.timer = setTimeout(() => {
+            this.updatePosition();
+        }, 100);
+    }
 
     public setData(state: { [key: string]: any}): void {
         Object.keys(state).forEach((property: string) => {
             this[property] = state[property];
         });
-    }
-
-    @Watch('visible')
-    public onVisibleChange(cur: boolean) {
-        if (cur) {
-            this.$nextTick(() => {
-                console.log('tick');
-            });
-        }
-    }
-
-    public updated() {
-        if (this.visible) {
-            this.updatePosition();
-        }
     }
 
     private updatePosition(): void {
@@ -147,26 +154,28 @@ class Popper extends Vue {
     }
 
     private get styles(): object {
-        const { visible, top, left, zIndex, only } = this;
+        const { top, left, zIndex, only } = this;
+        let styles = { zIndex };
 
-        if (only) {
-            return {};
+        if (!only) {
+            styles = Object.assign(styles, {
+               position: 'absolute',
+               zIndex,
+               top: `${top}px`,
+               left: `${left}px`
+           });
         }
 
-        return  {
-            display: visible ? 'block' : 'none',
-            position: 'absolute',
-            zIndex,
-            top: `${top}px`,
-            left: `${left}px`
-        };
+        return styles;
     }
 
     public render(h: CreateElement): VNode {
-        const { popup, styles, popperClass } = this;
+        const { popup, styles, isVisible } = this;
 
         return (
-            <div style={styles} class={popperClass}>{ popup }</div>
+            <div style={styles} v-show={isVisible}>
+                { popup }
+            </div>
         );
     }
 }

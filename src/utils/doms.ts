@@ -1,8 +1,8 @@
-export function on(ele: HTMLElement, event: string, listener: any): void {
+export function on(ele: HTMLElement | Window, event: string, listener: any): void {
     ele.addEventListener(event, listener, false);
 }
 
-export function off(ele: HTMLElement, event: string, listener: any): void {
+export function off(ele: HTMLElement | Window, event: string, listener: any): void {
     ele.removeEventListener(event, listener);
 }
 

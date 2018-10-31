@@ -1,5 +1,5 @@
 import Vue, { VNode } from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 import { oneOf } from '../../utils/assist';
 import Popper from './popper';
 import { on, off, offset } from '../../utils/doms';
@@ -43,8 +43,8 @@ class Popup extends Vue {
     @Prop({ type: Number, default: 200 })
     public delay!: number;
 
-    @Prop([String, Object, Array])
-    public popperClass!: string | object | [];
+    @Prop({ type: Boolean, default: false })
+    public visible!: boolean;
 
     private popper: Popper = new Popper().$mount();
 
@@ -52,7 +52,7 @@ class Popup extends Vue {
 
     private onlyPopup: boolean = false;
 
-    private visible: boolean = false;
+    private isVisible: boolean = false;
 
     public static zIndex: number = 1000;
 
@@ -61,39 +61,39 @@ class Popup extends Vue {
     }
 
     private onClickHandler(): void {
-        this.updatePopoupVisible(!this.visible);
+        this.updatePopoupisVisible(!this.isVisible);
     }
 
     private onMouseEnterHandler(): void {
-        this.updatePopoupVisible(true);
+        this.updatePopoupisVisible(true);
     }
 
     private onMouseLeaveHandler(): void {
-        this.updatePopoupVisible(false);
+        this.updatePopoupisVisible(false);
     }
 
     private onFocusHandler(): void {
-        this.updatePopoupVisible(true);
+        this.updatePopoupisVisible(true);
     }
 
     private onBlurHandler(): void {
-        this.updatePopoupVisible(false);
+        this.updatePopoupisVisible(false);
     }
 
     private onContextMenuHandler(): void {
-        this.updatePopoupVisible(!this.visible);
+        this.updatePopoupisVisible(!this.isVisible);
     }
 
-    private updatePopoupVisible(visible: boolean): void {
+    private updatePopoupisVisible(isVisible: boolean): void {
         const { popper, $el, onlyPopup } = this;
         let zIndex: number = popper.zIndex;
 
-        if (visible) {
+        if (isVisible) {
             zIndex = Popup.getZIndex();
         }
 
         let data: { [key: string]: any } = {
-            visible,
+            isVisible,
             zIndex
         };
 
@@ -109,7 +109,16 @@ class Popup extends Vue {
         }
 
         popper.setData(data);
-        this.visible = visible;
+        this.isVisible = isVisible;
+        this.$emit('visibleChange', isVisible);
+    }
+
+    @Watch('visible')
+    public watchVisibleChange(cur: boolean): void {
+        console.log(cur, this.visible);
+        // if (this.isVisible !== cur) {
+        //     this.updatePopoupisVisible(cur);
+        // }
     }
 
     public beforeCreate(): void {
@@ -123,7 +132,7 @@ class Popup extends Vue {
     }
 
     public mounted(): void {
-        const { popper, onlyPopup, root, $slots, $el, action, placement, offsetX, offsetY, space, popperClass } = this;
+        const { popper, onlyPopup, root, $slots, $el, action, placement, offsetX, offsetY, space } = this;
 
         root.appendChild(popper.$el);
         popper.setData({
@@ -132,8 +141,7 @@ class Popup extends Vue {
             placement,
             offsetX,
             offsetY,
-            space,
-            popperClass
+            space
         });
 
         if (!onlyPopup) {
@@ -200,7 +208,8 @@ class Popup extends Vue {
         if (onlyPopup) {
             return null;
         }
-
+        console.log($slots.default[0]);
+        // return h($slots.default[0].tag);
         return $slots.default[0];
     }
 }

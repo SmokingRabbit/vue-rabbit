@@ -1,13 +1,12 @@
 .@{prefix}tooltip {
-    text-align: center;
-
     .@{prefix}tooltip-inner {
         font-size: @font-size-default;
         border-radius: @border-radius;
-        background-color: @dark-color;
+        background-color: @tooltip-bg-color;
         color: @light-color;
         padding: @tooltip-padding;
         white-space: nowrap;
+        line-height: 1.5;
     }
 
     &::before {
@@ -24,7 +23,7 @@
         transform-origin: bottom;
 
         &::before {
-            border-top-color: @dark-color;
+            border-top-color: @tooltip-bg-color;
             bottom: -5px;
             left: 50%;
             margin-left: -5px;
@@ -38,7 +37,7 @@
         transform-origin: top;
 
         &::before {
-            border-bottom-color: @dark-color;
+            border-bottom-color: @tooltip-bg-color;
             top: -5px;
             left: 50%;
             margin-left: -5px;
@@ -66,7 +65,7 @@
         transform-origin: right;
 
         &::before {
-            border-left-color: @dark-color;
+            border-left-color: @tooltip-bg-color;
             right: -5px;
             top: 50%;
             margin-top: -5px;
@@ -80,7 +79,7 @@
         transform-origin: left;
 
         &::before {
-            border-right-color: @dark-color;
+            border-right-color: @tooltip-bg-color;
             left: -5px;
             top: 50%;
             margin-top: -5px;

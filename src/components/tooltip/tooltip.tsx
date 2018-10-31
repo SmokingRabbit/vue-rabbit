@@ -1,5 +1,5 @@
 import Vue, { CreateElement, VNode} from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 import { prefixCls, oneOf } from '../../utils/assist';
 import Popup from '../popup';
 
@@ -16,6 +16,15 @@ class Tooltip extends Vue {
 
     @Prop({
         type: String,
+        default: 'click',
+        validator(param) {
+            return oneOf(param, ['click', 'hover', 'focus', 'contextMenu']);
+        }
+    })
+    public action!: 'click' | 'hover' | 'focus' | 'contextMenu';
+
+    @Prop({
+        type: String,
         default: 'top',
         validator(param) {
             return oneOf(param, ['top', 'left', 'bottom', 'right', 'left-top', 'left-bottom',
@@ -24,6 +33,17 @@ class Tooltip extends Vue {
     })
     public placement!: 'top' | 'left' | 'bottom' | 'right' | 'left-top' | 'left-bottom'
         | 'right-top' | 'right-bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+    public visible: boolean = false;
+
+    @Watch('visible')
+    public watchVisibleChange(cur: boolean): void {
+        this.$emit('visibleChange', cur);
+    }
+
+    private onVisibleChange(v: boolean): void {
+        this.visible = v;
+    }
 
     private get className(): object {
         const { placement } = this;
@@ -35,14 +55,16 @@ class Tooltip extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const { className, content, $slots, placement } = this;
+        const { className, content, $slots, placement, action, visible } = this;
 
         return (
-            <popup placement={placement} popperClass={className}>
+            <popup placement={placement} action={action} visible={visible} onVisibleChange={this.onVisibleChange}>
                 { $slots.default }
-                <template slot='popup'>
-                    <div class={`${prefixCls}tooltip-inner`}>{ content }</div>
-                </template>
+                <transition name='fade' slot='popup'>
+                    <div class={className}>
+                        <div class={`${prefixCls}tooltip-inner`}>{visible.toString()} { content }</div>
+                    </div>
+                </transition>
             </popup>
         );
     }
