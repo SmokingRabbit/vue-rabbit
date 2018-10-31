@@ -5,6 +5,9 @@
         <rbt-tooltip content="这是一个tooltip">
             <rbt-button @click="click">tooltip</rbt-button>
         </rbt-tooltip>
+        <rbt-tooltip content="这是一个tooltip">
+            <input>
+        </rbt-tooltip>
     </div>
 </template>
 

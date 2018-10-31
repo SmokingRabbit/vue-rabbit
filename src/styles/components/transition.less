@@ -1,15 +1,21 @@
-.fade-enter-active {
-    opacity: 1;
-    transform: scale(1);
-}
-
+.fade-enter-active,
 .fade-leave-active {
-    opacity: 0;
-    transform: scale(0);
+    transition: all 0.2s ease-in;
 }
 
-.fade-enter {
+.fade-enter,
+.fade-leave-to {
     opacity: 0;
+}
+
+.from-top-enter-active,
+.from-top-leave-active {
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+}
+
+.from-top-enter,
+.from-top-leave-to {
     transform: scale(0);
-    transition: all @transition-duration ease-in;
+    opacity: 0;
+    transform-origin: bottom center;
 }

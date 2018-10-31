@@ -16,7 +16,7 @@ class Tooltip extends Vue {
 
     @Prop({
         type: String,
-        default: 'click',
+        default: 'hover',
         validator(param) {
             return oneOf(param, ['click', 'hover', 'focus', 'contextMenu']);
         }
@@ -45,6 +45,10 @@ class Tooltip extends Vue {
         this.visible = v;
     }
 
+    public mounted(): void {
+        (this.$refs.popup as Popup).setTrigger(this.$el);
+    }
+
     private get className(): object {
         const { placement } = this;
 
@@ -58,14 +62,21 @@ class Tooltip extends Vue {
         const { className, content, $slots, placement, action, visible } = this;
 
         return (
-            <popup placement={placement} action={action} visible={visible} onVisibleChange={this.onVisibleChange}>
+            <div class={`${prefixCls}tooltip-trigger`}>
                 { $slots.default }
-                <transition name='fade' slot='popup'>
-                    <div class={className}>
-                        <div class={`${prefixCls}tooltip-inner`}>{visible.toString()} { content }</div>
+                <popup
+                    ref='popup'
+                    visible={visible}
+                    onVisibleChange={this.onVisibleChange}
+                    class={className}
+                    transitionName={`from-${placement}`}
+                    placement={placement}
+                    action={action}>
+                    <div class={`${prefixCls}tooltip-inner`}>
+                        { content }
                     </div>
-                </transition>
-            </popup>
+                </popup>
+            </div>
         );
     }
 }

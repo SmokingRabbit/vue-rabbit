@@ -1,7 +1,6 @@
-import Vue, { VNode } from 'vue';
+import Vue, { CreateElement, VNode } from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import { oneOf } from '../../utils/assist';
-import Popper from './popper';
 import { on, off, offset } from '../../utils/doms';
 
 @Component
@@ -40,19 +39,25 @@ class Popup extends Vue {
     @Prop({ type: Boolean, default: false })
     public disabled!: boolean;
 
-    @Prop({ type: Number, default: 200 })
+    @Prop({ type: Number, default: 100 })
     public delay!: number;
 
     @Prop({ type: Boolean, default: false })
     public visible!: boolean;
 
-    private popper: Popper = new Popper().$mount();
+    @Prop({ type: String, default: 'div' })
+    public tag!: string;
 
-    private root: HTMLElement = document.body;
+    @Prop({ type: String, default: 'fade' })
+    public transitionName!: string;
 
-    private onlyPopup: boolean = false;
+    private top: number = 0;
 
-    private isVisible: boolean = false;
+    private left: number = 0;
+
+    private timer: null | number = null;
+
+    private $trigger: HTMLElement | null = null;
 
     public static zIndex: number = 1000;
 
@@ -61,136 +66,230 @@ class Popup extends Vue {
     }
 
     private onClickHandler(): void {
-        this.updatePopoupisVisible(!this.isVisible);
+        this.updateVisible(!this.visible);
     }
 
     private onMouseEnterHandler(): void {
-        this.updatePopoupisVisible(true);
+        this.updateVisible(true);
     }
 
     private onMouseLeaveHandler(): void {
-        this.updatePopoupisVisible(false);
+        this.updateVisible(false);
     }
 
     private onFocusHandler(): void {
-        this.updatePopoupisVisible(true);
+        this.updateVisible(true);
     }
 
     private onBlurHandler(): void {
-        this.updatePopoupisVisible(false);
+        this.updateVisible(false);
     }
 
     private onContextMenuHandler(): void {
-        this.updatePopoupisVisible(!this.isVisible);
+        this.updateVisible(!this.visible);
     }
 
-    private updatePopoupisVisible(isVisible: boolean): void {
-        const { popper, $el, onlyPopup } = this;
-        let zIndex: number = popper.zIndex;
+    private onPopupMouseEnterHandler(): void {
+        this.clearTimer();
+    }
 
-        if (isVisible) {
-            zIndex = Popup.getZIndex();
+    private onPopupMouseLeaveHandler(): void {
+        this.updateVisible(false);
+    }
+
+    private clearTimer(): void {
+        if (this.timer !== null) {
+            clearTimeout(this.timer);
+            this.timer = null;
         }
+    }
 
-        let data: { [key: string]: any } = {
-            isVisible,
-            zIndex
-        };
+    private updateVisible(visible: boolean): void {
+        const { delay, action, $el } = this;
 
-        if (!onlyPopup) {
-            const { top: triggerTop, left: triggerLeft, width: triggerWidth, height: triggerHeight } = offset($el);
+        this.clearTimer();
 
-            data = Object.assign(data, {
-                triggerTop,
-                triggerLeft,
-                triggerWidth,
-                triggerHeight
-            });
+        this.timer = setTimeout(() => {
+            if (visible) {
+                on(document.body, 'mousedown', this.globalMouseListenerHandler);
+
+                if (action === 'hover') {
+                    on($el, 'mouseenter', this.onPopupMouseEnterHandler);
+                    on($el, 'mouseleave', this.onPopupMouseLeaveHandler);
+                }
+            }
+            else {
+                off(document.body, 'mousedown', this.globalMouseListenerHandler);
+
+                if (action === 'hover') {
+                    off($el, 'mouseenter', this.onPopupMouseEnterHandler);
+                    off($el, 'mouseleave', this.onPopupMouseLeaveHandler);
+                }
+            }
+            this.$emit('visibleChange', visible);
+        }, delay);
+    }
+
+    private globalMouseListenerHandler(e: MouseEvent): void {
+        if (!(this.$trigger as HTMLElement).contains(e.target as HTMLElement)) {
+            this.updateVisible(false);
         }
-
-        popper.setData(data);
-        this.isVisible = isVisible;
-        this.$emit('visibleChange', isVisible);
     }
 
     @Watch('visible')
-    public watchVisibleChange(cur: boolean): void {
-        console.log(cur, this.visible);
-        // if (this.isVisible !== cur) {
-        //     this.updatePopoupisVisible(cur);
-        // }
+    public watchIsVisibleChange(cur: boolean): void {
+        if (cur) {
+            on(window, 'resize', this.onResizeHandler);
+            this.$nextTick(() => {
+                this.updatePosition();
+            });
+        }
+        else {
+            off(window, 'resize', this.onResizeHandler);
+        }
     }
 
-    public beforeCreate(): void {
-        const { $slots } = this;
+    public setTrigger($el: HTMLElement): void {
+        this.$trigger = $el.firstElementChild as HTMLElement;
 
-        if ($slots.default.length > 1) {
-            throw new Error('Child element must wrapped in tag');
+        const { $trigger, action } = this;
+
+        switch (action) {
+            case 'hover':
+                on($trigger, 'mouseenter', this.onMouseEnterHandler);
+                on($trigger, 'mouseleave', this.onMouseLeaveHandler);
+                break;
+
+            case 'click':
+                on($trigger, 'click', this.onClickHandler);
+                break;
+
+            case 'focus':
+                on($trigger, 'focus', this.onFocusHandler);
+                on($trigger, 'blur', this.onBlurHandler);
+                break;
+
+            case 'contextMenu':
+                on($trigger, 'contentmenu', this.onContextMenuHandler);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private onResizeHandler(): void {
+        if (this.timer !== null) {
+            clearTimeout(this.timer);
         }
 
-        this.onlyPopup = !($slots.default && $slots.default.length === 1);
+        this.timer = setTimeout(() => {
+            this.updatePosition();
+        }, 100);
+    }
+
+    private updatePosition(): void {
+        const { placement, $el, $trigger, offsetX, offsetY, space } = this;
+        const { top: triggerTop, left: triggerLeft, width: triggerWidth, height: triggerHeight } = offset($trigger as HTMLElement);
+        const { offsetWidth: width, offsetHeight: height } = $el;
+
+        let left = 0;
+        let top = 0;
+
+        switch (placement) {
+            case 'top':
+                left = triggerLeft + offsetX - (width - triggerWidth) / 2;
+                top = triggerTop + offsetY - height - space;
+                break;
+
+            case 'top-left':
+                left = triggerLeft + offsetX;
+                top = triggerTop + offsetY - height - space;
+                break;
+
+            case 'top-right':
+                left = triggerLeft + offsetX - (width - triggerWidth);
+                top = triggerTop + offsetY - height - space;
+                break;
+
+            case 'bottom':
+                left = triggerLeft + offsetX - (width - triggerWidth) / 2;
+                top = triggerTop + offsetY + triggerHeight + space;
+                break;
+
+            case 'bottom-left':
+                left = triggerLeft + offsetX;
+                top = triggerTop + offsetY + triggerHeight + space;
+                break;
+
+            case 'bottom-right':
+                left = triggerLeft + offsetX - (width - triggerWidth);
+                top = triggerTop + offsetY + triggerHeight + space;
+                break;
+
+            case 'left':
+                left = triggerLeft + offsetX - width - space;
+                top = triggerTop + offsetY - (height - triggerHeight) / 2;
+                break;
+
+            case 'left-top':
+                left = triggerLeft + offsetX - width - space;
+                top = triggerTop + offsetY;
+                break;
+
+            case 'left-bottom':
+                left = triggerLeft + offsetX - width - space;
+                top = triggerTop + offsetY - (height - triggerHeight);
+                break;
+
+            case 'right':
+                left = triggerLeft + offsetX + triggerWidth + space;
+                top = triggerTop + offsetY - (height - triggerHeight) / 2;
+                break;
+
+            case 'right-top':
+                left = triggerLeft + offsetX + triggerWidth + space;
+                top = triggerTop + offsetY;
+                break;
+
+            case 'right-bottom':
+                left = triggerLeft + offsetX + triggerWidth + space;
+                top = triggerTop + offsetY - (height - triggerHeight);
+                break;
+
+            default:
+                break;
+        }
+
+        this.top = top;
+        this.left = left;
     }
 
     public mounted(): void {
-        const { popper, onlyPopup, root, $slots, $el, action, placement, offsetX, offsetY, space } = this;
-
-        root.appendChild(popper.$el);
-        popper.setData({
-            popup: $slots.popup[0],
-            only: onlyPopup,
-            placement,
-            offsetX,
-            offsetY,
-            space
-        });
-
-        if (!onlyPopup) {
-            switch (action) {
-                case 'hover':
-                    on($el, 'mouseenter', this.onMouseEnterHandler);
-                    on($el, 'mouseleave', this.onMouseLeaveHandler);
-                    break;
-
-                case 'click':
-                    on($el, 'click', this.onClickHandler);
-                    break;
-
-                case 'focus':
-                    on($el, 'focus', this.onFocusHandler);
-                    on($el, 'blur', this.onBlurHandler);
-                    break;
-
-                case 'contextMenu':
-                    on($el, 'contentmenu', this.onContextMenuHandler);
-                    break;
-
-                default:
-                    break;
-            }
-        }
+        document.body.appendChild(this.$el);
     }
 
     public beforeDestroy(): void {
-        const { popper, root, action, onlyPopup, $el } = this;
+        const { $trigger, action } = this;
 
-        if (!onlyPopup) {
+        if ($trigger !== null) {
             switch (action) {
                 case 'hover':
-                    off($el, 'mouseenter', this.onMouseEnterHandler);
-                    off($el, 'mouseleave', this.onMouseLeaveHandler);
+                    off($trigger, 'mouseenter', this.onMouseEnterHandler);
+                    off($trigger, 'mouseleave', this.onMouseLeaveHandler);
                     break;
 
                 case 'click':
-                    off($el, 'click', this.onClickHandler);
+                    off($trigger, 'click', this.onClickHandler);
                     break;
 
                 case 'focus':
-                    off($el, 'focus', this.onFocusHandler);
-                    off($el, 'blur', this.onBlurHandler);
+                    off($trigger, 'focus', this.onFocusHandler);
+                    off($trigger, 'blur', this.onBlurHandler);
                     break;
 
                 case 'contextMenu':
-                    off($el, 'contentmenu', this.onContextMenuHandler);
+                    off($trigger, 'contentmenu', this.onContextMenuHandler);
                     break;
 
                 default:
@@ -198,19 +297,36 @@ class Popup extends Vue {
             }
         }
 
-        root.removeChild(popper.$el);
-        popper.$destroy();
+        document.body.removeChild(this.$el);
     }
 
-    public render(): VNode | null {
-        const { $slots, onlyPopup } = this;
+    private get styles(): object {
+        const { top, left, $trigger } = this;
+        const zIndex = Popup.getZIndex();
+        let styles = { zIndex };
 
-        if (onlyPopup) {
-            return null;
+        if ($trigger !== null) {
+            styles = Object.assign(styles, {
+               position: 'absolute',
+               zIndex,
+               top: `${top}px`,
+               left: `${left}px`
+           });
         }
-        console.log($slots.default[0]);
-        // return h($slots.default[0].tag);
-        return $slots.default[0];
+
+        return styles;
+    }
+
+    public render(h: CreateElement): VNode {
+        const { $slots, styles, visible, tag: Tag, transitionName } = this;
+
+        return (
+            <transition name={transitionName}>
+                <Tag style={styles} v-show={visible}>
+                    { $slots.default }
+                </Tag>
+            </transition>
+        );
     }
 }
 
