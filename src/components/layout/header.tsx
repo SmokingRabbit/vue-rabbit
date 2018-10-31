@@ -8,7 +8,7 @@ class Header extends Vue {
 
     @Prop({
         type: String,
-        default: '60px'
+        default: '55px'
     })
     public height!: string;
 
