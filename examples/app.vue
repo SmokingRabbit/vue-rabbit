@@ -34,7 +34,7 @@
                         path: '/tooltip'
                     }
                 ]
-            }
+            };
         }
     };
 </script>
