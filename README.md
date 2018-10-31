@@ -105,7 +105,7 @@
 - drawer​ 抽屉
 - dropdown​ 下拉菜单
 - form​ 表单
-- grid​ 栅格
+- grid​ 栅格 [yuan1998]
 - icon​ 图标
 - image​ 图片
 - input​ 输入框
