@@ -1,10 +1,10 @@
 import Vue, {CreateElement, VNode} from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-import {oneOf, prefixCls} from "../../utils/assist";
+import {oneOf, prefixCls} from '../../utils/assist';
 
 @Component
 
-class Switch extends Vue {
+class RbtSwitch extends Vue {
 
     @Prop({
         type: String,
@@ -126,12 +126,11 @@ class Switch extends Vue {
         const {className, inputAttribute} = this;
 
         return (
-            <div class={className['wrap']} role='switch'>
+            <span class={className} >
                 <input {...inputAttribute}/>
-
-            </div>
+            </span>
         );
     }
 }
 
-export default Switch;
+export default RbtSwitch;

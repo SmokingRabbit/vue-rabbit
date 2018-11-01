@@ -32,6 +32,10 @@
                     {
                         name: 'Tooltip',
                         path: '/tooltip'
+                    },
+                    {
+                        name: 'Switch',
+                        path: '/switch'
                     }
                 ]
             };

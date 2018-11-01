@@ -28,6 +28,10 @@ const router = new VueRouter({
         {
             path: '/tooltip',
             component: (resolve) => require(['./routers/tooltip'], resolve)
+        },
+        {
+            path: '/switch',
+            component: (resolve) => require(['./routers/switch'], resolve)
         }
     ]
 });
