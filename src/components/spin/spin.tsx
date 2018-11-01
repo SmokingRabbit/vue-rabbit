@@ -13,12 +13,18 @@ class Spin extends Vue {
 
     @Prop({
         type: String,
-        default: 'default',
+        default: 'primary',
         validator(param) {
             return oneOf(param, ['default', 'primary']);
         }
     })
     public type!: string;
+
+    @Prop({ type: Boolean, default: false })
+    public visible!: boolean;
+
+    @Prop(String)
+    public text!: string;
 
     private get className(): object {
         return {
@@ -27,13 +33,39 @@ class Spin extends Vue {
         };
     }
 
-    public render(h: CreateElement): VNode {
-        const { className } = this;
+    private get wrapClassName(): object {
+        const { visible } = this;
 
-        return (
+        return {
+            [`${prefixCls}spin-wrap-filter`]: visible
+        };
+    }
+
+    public render(h: CreateElement): VNode {
+        const { className, $slots, visible, wrapClassName, text } = this;
+
+        const spinComponent = (
             <span class={className}>
                 <icon type='spin'/>
             </span>
+        );
+
+        if (!$slots.default) {
+            return spinComponent;
+        }
+
+        return (
+            <div class={`${prefixCls}spin-wrap`}>
+                <div class={wrapClassName}>
+                    { $slots.default }
+                </div>
+                <transition name='fade'>
+                    <div class={`${prefixCls}spin-container`} v-show={visible}>
+                        { spinComponent }
+                        { text && <p class={`${prefixCls}spin-text`}>{ text }</p> }
+                    </div>
+                </transition>
+            </div>
         );
     }
 }

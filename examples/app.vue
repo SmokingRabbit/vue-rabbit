@@ -22,6 +22,10 @@
                         path: '/icon'
                     },
                     {
+                        name: 'Spin',
+                        path: '/spin'
+                    },
+                    {
                         name: 'Button',
                         path: '/button'
                     },

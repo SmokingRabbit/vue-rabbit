@@ -1,10 +1,8 @@
 .@{prefix}spin {
-    width: 14px;
-    height: 14px;
     display: inline-block;
-    line-height: 14px;
     animation: rotating 1s infinite linear;
-    font-size: 14px;
+
+    .spin-size(@font-size-default);
 
     &-default {
         color: @light-color;
@@ -12,5 +10,36 @@
 
     &-primary {
         color: @primary-color;
+    }
+}
+
+.@{prefix}spin-wrap {
+    position: relative;
+
+    > .@{prefix}spin-wrap-filter {
+        filter: blur(0.8px);
+        opacity: 0.8;
+    }
+
+    > .@{prefix}spin-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        > .@{prefix}spin-text {
+            font-size: @font-size-default;
+            color: @primary-color;
+            margin-top: 10px;
+        }
+
+        > .@{prefix}spin {
+            .spin-size(@font-size-default + 4px);
+        }
     }
 }

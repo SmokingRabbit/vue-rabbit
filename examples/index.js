@@ -18,6 +18,10 @@ const router = new VueRouter({
             component: (resolve) => require(['./routers/icon'], resolve)
         },
         {
+            path: '/spin',
+            component: (resolve) => require(['./routers/spin'], resolve)
+        },
+        {
             path: '/button',
             component: (resolve) => require(['./routers/button'], resolve)
         },
