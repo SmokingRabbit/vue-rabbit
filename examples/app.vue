@@ -36,6 +36,10 @@
                     {
                         name: 'Switch',
                         path: '/switch'
+                    },
+                    {
+                        name: 'Popover',
+                        path: '/popover'
                     }
                 ]
             };

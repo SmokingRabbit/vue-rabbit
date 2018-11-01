@@ -2,10 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './app';
 import '@/styles/index.less';
-import VueRabbit from '@/';
+import Rabbit from '@/';
 
 Vue.use(VueRouter);
-Vue.use(VueRabbit);
+Vue.use(Rabbit);
 
 Vue.config.debug = true;
 
@@ -32,6 +32,10 @@ const router = new VueRouter({
         {
             path: '/switch',
             component: (resolve) => require(['./routers/switch'], resolve)
+        },
+        {
+            path: '/popover',
+            component: (resolve) => require(['./routers/popover'], resolve)
         }
     ]
 });

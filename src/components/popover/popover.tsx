@@ -9,7 +9,10 @@ import Popup from '../popup';
     }
 })
 
-class Tooltip extends Vue {
+class Popover extends Vue {
+
+    @Prop(String)
+    public title!: string;
 
     @Prop(String)
     public content!: string;
@@ -56,16 +59,16 @@ class Tooltip extends Vue {
         const { placement } = this;
 
         return {
-            [`${prefixCls}tooltip`]: true,
-            [`${prefixCls}tooltip-placement-${placement}`]: true,
+            [`${prefixCls}popover`]: true,
+            [`${prefixCls}popover-placement-${placement}`]: true,
         };
     }
 
     public render(h: CreateElement): VNode {
-        const { className, content, $slots, placement, trigger, visible, disabled } = this;
+        const { className, title, content, $slots, placement, trigger, visible, disabled } = this;
 
         return (
-            <div class={`${prefixCls}tooltip-trigger`}>
+            <div class={`${prefixCls}popover-trigger`}>
                 { $slots.default }
                 <popup
                     ref='popup'
@@ -76,8 +79,16 @@ class Tooltip extends Vue {
                     placement={placement}
                     disabled={disabled}
                     trigger={trigger}>
-                    <div class={`${prefixCls}tooltip-inner`}>
-                        { $slots.content || content }
+                    <div class={`${prefixCls}popover-inner`}>
+                        {
+                            title !== undefined &&
+                            <div class={`${prefixCls}popover-title`}>
+                                { title }
+                            </div>
+                        }
+                        <div class={`${prefixCls}popover-content`}>
+                            { $slots.content || content }
+                        </div>
                     </div>
                 </popup>
             </div>
@@ -85,4 +96,4 @@ class Tooltip extends Vue {
     }
 }
 
-export default Tooltip;
+export default Popover;

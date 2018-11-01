@@ -1,7 +1,6 @@
 <template>
     <div>
         <h2>Button</h2>
-        <p>This is Buttons……</p>
         <div>
             <h4>basic</h4>
             <rbt-button @click="testClick" class="test">按钮测试</rbt-button>

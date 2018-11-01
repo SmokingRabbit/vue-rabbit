@@ -1,8 +1,8 @@
 {
-  "name": "vue-rabbit",
+  "name": "rabbit",
   "version": "1.0.0",
   "description": "vue2 components",
-  "main": "dist/vue-rabbit.js",
+  "main": "dist/rabbit.js",
   "scripts": {
     "dev": "webpack-dev-server --hot --progress --colors --config build/webpack.config.dev.js",
     "build": "webpack --verbose --profile --colors --display-error-details --config build/webpack.config.prod.js",

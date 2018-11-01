@@ -8,14 +8,14 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = webapckMerge(webpackBaseConfig, {
     entry: {
-        'vue-rabbit': [path.join(__dirname, '../src/styles/index.less'), path.join(__dirname, '../src/index.ts')]
+        'rabbit': [path.join(__dirname, '../src/styles/index.less'), path.join(__dirname, '../src/index.ts')]
     },
     mode: 'production',
     output: {
         path: path.join(__dirname, '../dist'),
         filename: '[name].js',
         libraryTarget: 'umd',
-        library: 'vue-rabbit',
+        library: 'rabbit',
         umdNamedDefine: true
     },
     externals: {
@@ -68,7 +68,7 @@ module.exports = webapckMerge(webpackBaseConfig, {
             chunkFilename: '[id].css'
         }),
         new OptimizeCSSAssetsPlugin({
-            assetNameRegExp: /vue-rabbit\.css/,
+            assetNameRegExp: /rabbit\.css/,
             cssProcessor: require('cssnano'),
             cssProcessorOptions: {
                 discardComments: {

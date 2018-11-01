@@ -1,34 +1,4 @@
-import {
-    Button,
-    Icon,
-    Spin,
-    Row,
-    Col,
-    Popup,
-    Tooltip,
-    Layout,
-    Header,
-    Footer,
-    Main,
-    Aside,
-    Switch
-} from './components';
-
-const components: {[key: string]: any} = {
-    Button,
-    Icon,
-    Spin,
-    Row,
-    Col,
-    Popup,
-    Tooltip,
-    Layout,
-    Header,
-    Footer,
-    Main,
-    Aside,
-    Switch
-};
+import * as components from './components';
 
 function install(Vue: any): void {
     Object.keys(components).forEach((name: string) => {
