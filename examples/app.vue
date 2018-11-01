@@ -48,6 +48,10 @@
                     {
                         name: 'Popover',
                         path: '/popover'
+                    },
+                    {
+                        name: 'Modal',
+                        path: '/modal'
                     }
                 ]
             };
@@ -62,7 +66,7 @@
     }
 
     .examples-nav {
-        width: 220px;
+        width: 160px;
         flex: none;
         border-right: 1px solid #ddd;
         padding: 12px 0;

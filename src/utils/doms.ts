@@ -42,3 +42,56 @@ export function offset(ele: HTMLElement): OffsetRect {
         left: r.left + left
     };
 }
+
+export function attr(ele: HTMLElement, property: {[key: string]: string} | string, val?: string): string | null{
+    if (typeof property === 'object') {
+        for (const key in property) {
+            if (typeof property[key] === 'string' || typeof property[key] === 'number') {
+                ele.setAttribute(key, property[key]);
+            }
+        }
+    }
+    else if (typeof property === 'string') {
+        if (val) {
+            ele.setAttribute(property, val);
+        }
+        else {
+            return ele.getAttribute(property);
+        }
+    }
+
+    return null;
+}
+
+export function removeAttr(ele: HTMLElement, property: string) {
+    ele.removeAttribute(property);
+}
+
+export function addClass(ele: HTMLElement, classNames: string | string[]): void {
+    const orginClasses = attr(ele, 'class');
+    let splitClasses: string[] = [];
+
+    if (orginClasses !== null) {
+        splitClasses = orginClasses.split(/\s+/);
+    }
+
+    classNames = Array.isArray(classNames) ? classNames : [classNames];
+    classNames = classNames.concat(splitClasses);
+    ele.setAttribute('class', classNames.join(' '));
+}
+
+export function removeClass(ele: HTMLElement, classNames: string | string[]) {
+    const orginClasses = attr(ele, 'class');
+
+    if (orginClasses === null) {
+        return;
+    }
+
+    const splitClasses: string[] = orginClasses.split(/\s+/);
+
+    classNames = Array.isArray(classNames) ? classNames : [classNames];
+    classNames.forEach((name) => {
+        splitClasses.splice(splitClasses.indexOf(name), 1);
+    });
+    ele.setAttribute('class', splitClasses.join(' '));
+}

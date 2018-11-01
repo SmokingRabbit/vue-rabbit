@@ -59,7 +59,7 @@ class Popup extends Vue {
 
     private debounceTimer: null | number = null;
 
-    private $triggerEl: HTMLElement | null = null;
+    private triggerEl: null | HTMLElement = null;
 
     public static zIndex: number = 1000;
 
@@ -137,7 +137,7 @@ class Popup extends Vue {
     }
 
     private globalMouseListenerHandler(e: MouseEvent): void {
-        if (!(this.$triggerEl as HTMLElement).contains(e.target as HTMLElement)) {
+        if (!(this.triggerEl as HTMLElement).contains(e.target as HTMLElement)) {
             this.updateVisible(false);
         }
     }
@@ -147,7 +147,7 @@ class Popup extends Vue {
         if (cur) {
             on(window, 'resize', this.onResizeHandler);
 
-            if (this.$triggerEl !== null) {
+            if (this.triggerEl !== null) {
                 this.$nextTick(() => {
                     this.updatePosition();
                 });
@@ -159,27 +159,27 @@ class Popup extends Vue {
     }
 
     public setTriggerEl($el: HTMLElement): void {
-        this.$triggerEl = $el.firstElementChild as HTMLElement;
+        this.triggerEl = $el.firstElementChild as HTMLElement;
 
-        const { $triggerEl, trigger } = this;
+        const { triggerEl, trigger } = this;
 
         switch (trigger) {
             case 'hover':
-                on($triggerEl, 'mouseenter', this.onMouseEnterHandler);
-                on($triggerEl, 'mouseleave', this.onMouseLeaveHandler);
+                on(triggerEl, 'mouseenter', this.onMouseEnterHandler);
+                on(triggerEl, 'mouseleave', this.onMouseLeaveHandler);
                 break;
 
             case 'click':
-                on($triggerEl, 'click', this.onClickHandler);
+                on(triggerEl, 'click', this.onClickHandler);
                 break;
 
             case 'focus':
-                on($triggerEl, 'focus', this.onFocusHandler);
-                on($triggerEl, 'blur', this.onBlurHandler);
+                on(triggerEl, 'focus', this.onFocusHandler);
+                on(triggerEl, 'blur', this.onBlurHandler);
                 break;
 
             case 'contextMenu':
-                on($triggerEl, 'contextmenu', this.onContextMenuHandler);
+                on(triggerEl, 'contextmenu', this.onContextMenuHandler);
                 break;
 
             default:
@@ -188,7 +188,7 @@ class Popup extends Vue {
     }
 
     private onResizeHandler(): void {
-        if (this.$triggerEl === null) {
+        if (this.triggerEl === null) {
             return;
         }
 
@@ -202,8 +202,8 @@ class Popup extends Vue {
     }
 
     private updatePosition(): void {
-        const { placement, $el, $triggerEl, offsetX, offsetY, space } = this;
-        const { top: triggerTop, left: triggerLeft, width: triggerWidth, height: triggerHeight } = offset($triggerEl as HTMLElement);
+        const { placement, $el, triggerEl, offsetX, offsetY, space } = this;
+        const { top: triggerTop, left: triggerLeft, width: triggerWidth, height: triggerHeight } = offset(triggerEl as HTMLElement);
         const { offsetWidth: width, offsetHeight: height } = $el;
 
         let left = 0;
@@ -283,26 +283,26 @@ class Popup extends Vue {
     }
 
     public beforeDestroy(): void {
-        const { $triggerEl, trigger } = this;
+        const { triggerEl, trigger } = this;
 
-        if ($triggerEl !== null) {
+        if (triggerEl !== null) {
             switch (trigger) {
                 case 'hover':
-                    off($triggerEl, 'mouseenter', this.onMouseEnterHandler);
-                    off($triggerEl, 'mouseleave', this.onMouseLeaveHandler);
+                    off(triggerEl, 'mouseenter', this.onMouseEnterHandler);
+                    off(triggerEl, 'mouseleave', this.onMouseLeaveHandler);
                     break;
 
                 case 'click':
-                    off($triggerEl, 'click', this.onClickHandler);
+                    off(triggerEl, 'click', this.onClickHandler);
                     break;
 
                 case 'focus':
-                    off($triggerEl, 'focus', this.onFocusHandler);
-                    off($triggerEl, 'blur', this.onBlurHandler);
+                    off(triggerEl, 'focus', this.onFocusHandler);
+                    off(triggerEl, 'blur', this.onBlurHandler);
                     break;
 
                 case 'contextMenu':
-                    off($triggerEl, 'contextmenu', this.onContextMenuHandler);
+                    off(triggerEl, 'contextmenu', this.onContextMenuHandler);
                     break;
 
                 default:
@@ -314,16 +314,26 @@ class Popup extends Vue {
     }
 
     private get styles(): object {
-        const { top, left, $triggerEl } = this;
+        const { top, left, triggerEl } = this;
         const zIndex = Popup.getZIndex();
         let styles = { zIndex };
 
-        if ($triggerEl !== null) {
+        if (triggerEl !== null) {
             styles = Object.assign(styles, {
                position: 'absolute',
                zIndex,
                top: `${top}px`,
                left: `${left}px`
+           });
+        }
+        else {
+            styles = Object.assign(styles, {
+               position: 'fixed',
+               zIndex,
+               top: 0,
+               left: 0,
+               right: 0,
+               bottom: 0
            });
         }
 

@@ -44,6 +44,10 @@ const router = new VueRouter({
         {
             path: '/popover',
             component: (resolve) => require(['./routers/popover'], resolve)
+        },
+        {
+            path: '/modal',
+            component: (resolve) => require(['./routers/modal'], resolve)
         }
     ]
 });

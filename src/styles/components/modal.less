@@ -1,0 +1,76 @@
+.@{prefix}modal-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: @modal-mask-bg-color;
+}
+
+.@{prefix}modal-open {
+    overflow: hidden;
+}
+
+.@{prefix}modal-container {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    &.@{prefix}modal-align {
+        &-top {
+            align-items: flex-start;
+        }
+
+        &-middle {
+            align-items: center;
+
+            > .@{prefix}modal {
+                margin-top: @component-gutter * 1.5;
+            }
+        }
+
+        &-bottom {
+            align-items: flex-end;
+
+            > .@{prefix}modal {
+                margin-bottom: @component-gutter * 1.5;
+            }
+        }
+    }
+
+    &.@{prefix}modal-justify {
+        &-start {
+            justify-content: flex-start;
+
+            > .@{prefix}modal {
+                margin-left: @component-gutter * 1.5;
+            }
+        }
+
+        &-center {
+            justify-content: center;
+        }
+
+        &-end {
+            justify-content: flex-end;
+
+            > .@{prefix}modal {
+                margin-right: @component-gutter * 1.5;
+            }
+        }
+    }
+
+    > .@{prefix}modal {
+        border-radius: @border-radius;
+        background-color: @light-color;
+        min-height: 140px;
+        overflow: hidden;
+
+        &-bordered {
+            border: 1px solid @border-color;
+        }
+    }
+}
