@@ -18,6 +18,10 @@
             return {
                 list: [
                     {
+                        name: 'Icon',
+                        path: '/icon'
+                    },
+                    {
                         name: 'Button',
                         path: '/button'
                     },

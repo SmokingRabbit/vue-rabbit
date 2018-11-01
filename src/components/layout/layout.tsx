@@ -14,7 +14,7 @@ class Layout extends Vue {
     public direction!: 'vertical' | 'horizontal';
 
     public get isVertical(): boolean {
-        const {direction, $slots} = this;
+        const { direction, $slots } = this;
 
         if (direction === 'vertical') {
             return true;
@@ -32,7 +32,7 @@ class Layout extends Vue {
     }
 
     public get className(): object {
-        const {isVertical} = this;
+        const { isVertical } = this;
 
         return {
             [`${prefixCls}layout`]: true,

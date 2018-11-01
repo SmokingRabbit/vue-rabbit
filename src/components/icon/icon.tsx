@@ -6,20 +6,43 @@ import { prefixCls } from '../../utils/assist';
 
 class Icon extends Vue {
 
-    @Prop({ type: String, required: true })
+    @Prop(String)
     public type!: string;
 
+    @Prop([Number, String])
+    public size!: number | string;
+
+    @Prop(String)
+    public color!: string;
+
     private get className(): object {
+        const { type } = this;
+
         return {
             [`${prefixCls}icon`]: true,
-            [`${prefixCls}icon-${this.type}`]: true,
+            [`${prefixCls}icon-${type}`]: type !== undefined,
         };
     }
 
-    public render(h: CreateElement): VNode {
-        const { className } = this;
+    private get styles(): object {
+        const { size, color } = this;
+        const ret = {};
 
-        return (<i class={className}/>);
+        if (color !== undefined) {
+            ret['color'] = color;
+        }
+
+        if (size !== undefined ) {
+            ret['font-size'] = `${size}px`;
+        }
+
+        return ret;
+    }
+
+    public render(h: CreateElement): VNode {
+        const { className, styles } = this;
+
+        return (<i class={className} style={styles}/>);
     }
 }
 
