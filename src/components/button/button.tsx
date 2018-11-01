@@ -83,22 +83,22 @@ class Button extends Vue {
 
         const slot: VNode = (
             <span>
-                {loading && <spin type={type === 'default' ? 'primary' : 'default'}/>}
-                {$slots.default}
+                { loading && <spin type={type === 'default' ? 'primary' : 'default'}/> }
+                { $slots.default }
             </span>
         );
 
         if (to !== undefined) {
             return (
                 <a class={className} href={to} target={target} onClick={this.onClickHandler}>
-                    {slot}
+                    { slot }
                 </a>
             );
         }
 
         return (
             <button class={className} onClick={this.onClickHandler}>
-                {slot}
+                { slot }
             </button>
         );
     }

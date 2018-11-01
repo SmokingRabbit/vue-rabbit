@@ -55,7 +55,9 @@ class Popup extends Vue {
 
     private left: number = 0;
 
-    private timer: null | number = null;
+    private visibleTimer: null | number = null;
+
+    private debounceTimer: null | number = null;
 
     private $trigger: HTMLElement | null = null;
 
@@ -98,18 +100,22 @@ class Popup extends Vue {
     }
 
     private clearTimer(): void {
-        if (this.timer !== null) {
-            clearTimeout(this.timer);
-            this.timer = null;
+        if (this.visibleTimer !== null) {
+            clearTimeout(this.visibleTimer);
+            this.visibleTimer = null;
         }
     }
 
     private updateVisible(visible: boolean): void {
-        const { delay, action, $el } = this;
+        const { delay, action, $el, disabled } = this;
+
+        if (disabled) {
+            return;
+        }
 
         this.clearTimer();
 
-        this.timer = setTimeout(() => {
+        this.visibleTimer = setTimeout(() => {
             if (visible) {
                 on(document.body, 'mousedown', this.globalMouseListenerHandler);
 
@@ -140,9 +146,12 @@ class Popup extends Vue {
     public watchIsVisibleChange(cur: boolean): void {
         if (cur) {
             on(window, 'resize', this.onResizeHandler);
-            this.$nextTick(() => {
-                this.updatePosition();
-            });
+
+            if (this.$trigger !== null) {
+                this.$nextTick(() => {
+                    this.updatePosition();
+                });
+            }
         }
         else {
             off(window, 'resize', this.onResizeHandler);
@@ -179,11 +188,15 @@ class Popup extends Vue {
     }
 
     private onResizeHandler(): void {
-        if (this.timer !== null) {
-            clearTimeout(this.timer);
+        if (this.$trigger === null) {
+            return;
         }
 
-        this.timer = setTimeout(() => {
+        if (this.debounceTimer !== null) {
+            clearTimeout(this.debounceTimer);
+        }
+
+        this.debounceTimer = setTimeout(() => {
             this.updatePosition();
         }, 100);
     }

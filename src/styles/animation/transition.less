@@ -1,0 +1,89 @@
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.2s ease-in;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.appear-top-enter-active,
+.appear-top-leave-active,
+.appear-top-left-enter-active,
+.appear-top-left-leave-active,
+.appear-top-right-enter-active,
+.appear-top-right-leave-active {
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+}
+
+.appear-top-enter,
+.appear-top-leave-to,
+.appear-top-left-enter,
+.appear-top-left-leave-to,
+.appear-top-right-enter,
+.appear-top-right-leave-to {
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: bottom;
+}
+
+.appear-bottom-enter-active,
+.appear-bottom-leave-active,
+.appear-bottom-left-enter-active,
+.appear-bottom-left-leave-active,
+.appear-bottom-right-enter-active,
+.appear-bottom-right-leave-active {
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+}
+
+.appear-bottom-enter,
+.appear-bottom-leave-to,
+.appear-bottom-left-enter,
+.appear-bottom-left-leave-to,
+.appear-bottom-right-enter,
+.appear-bottom-right-leave-to {
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: top;
+}
+
+.appear-left-enter-active,
+.appear-left-leave-active,
+.appear-left-top-enter-active,
+.appear-left-top-leave-active,
+.appear-left-bottom-enter-active,
+.appear-left-bottom-leave-active {
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+}
+
+.appear-left-enter,
+.appear-left-leave-to,
+.appear-left-top-enter,
+.appear-left-top-leave-to,
+.appear-left-bottom-enter,
+.appear-left-bottom-leave-to {
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: right;
+}
+
+.appear-right-enter-active,
+.appear-right-leave-active,
+.appear-right-top-enter-active,
+.appear-right-top-leave-active,
+.appear-right-bottom-enter-active,
+.appear-right-bottom-leave-active {
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+}
+
+.appear-right-enter,
+.appear-right-leave-to,
+.appear-right-top-enter,
+.appear-right-top-leave-to,
+.appear-right-bottom-enter,
+.appear-right-bottom-leave-to {
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: left;
+}

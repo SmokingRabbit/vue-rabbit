@@ -11,7 +11,7 @@ import Popup from '../popup';
 
 class Tooltip extends Vue {
 
-    @Prop({ type: String, required: true })
+    @Prop(String)
     public content!: string;
 
     @Prop({
@@ -33,6 +33,9 @@ class Tooltip extends Vue {
     })
     public placement!: 'top' | 'left' | 'bottom' | 'right' | 'left-top' | 'left-bottom'
         | 'right-top' | 'right-bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+    @Prop({ type: Boolean, default: false })
+    public disabled!: boolean;
 
     public visible: boolean = false;
 
@@ -59,7 +62,7 @@ class Tooltip extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const { className, content, $slots, placement, action, visible } = this;
+        const { className, content, $slots, placement, action, visible, disabled } = this;
 
         return (
             <div class={`${prefixCls}tooltip-trigger`}>
@@ -69,11 +72,12 @@ class Tooltip extends Vue {
                     visible={visible}
                     onVisibleChange={this.onVisibleChange}
                     class={className}
-                    transitionName={`from-${placement}`}
+                    transitionName={`appear-${placement}`}
                     placement={placement}
+                    disabled={disabled}
                     action={action}>
                     <div class={`${prefixCls}tooltip-inner`}>
-                        { content }
+                        { $slots.content || content }
                     </div>
                 </popup>
             </div>
