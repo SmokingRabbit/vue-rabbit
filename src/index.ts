@@ -10,7 +10,8 @@ import {
     Header,
     Footer,
     Main,
-    Aside
+    Aside,
+    Switch
 } from './components';
 
 const components: {[key: string]: any} = {
@@ -25,7 +26,8 @@ const components: {[key: string]: any} = {
     Header,
     Footer,
     Main,
-    Aside
+    Aside,
+    Switch
 };
 
 function install(Vue: any): void {

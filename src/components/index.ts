@@ -5,3 +5,4 @@ export { Row, Col } from './grid';
 export { default as Popup } from './popup';
 export { default as Tooltip } from './tooltip';
 export { Layout , Header , Footer , Aside , Main } from './layout';
+export { default as Switch } from './switch';
