@@ -41,7 +41,7 @@ class Layout extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const {$slots, className} = this;
+        const { $slots, className } = this;
 
         return (
             <section class={className}>{$slots.default}</section>

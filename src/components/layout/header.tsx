@@ -13,7 +13,8 @@ class Header extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const {$slots, className} = this;
+        const { $slots, className } = this;
+
         return (
             <header class={className}>{$slots.default}</header>
         );

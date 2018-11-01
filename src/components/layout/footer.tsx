@@ -13,7 +13,8 @@ class Footer extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const {$slots, className} = this;
+        const { $slots, className } = this;
+
         return (
             <footer class={className}>{$slots.default}</footer>
         );

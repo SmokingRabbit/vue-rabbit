@@ -13,7 +13,8 @@ class Aside extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const {$slots, className} = this;
+        const { $slots, className } = this;
+
         return (
             <aside class={className}>{$slots.default}</aside>
         );
