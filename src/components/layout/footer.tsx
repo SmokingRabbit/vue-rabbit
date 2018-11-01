@@ -1,16 +1,10 @@
 import Vue, {CreateElement, VNode} from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 import {prefixCls} from '../../utils/assist';
 
 @Component
 
 class Footer extends Vue {
-
-    @Prop({
-        type: String,
-        default: '55px'
-    })
-    public height!: string;
 
     private get className(): object {
         return {
@@ -18,18 +12,10 @@ class Footer extends Vue {
         };
     }
 
-    private get styleName(): object {
-        const {height} = this;
-
-        return {
-            height,
-        };
-    }
-
     public render(h: CreateElement): VNode {
-        const {$slots, className, styleName} = this;
+        const {$slots, className} = this;
         return (
-            <footer style={styleName} class={className}>{$slots.default}</footer>
+            <footer class={className}>{$slots.default}</footer>
         );
     }
 }

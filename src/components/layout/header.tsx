@@ -1,16 +1,10 @@
 import Vue, {CreateElement, VNode} from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 import {prefixCls} from '../../utils/assist';
 
 @Component
 
 class Header extends Vue {
-
-    @Prop({
-        type: String,
-        default: '55px'
-    })
-    public height!: string;
 
     private get className(): object {
         return {
@@ -18,18 +12,10 @@ class Header extends Vue {
         };
     }
 
-    private get styleName(): object {
-        const {height} = this;
-
-        return {
-            height,
-        };
-    }
-
     public render(h: CreateElement): VNode {
-        const {$slots, className, styleName} = this;
+        const {$slots, className} = this;
         return (
-            <header style={styleName} class={className}>{$slots.default}</header>
+            <header class={className}>{$slots.default}</header>
         );
     }
 }
