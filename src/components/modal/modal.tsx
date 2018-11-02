@@ -104,7 +104,7 @@ class Modal extends Vue {
         const { containerClassName, modalClassName, $slots, visible, modalStyles } = this;
 
         return (
-            <popup visible={visible}>
+            <popup visible={visible} transitionName='modal'>
                 <div class={`${prefixCls}modal-mask`}></div>
                 <div class={containerClassName} onClick={this.onMaskClickHandler}>
                     <div class={modalClassName} style={modalStyles} onClick={stopPropagation}>

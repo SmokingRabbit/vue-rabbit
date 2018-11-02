@@ -1,3 +1,4 @@
+// 渐变
 .fade-enter-active,
 .fade-leave-active {
     transition: all 0.2s ease-in-out;
@@ -8,6 +9,7 @@
     opacity: 0;
 }
 
+// 按位置出现
 .appear-top-enter-active,
 .appear-top-leave-active,
 .appear-top-left-enter-active,
@@ -86,4 +88,61 @@
     transform: scale(0);
     opacity: 0;
     transform-origin: left;
+}
+
+// modal
+.modal-enter-active {
+    transition: all 0.3s ease-in-out;
+
+    .@{prefix}modal-mask {
+        transition: all 0.3s ease-in-out;
+        opacity: 1;
+    }
+
+    .@{prefix}modal {
+        transition: all 0.3s ease-in-out;
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-enter {
+    color: @light-color;
+
+    .@{prefix}modal-mask {
+        opacity: 0;
+    }
+
+    .@{prefix}modal {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+.modal-leave-active {
+    transition: all 0.3s ease-in-out;
+
+    .@{prefix}modal-mask {
+        transition: all 0.3s ease-in-out;
+        opacity: 1;
+    }
+
+    .@{prefix}modal {
+        transition: all 0.3s ease-in-out;
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-leave-to {
+    color: @light-color;
+
+    .@{prefix}modal-mask {
+        opacity: 0;
+    }
+
+    .@{prefix}modal {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
 }
