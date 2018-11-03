@@ -132,7 +132,7 @@ class Popup extends Vue {
                     off($el, 'mouseleave', this.onPopupMouseLeaveHandler);
                 }
             }
-            this.$emit('visibleChange', visible);
+            this.$emit('visible-change', visible);
         }, delay);
     }
 

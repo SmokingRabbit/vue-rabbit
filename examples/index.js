@@ -26,6 +26,14 @@ const router = new VueRouter({
             component: (resolve) => require(['./routers/button'], resolve)
         },
         {
+            path: '/button-group',
+            component: (resolve) => require(['./routers/button-group'], resolve)
+        },
+        {
+            path: '/input',
+            component: (resolve) => require(['./routers/input'], resolve)
+        },
+        {
             path: '/gird',
             component: (resolve) => require(['./routers/gird'], resolve)
         },

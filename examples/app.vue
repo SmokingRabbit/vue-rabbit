@@ -30,6 +30,14 @@
                         path: '/button'
                     },
                     {
+                        name: 'ButtonGroup',
+                        path: '/button-group'
+                    },
+                    {
+                        name: 'Input',
+                        path: '/input'
+                    },
+                    {
                         name: 'Gird',
                         path: '/gird'
                     },

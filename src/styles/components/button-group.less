@@ -1,0 +1,148 @@
+.@{prefix}btn-group {
+    display: inline-flex;
+
+    > .@{prefix}btn {
+        border-radius: 0;
+        margin-left: 0;
+    }
+
+    &-horizontal {
+        flex-direction: row;
+
+        > .@{prefix}btn:first-child {
+            border-top-left-radius: @border-radius;
+            border-bottom-left-radius: @border-radius;
+        }
+
+        > .@{prefix}btn:last-child {
+            border-top-right-radius: @border-radius;
+            border-bottom-right-radius: @border-radius;
+        }
+
+        > .@{prefix}btn {
+            + .@{prefix}btn {
+                margin-left: -1px;
+
+                &-default {
+                    border-left-color: darken(@border-color, 10%);
+                }
+
+                &-primary {
+                    border-left-color: darken(@primary-color, 10%);
+                }
+
+                &-primary {
+                    border-left-color: darken(@primary-color, 10%);
+                }
+
+                &-success {
+                    border-left-color: darken(@success-color, 10%);
+                }
+
+                &-info {
+                    border-left-color: darken(@info-color, 10%);
+                }
+
+                &-warning {
+                    border-left-color: darken(@warning-color, 10%);
+                }
+
+                &-danger {
+                    border-left-color: darken(@danger-color, 10%);
+                }
+            }
+        }
+    }
+
+    &-vertical {
+        flex-direction: column;
+
+        > .@{prefix}btn:first-child {
+            border-top-left-radius: @border-radius;
+            border-top-right-radius: @border-radius;
+        }
+
+        > .@{prefix}btn:last-child {
+            border-bottom-left-radius: @border-radius;
+            border-bottom-right-radius: @border-radius;
+        }
+
+        > .@{prefix}btn {
+            + .@{prefix}btn {
+                margin-top: -1px;
+
+                &-default {
+                    border-top-color: darken(@border-color, 10%);
+                }
+
+                &-primary {
+                    border-top-color: darken(@primary-color, 10%);
+                }
+
+                &-primary {
+                    border-top-color: darken(@primary-color, 10%);
+                }
+
+                &-success {
+                    border-top-color: darken(@success-color, 10%);
+                }
+
+                &-info {
+                    border-top-color: darken(@info-color, 10%);
+                }
+
+                &-warning {
+                    border-top-color: darken(@warning-color, 10%);
+                }
+
+                &-danger {
+                    border-top-color: darken(@danger-color, 10%);
+                }
+            }
+        }
+    }
+
+    &-horizontal&-shape {
+        > .@{prefix}btn {
+            &:first-child {
+                border-bottom-left-radius: 999px;
+                border-top-left-radius: 999px;
+            }
+
+            &:last-child {
+                border-bottom-right-radius: 999px;
+                border-top-right-radius: 999px;
+            }
+        }
+    }
+
+    &-vertical&-shape {
+        > .@{prefix}btn {
+            &:first-child {
+                border-top-left-radius: 999px;
+                border-top-right-radius: 999px;
+            }
+
+            &:last-child {
+                border-bottom-left-radius: 999px;
+                border-bottom-right-radius: 999px;
+            }
+        }
+    }
+
+    &-block {
+        display: flex;
+    }
+
+    &-block&-horizontal {
+        > .@{prefix}btn {
+            flex: auto;
+        }
+    }
+
+    &-block&-vertical {
+        > .@{prefix}btn {
+            display: block;
+        }
+    }
+}

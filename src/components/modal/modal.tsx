@@ -78,7 +78,7 @@ class Modal extends Vue {
 
     public hideModal(): void {
         this.$emit('update:visible', false);
-        this.$emit('visibleChange', false);
+        this.$emit('visible-change', false);
     }
 
     private onMaskClickHandler(): void {

@@ -32,7 +32,7 @@
     }
 }
 
-.btn-ghost(@bg-color) {
+.btn-ghost(@bg-color, @primary: false) when (@primary = false) {
     border-color: @bg-color;
     color: @bg-color;
     background-color: transparent;
@@ -41,6 +41,19 @@
     &:active {
         color: lighten(@bg-color, 10%);
         border-color: lighten(@bg-color, 10%);
+        background-color: transparent;
+    }
+}
+
+.btn-ghost(@bg-color, @primary: true) when (@primary = true) {
+    border-color: @bg-color;
+    color: @bg-color;
+    background-color: transparent;
+
+    &:hover,
+    &:active {
+        color: @primary-color;
+        border-color: @primary-color;
         background-color: transparent;
     }
 }

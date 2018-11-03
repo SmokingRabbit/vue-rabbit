@@ -18,7 +18,7 @@ class Button extends Vue {
             return oneOf(param, ['default', 'primary', 'info', 'success', 'warning', 'danger']);
         }
     })
-    public type!: 'default' | 'prmary' | 'success' | 'info' | 'waring' | 'danger';
+    public type!: 'default' | 'prmary' | 'success' | 'info' | 'warning' | 'danger';
 
     @Prop({ type: Boolean, default: false })
     public loading!: boolean;
@@ -44,6 +44,15 @@ class Button extends Vue {
     @Prop({ type: String, default: 'default' })
     public size!: 'default' | 'small' | 'large';
 
+    @Prop({
+        type: String,
+        default: 'button',
+        validator(param: string) {
+            return oneOf(param, ['button', 'submit', 'reset']);
+        }
+    })
+    public htmlType!: 'button' | 'submit' | 'reset';
+
     @Prop(String)
     public to!: string;
 
@@ -56,17 +65,19 @@ class Button extends Vue {
     public target!: '_blank' | '_self' | '_parent' | '_top';
 
     private get className(): object {
+        const { type, loading, disabled, shape, ghost, dashed, block, text, size } = this;
+
         return {
             [`${prefixCls}btn`]: true,
-            [`${prefixCls}btn-${this.type}`]: true,
-            [`${prefixCls}btn-loading`]: this.loading,
-            [`${prefixCls}btn-disabled`]: this.disabled,
-            [`${prefixCls}btn-shape`]: this.shape,
-            [`${prefixCls}btn-ghost`]: this.ghost,
-            [`${prefixCls}btn-dashed`]: this.dashed,
-            [`${prefixCls}btn-block`]: this.block,
-            [`${prefixCls}btn-text`]: this.text,
-            [`${prefixCls}btn-size-${this.size}`]: true
+            [`${prefixCls}btn-${type}`]: true,
+            [`${prefixCls}btn-loading`]: loading,
+            [`${prefixCls}btn-disabled`]: disabled,
+            [`${prefixCls}btn-shape`]: shape,
+            [`${prefixCls}btn-ghost`]: ghost || dashed,
+            [`${prefixCls}btn-dashed`]: dashed,
+            [`${prefixCls}btn-block`]: block,
+            [`${prefixCls}btn-text`]: text,
+            [`${prefixCls}btn-size-${size}`]: true
         };
     }
 
@@ -79,7 +90,7 @@ class Button extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const { $slots, className, to, target, loading, type } = this;
+        const { $slots, className, to, target, loading, type, disabled, htmlType } = this;
 
         const slot: VNode = (
             <span>
@@ -90,14 +101,14 @@ class Button extends Vue {
 
         if (to !== undefined) {
             return (
-                <a class={className} href={to} target={target} onClick={this.onClickHandler}>
+                <a class={className} disabled={disabled} href={to} target={target} onClick={this.onClickHandler}>
                     { slot }
                 </a>
             );
         }
 
         return (
-            <button class={className} onClick={this.onClickHandler}>
+            <button class={className} htmlType={htmlType} disabled={disabled} onClick={this.onClickHandler}>
                 { slot }
             </button>
         );

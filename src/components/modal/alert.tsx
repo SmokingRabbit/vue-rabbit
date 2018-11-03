@@ -76,7 +76,7 @@ class AlertModal extends Vue {
 
     private onVisibleChangeHandler(visible: boolean): void {
         this.$emit('update:visible', visible);
-        this.$emit('visibleChange', visible);
+        this.$emit('visible-change', visible);
     }
 
     public created(): void {
@@ -108,7 +108,7 @@ class AlertModal extends Vue {
                 scrollable={scrollable}
                 bordered={bordered}
                 visible={alertVisible}
-                onVisibleChange={this.onVisibleChangeHandler}
+                on-visible-change={this.onVisibleChangeHandler}
                 modalClass={`${prefixCls}modal-alert`}>
                 <modal-header title={title}></modal-header>
                 <modal-body>

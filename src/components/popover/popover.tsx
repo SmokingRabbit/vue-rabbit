@@ -44,7 +44,7 @@ class Popover extends Vue {
 
     @Watch('visible')
     public watchVisibleChange(cur: boolean): void {
-        this.$emit('visibleChange', cur);
+        this.$emit('visible-change', cur);
     }
 
     private onVisibleChange(v: boolean): void {
@@ -73,7 +73,7 @@ class Popover extends Vue {
                 <popup
                     ref='popup'
                     visible={visible}
-                    onVisibleChange={this.onVisibleChange}
+                    on-visible-change={this.onVisibleChange}
                     class={className}
                     transitionName={`appear-${placement}`}
                     placement={placement}
