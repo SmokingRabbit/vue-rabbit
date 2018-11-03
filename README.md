@@ -84,15 +84,8 @@
 - back-top​ 返回顶部
 - badge​ 徽章
 - breadcrumb​ 面包屑
-- button-group​ 按钮租
-- button​ 按钮 [rabbit]
-    * 支持圆角
-    * 支持disabled和loading
-    * 支持块级
-    * 支持文字按钮
-    * 支持按钮连接
-    * 支持幽灵按钮
-    * 支持按钮样式
+- button-group​ 按钮租 `wait`
+- button​ 按钮 `done`
 - card​ 卡片
 - carousel 走马灯
 - cascader​ 级联选择
@@ -106,22 +99,19 @@
 - dropdown​ 下拉菜单
 - form​ 表单
 - grid​ 栅格 [yuan1998]
-- icon​ 图标
+- icon​ 图标 `done`
 - image​ 图片
-- input​ 输入框
+- input​ 输入框 `wait`
 - layout​ 布局 [yuan1998]
 - list​ 列表
 - menu 菜单
 - message 消息​弹窗
-- modal​ 弹窗
+- modal​ 弹窗 `wait`
 - notification​ 通知弹窗
 - pagination​ 分页
 - panel​ 面板
-- popover​ 气泡浮层
-- popup 弹窗基类组件
-    * 支持选择挂载在body或父节点
-    * 支持trigger唤醒
-    * 支持存在trigger时自定定位
+- popover​ 气泡浮层 `done`
+- popup 弹窗基类组件 `done`
 - progress​ 进度条
 - radio-group​ 单选组
 - radio​ 单选
@@ -129,7 +119,7 @@
 - scrollbar 滚动栏​
 - select​ 下拉选择
 - slider​ 滑块选择
-- spin​ 菊花加载
+- spin​ 菊花加载 `done`
 - steps​ 步骤条
 - switch​ 开关
 - table​ 表格
@@ -138,7 +128,7 @@
 - tree 树
 - time-picker​ 时间选择
 - timeline​ 时间线
-- tooltip​ 文字提示
+- tooltip​ 文字提示 `done`
 - transfer​ 穿梭狂
 - uploader 上传
 
