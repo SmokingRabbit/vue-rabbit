@@ -7,4 +7,4 @@ export { default as Tooltip } from './tooltip';
 export { Layout , Header , Footer , Aside , Main } from './layout';
 export { default as Switch } from './switch';
 export { default as Popover } from './popover';
-export { Modal } from './modal';
+export { Modal, ModalHeader, ModalBody, ModalFooter, AlertModal } from './modal';

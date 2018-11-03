@@ -58,7 +58,7 @@ class Button extends Vue {
     private get className(): object {
         return {
             [`${prefixCls}btn`]: true,
-            [`${prefixCls}btn-type-${this.type}`]: true,
+            [`${prefixCls}btn-${this.type}`]: true,
             [`${prefixCls}btn-loading`]: this.loading,
             [`${prefixCls}btn-disabled`]: this.disabled,
             [`${prefixCls}btn-shape`]: this.shape,

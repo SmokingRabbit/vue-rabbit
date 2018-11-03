@@ -1,4 +1,4 @@
-import Vue, { CreateElement, VNode} from 'vue';
+import Vue, { CreateElement, VNode } from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import { prefixCls, oneOf, stopPropagation } from '../../utils/assist';
 import { addClass, removeClass } from '../../utils/doms';
@@ -76,8 +76,9 @@ class Modal extends Vue {
         };
     }
 
-    private hideModal(): void {
+    public hideModal(): void {
         this.$emit('update:visible', false);
+        this.$emit('visibleChange', false);
     }
 
     private onMaskClickHandler(): void {

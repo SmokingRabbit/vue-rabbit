@@ -22,14 +22,14 @@
     &.@{prefix}modal-align {
         &-top {
             align-items: flex-start;
-        }
-
-        &-middle {
-            align-items: center;
 
             > .@{prefix}modal {
                 margin-top: @component-gutter * 1.5;
             }
+        }
+
+        &-middle {
+            align-items: center;
         }
 
         &-bottom {
@@ -69,8 +69,66 @@
         min-height: 140px;
         overflow: hidden;
 
+        > .@{prefix}modal-header {
+            height: @modal-header-height;
+            line-height: @modal-header-height;
+            display: flex;
+            padding: 0 @component-gutter * 0.75;
+            font-size: @font-size-default;
+            color: @text-color-base;
+
+            > .@{prefix}modal-header-title {
+                flex: 1;
+            }
+
+            > .@{prefix}modal-header-close {
+                margin-left: @component-gutter / 2;
+                line-height: @modal-header-height;
+                color: @text-color-gray;
+                transition: color @transition-duration ease-in;
+                cursor: pointer;
+
+                &:hover {
+                    color: @text-color-base;
+                }
+            }
+        }
+
+        > .@{prefix}modal-body {
+            padding: @component-gutter * 0.5 @component-gutter * 0.75;
+            color: @text-color-gray;
+            font-size: @font-size-default;
+            line-height: 1.5;
+        }
+
+        > .@{prefix}modal-footer {
+            padding: 0 @component-gutter * 0.75;
+            height: @modal-footer-height;
+            line-height: @modal-footer-height;
+            display: flex;
+            align-items: center;
+            color: @text-color-gray;
+            font-size: @font-size-default;
+
+            &-justify-start {
+                justify-content: flex-start;
+            }
+
+            &-justify-end {
+                justify-content: flex-end;
+            }
+        }
+
         &-bordered {
             border: 1px solid @border-color;
+
+            > .@{prefix}modal-header {
+                border-bottom: 1px solid @border-color;
+            }
+
+            > .@{prefix}modal-footer {
+                border-top: 1px solid @border-color;
+            }
         }
     }
 }

@@ -33,28 +33,28 @@
     }
 
     // 主题
-    &-type-default {
+    &-default {
         border-color: @border-color;
         .btn-color(@light-color, @primary-color, false);
     }
 
-    &-type-primary {
+    &-primary {
         .btn-color(@light-color, @primary-color);
     }
 
-    &-type-info {
+    &-info {
         .btn-color(@light-color, @info-color);
     }
 
-    &-type-success {
+    &-success {
         .btn-color(@light-color, @success-color);
     }
 
-    &-type-warning {
+    &-warning {
         .btn-color(@light-color, @warning-color);
     }
 
-    &-type-danger {
+    &-danger {
         .btn-color(@light-color, @danger-color);
     }
 
@@ -170,5 +170,9 @@
 
     &-text&-danger {
         .btn-text(@danger-color);
+    }
+
+    + .@{prefix}btn {
+        margin-left: @same-component-gutter;
     }
 }
