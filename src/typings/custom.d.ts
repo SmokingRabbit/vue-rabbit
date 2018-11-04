@@ -1,5 +1,5 @@
 import Vue, { VNode } from 'vue';
-import { ModalAlert } from '../components';
+import { AlertModal } from '../components';
 
 declare module "*.vue" {
     import Vue from "vue";
@@ -8,7 +8,7 @@ declare module "*.vue" {
 
 declare module 'vue/types/vue' {
     interface Vue {
-        $alert: ModalAlert
+        $alert: AlertModal
     }
 }
 

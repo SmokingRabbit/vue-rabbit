@@ -95,3 +95,23 @@ export function removeClass(ele: HTMLElement, classNames: string | string[]) {
     });
     ele.setAttribute('class', splitClasses.join(' '));
 }
+
+export function css(ele: HTMLElement, property: {} | string, val?: string | number): string | null {
+    if (typeof property === 'object') {
+        for (const key in property) {
+            if (ele.style.hasOwnProperty(key)) {
+                ele.style[key] = property[key];
+            }
+        }
+    }
+    else if (typeof property === 'string') {
+        if (val || val === 0) {
+            ele.style[property] = val;
+        }
+        else {
+            return window.getComputedStyle(ele, null)[property];
+        }
+    }
+
+    return null;
+}

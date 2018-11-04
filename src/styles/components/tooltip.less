@@ -8,13 +8,13 @@
 
 .@{prefix}tooltip {
     > .@{prefix}tooltip-inner {
-        font-size: @font-size-default;
-        border-radius: @border-radius;
+        font-size: @font-size-base;
+        border-radius: @border-radius-base;
         background-color: @tooltip-bg-color;
         color: @light-color;
         padding: @tooltip-padding;
         white-space: nowrap;
-        line-height: 1.5;
+        line-height: @line-height-base;
     }
 
     &::before {

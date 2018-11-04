@@ -1,0 +1,278 @@
+.@{prefix}input,
+.@{prefix}textarea {
+    border-radius: @border-radius-base;
+    color: @text-color-gray;
+    caret-color: @text-color-gray;
+    border: 1px solid @border-color;
+    line-height: @line-height-base;
+    transition: all @transition-duration ease-in-out;
+    background-color: @light-color;
+
+    &-size-default {
+        font-size: @font-size-base;
+        padding: @input-padding-base;
+    }
+
+    &-size-small {
+        font-size: @font-size-small;
+        padding: @input-padding-small;
+    }
+
+    &-size-large {
+        font-size: @font-size-large;
+        padding: @input-padding-large;
+    }
+
+    &:hover:not(:disabled):not(:read-only) {
+        border-color: @primary-color;
+    }
+
+    &:focus:not(:disabled):not(:read-only) {
+        border-color: @primary-color;
+        box-shadow: 0 0 2px 2px rgba(red(@primary-color), green(@primary-color), blue(@primary-color), 0.25);
+    }
+
+    &:disabled,
+    &:read-only {
+        background-color: @disabled-color;
+        cursor: not-allowed;
+        color: @text-color-gray-light;
+    }
+}
+
+.@{prefix}textarea {
+    resize: none;
+
+    &-can-resize {
+        resize: vertical;
+    }
+}
+
+.@{prefix}input-wrap {
+    display: inline-flex;
+    position: relative;
+
+    > .@{prefix}input {
+        flex: auto;
+    }
+
+    &-block {
+        display: flex;
+    }
+
+    &-size-default {
+        > .@{prefix}input-prefix,
+        > .@{prefix}input-suffix,
+        > .@{prefix}input-prepend,
+        > .@{prefix}input-append {
+            line-height: 30px;
+            font-size: @font-size-base;
+        }
+
+        > .@{prefix}input-prefix,
+        > .@{prefix}input-suffix {
+            line-height: 32px;
+            padding: 0 10px;
+        }
+
+        > .@{prefix}input-prepend,
+        > .@{prefix}input-append {
+            line-height: 30px;
+            padding: 0 12px;
+        }
+    }
+
+    &-size-small {
+        > .@{prefix}input-prefix,
+        > .@{prefix}input-suffix,
+        > .@{prefix}input-prepend,
+        > .@{prefix}input-append {
+            font-size: @font-size-small;
+        }
+
+        > .@{prefix}input-prefix,
+        > .@{prefix}input-suffix {
+            line-height: 28px;
+            padding: 0 6px;
+        }
+
+        > .@{prefix}input-prepend,
+        > .@{prefix}input-append {
+            line-height: 26px;
+            padding: 0 8px;
+        }
+    }
+
+    &-size-large {
+        > .@{prefix}input-prefix,
+        > .@{prefix}input-suffix,
+        > .@{prefix}input-prepend,
+        > .@{prefix}input-append {
+            font-size: @font-size-large;
+        }
+
+        > .@{prefix}input-prefix,
+        > .@{prefix}input-suffix {
+            line-height: 42px;
+            padding: 0 14px;
+        }
+
+        > .@{prefix}input-prepend,
+        > .@{prefix}input-append {
+            line-height: 40px;
+            padding: 0 16px;
+        }
+    }
+
+    &-prepend {
+        > .@{prefix}input-prepend {
+            .pend();
+
+            border-left: 1px solid @border-color;
+            border-top-left-radius: @border-radius-base;
+            border-bottom-left-radius: @border-radius-base;
+        }
+
+        > .@{prefix}input {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+    }
+
+    &-append {
+        > .@{prefix}input-append {
+            .pend();
+
+            border-right: 1px solid @border-color;
+            border-top-right-radius: @border-radius-base;
+            border-bottom-right-radius: @border-radius-base;
+        }
+
+        > .@{prefix}input {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    &-prefix {
+        position: relative;
+
+        > .@{prefix}input-prefix {
+            .fix();
+
+            left: 0;
+        }
+    }
+
+    &-suffix {
+        position: relative;
+
+        > .@{prefix}input-suffix {
+            .fix();
+
+            right: 0;
+        }
+    }
+
+    &-size-default&-prefix {
+        > .@{prefix}input {
+            padding-left: 34px;
+        }
+    }
+
+    &-size-small&-prefix {
+        > .@{prefix}input {
+            padding-left: 24px;
+        }
+    }
+
+    &-size-large&-prefix {
+        > .@{prefix}input {
+            padding-left: 44px;
+        }
+    }
+
+    &-size-default&-suffix {
+        > .@{prefix}input {
+            padding-right: 34px;
+        }
+    }
+
+    &-size-small&-suffix {
+        > .@{prefix}input {
+            padding-right: 24px;
+        }
+    }
+
+    &-size-large&-suffix {
+        > .@{prefix}input {
+            padding-right: 44px;
+        }
+    }
+
+    &-clearable {
+        > .@{prefix}input-clear {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            > .@{prefix}icon-close {
+                background-color: @text-color-gray-light;
+                color: @light-color;
+                cursor: pointer;
+                border-radius: 50%;
+                opacity: 0;
+                transition: all @transition-duration ease-in;
+            }
+        }
+
+        &:hover {
+            .@{prefix}icon-close {
+                opacity: 1;
+            }
+        }
+    }
+
+    &-size-default&-clearable {
+        > .@{prefix}input-clear {
+            width: 32px;
+
+            > .@{prefix}icon-close {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                font-size: @font-size-base;
+            }
+        }
+    }
+
+    &-size-small&-clearable {
+        > .@{prefix}input-clear {
+            width: 28px;
+
+            > .@{prefix}icon-close {
+                width: 16px;
+                height: 16px;
+                line-height: 16px;
+                font-size: @font-size-small;
+            }
+        }
+    }
+
+    &-size-large&-clearable {
+        > .@{prefix}input-clear {
+            width: 42px;
+
+            > .@{prefix}icon-close {
+                width: 24px;
+                height: 24px;
+                line-height: 24px;
+                font-size: @font-size-large;
+            }
+        }
+    }
+}

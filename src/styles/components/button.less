@@ -5,11 +5,11 @@
     border-style: solid;
     border-color: transparent;
     display: inline-block;
-    border-radius: @border-radius;
+    border-radius: @border-radius-base;
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
-    line-height: 1.5;
+    line-height: @line-height-base;
     cursor: pointer;
     transition: border-color @transition-duration linear, background-color @transition-duration linear, color @transition-duration linear;
 
@@ -21,21 +21,21 @@
 
     // 尺寸
     &-size-default {
-        .btn-size(@btn-padding-default, @font-size-default);
+        .btn-size(@btn-padding-base, @font-size-base);
     }
 
     &-size-small {
-        .btn-size(@btn-padding-small, @font-size-default - 2px);
+        .btn-size(@btn-padding-small, @font-size-small);
     }
 
     &-size-large {
-        .btn-size(@btn-padding-large, @font-size-default + 2px);
+        .btn-size(@btn-padding-large, @font-size-large);
     }
 
     // 主题
     &-default {
         border-color: @border-color;
-        .btn-color(@light-color, @primary-color, false);
+        .btn-color(@primary-color, @primary-color, false);
     }
 
     &-primary {
@@ -105,6 +105,7 @@
     &-block {
         display: block;
         width: 100%;
+        margin-left: 0;
     }
 
     &-shape {

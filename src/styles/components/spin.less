@@ -2,7 +2,7 @@
     display: inline-block;
     animation: rotating 1s infinite linear;
 
-    .spin-size(@font-size-default);
+    .spin-size(@font-size-base);
 
     &-default {
         color: @light-color;
@@ -33,13 +33,13 @@
         flex-direction: column;
 
         > .@{prefix}spin-text {
-            font-size: @font-size-default;
+            font-size: @font-size-base;
             color: @primary-color;
             margin-top: 10px;
         }
 
         > .@{prefix}spin {
-            .spin-size(@font-size-default + 4px);
+            .spin-size(@font-size-base + 4px);
         }
     }
 }

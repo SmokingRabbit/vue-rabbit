@@ -1,6 +1,7 @@
+import { VueConstructor } from 'vue';
 import * as components from './components';
 
-function install(Vue: any): void {
+function install(Vue: VueConstructor): void {
     Object.keys(components).forEach((name: string) => {
         Vue.component(`Rbt${name}`, components[name]);
     });

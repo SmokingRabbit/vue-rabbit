@@ -19,8 +19,7 @@
 .btn-color(@text-color, @bg-color, @normal: true) when (@normal = false) {
     &:hover,
     &:active {
-        background-color: lighten(@bg-color, 10%);
-        border-color: lighten(@bg-color, 10%);
+        border-color: @bg-color;
         color: @text-color;
     }
 }
