@@ -66,7 +66,11 @@
     }
 
     .examples-nav {
+<<<<<<< HEAD
         width: 160px;
+=======
+        width: 220px;
+>>>>>>> 729cf7022d1dbeff5149f02aa6ef9f90623dbbf7
         flex: none;
         border-right: 1px solid #ddd;
         padding: 12px 0;
