@@ -173,10 +173,6 @@ class RbtSwitch extends Vue {
         };
     }
 
-    public created(): void {
-        console.log(123);
-    }
-
     private handChange(): void {
         this.input();
         this.change();
