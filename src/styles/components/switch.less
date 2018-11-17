@@ -69,34 +69,34 @@
         border-radius: 11px;
         background-color: @switch-close-color;
 
-        &:active {
-            .@{prefix}switch-core::after {
-                transform: translateX(8%);
+        &:not(.@{switch-name}-checked):active {
+            .@{prefix}switch-core-before {
+                right: -20%;
             }
         }
 
         .@{switch-name}-core {
             position: absolute;
             top: 1px;
-            left: 1px;
+            left: 0;
+            margin-left: 1px;
             bottom: 1px;
-            right: auto;
+            //right: auto;
             border-radius: 100%;
             background-color: #fff;
-            transition: all 350ms;
+            transition: all 350ms ease-in-out;
+            //transform: none;
             z-index: 1;
 
-            &::after {
-                content: '';
+            &-before {
                 display: inline-block;
                 position: absolute;
                 top: 0;
                 left: 0;
                 right: 0;
                 bottom: 0;
-                border-radius: 100%;
                 background-color: inherit;
-                transition: all 350ms;
+                transition: all 350ms ease-in-out;
             }
 
             &::before {
@@ -128,8 +128,8 @@
         }
 
         .@{switch-name}-checked&:active {
-            .@{switch-name}-core::after {
-                transform: translateX(-8%);
+            .@{switch-name}-core-before {
+                left: -20%;
             }
         }
 

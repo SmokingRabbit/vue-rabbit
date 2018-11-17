@@ -121,6 +121,9 @@ class RbtSwitch extends Vue {
             core: {
                 [`${prefixCls}switch-core`]: true,
             },
+            coreBefore: {
+                [`${prefixCls}switch-core-before`]: true,
+            },
             input: {
                 [`${prefixCls}switch-input`]: true,
             },
@@ -161,6 +164,9 @@ class RbtSwitch extends Vue {
             core: {
                 width: `${height - 2}px`,
                 backgroundColor: coreColor,
+            },
+            coreBefore: {
+                borderRadius: `${height / 2}px`,
             },
             innerOpen: {
                 paddingRight: `${height * 1.3}px`,
@@ -211,6 +217,11 @@ class RbtSwitch extends Vue {
                         style={stylesList['core']}
                         class={className['core']}
                     >
+                        <span
+                            class={className['coreBefore']}
+                            style={stylesList['coreBefore']}
+                        >
+                        </span>
                     </span>
                     {
                         textPosition !== 'inner' || !$slots.close || !$slots.open
