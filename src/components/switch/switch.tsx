@@ -181,6 +181,11 @@ class RbtSwitch extends Vue {
         };
     }
 
+    private get hasTextSlots(): boolean {
+        const { $slots } = this;
+        return !!($slots.close && $slots.open);
+    }
+
     public constructor() {
         super();
         let results;
@@ -194,20 +199,45 @@ class RbtSwitch extends Vue {
         this.change();
     }
 
+    private outerCloseText(h: CreateElement): VNode {
+        const { $slots , className } = this;
+
+        return (
+            <span class={className['outerClose']}>{$slots.close}</span>
+        );
+    }
+
+    private outerOpenText(h: CreateElement): VNode {
+        const { $slots , className } = this;
+
+        return (
+            <span class={className['outerOpen']}>{$slots.open}</span>
+        );
+    }
+
+    private innerCloseText(h: CreateElement): VNode {
+        const {$slots, className, stylesList} = this;
+
+        return (
+            <span class={className['innerClose']} style={stylesList['innerClose']}>{$slots.close}</span>
+        );
+    }
+
+    private innerOpenText(h: CreateElement): VNode {
+        const {$slots, className, stylesList} = this;
+
+        return (
+            <span class={className['innerOpen']} style={stylesList['innerOpen']}>{$slots.open}</span>
+        );
+    }
+
     public render(h: CreateElement): VNode {
-        const { $slots , textPosition , className, stylesList, name, id, activeValue, closeValue , currentValue , switchDisable } = this;
+        const { textPosition , className, stylesList, name, id, activeValue, closeValue , currentValue , switchDisable , hasTextSlots } = this;
+        const { outerOpenText , outerCloseText , innerCloseText , innerOpenText } = this;
 
         return (
             <span class={className['wrap']}>
-                {
-                    textPosition !== 'outer' || !$slots.close || !$slots.open
-                        ?
-                        null
-                        :
-                        <span class={className['outerClose']}>
-                            {$slots.close}
-                        </span>
-                }
+                { (textPosition === 'outer' && hasTextSlots) && outerCloseText(h) }
                 <label
                     class={className['label']}
                     style={stylesList['label']}
@@ -233,34 +263,10 @@ class RbtSwitch extends Vue {
                         >
                         </span>
                     </span>
-                    {
-                        textPosition !== 'inner' || !$slots.close || !$slots.open
-                            ?
-                            null
-                            :
-                            <span class={className['innerClose']} style={stylesList['innerClose']}>
-                            {$slots.close}
-                        </span>
-                    }
-                    {
-                        textPosition !== 'inner' || !$slots.close || !$slots.open
-                            ?
-                            null
-                            :
-                            <span class={className['innerOpen']} style={stylesList['innerOpen']}>
-                            {$slots.open}
-                        </span>
-                    }
+                    { (textPosition === 'inner' && hasTextSlots) && innerCloseText(h) }
+                    { (textPosition === 'inner' && hasTextSlots) && innerOpenText(h) }
                 </label>
-                {
-                    textPosition !== 'outer' || !$slots.close || !$slots.open
-                        ?
-                        null
-                        :
-                        <span class={className['outerOpen']}>
-                            {$slots.open}
-                        </span>
-                }
+                { (textPosition === 'outer' && hasTextSlots) && outerOpenText(h) }
             </span>
         );
     }
