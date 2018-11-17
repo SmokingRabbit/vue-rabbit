@@ -62,10 +62,10 @@ class RbtSwitch extends Vue {
     public value!: boolean | string | number;
 
     @Prop({
-        type: Number,
-        default: 22
+        type: String,
+        default: '22px',
     })
-    public height!: number;
+    public height!: string;
 
     @Prop({
         type: String,
@@ -81,6 +81,8 @@ class RbtSwitch extends Vue {
         default: false
     })
     public loading!: boolean;
+    public heightNumber!: number;
+    public heightUnit!: string;
 
     @Emit()
     public input(): any {
@@ -151,32 +153,40 @@ class RbtSwitch extends Vue {
     }
 
     private get stylesList(): object {
-        const { currentValue , height , coreColor , activeColor , closeColor } = this;
+        const { currentValue , heightNumber , heightUnit , coreColor , activeColor , closeColor } = this;
 
         return {
             label: {
-                height: `${height}px`,
-                lineHeight: `${height}px`,
-                minWidth: `${ height * 2.4 }px`,
-                borderRadius: `${height / 2}px`,
+                height: `${heightNumber}${heightUnit}`,
+                lineHeight: `${heightNumber}${heightUnit}`,
+                minWidth: `${ heightNumber * 2.4 }${heightUnit}`,
+                borderRadius: `${heightNumber / 2}${heightUnit}`,
                 backgroundColor: currentValue ? activeColor : closeColor ,
             },
             core: {
-                width: `${height - 2}px`,
+                width: `${heightNumber - 2}${heightUnit}`,
                 backgroundColor: coreColor,
             },
             coreBefore: {
-                borderRadius: `${height / 2}px`,
+                borderRadius: `${heightNumber / 2}${heightUnit}`,
             },
             innerOpen: {
-                paddingRight: `${height * 1.3}px`,
-                paddingLeft: `${height * 0.3}px`,
+                paddingRight: `${heightNumber * 1.3}${heightUnit}`,
+                paddingLeft: `${heightNumber * 0.3}${heightUnit}`,
             },
             innerClose: {
-                paddingLeft: `${height * 1.3}px`,
-                paddingRight: `${height * 0.3}px`,
+                paddingLeft: `${heightNumber * 1.3}${heightUnit}`,
+                paddingRight: `${heightNumber * 0.3}${heightUnit}`,
             }
         };
+    }
+
+    public constructor() {
+        super();
+        let results;
+        results =  /([0-9.]*)([a-z%]*)/g.exec(this.height);
+        this.heightNumber = parseFloat(results[1] || '22');
+        this.heightUnit = results[2] === '' ? 'px' : results[2];
     }
 
     private handChange(): void {
