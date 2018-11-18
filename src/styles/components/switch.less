@@ -81,11 +81,9 @@
             left: 0;
             margin-left: 1px;
             bottom: 1px;
-            //right: auto;
             border-radius: 100%;
             background-color: #fff;
             transition: all 350ms ease-in-out;
-            //transform: none;
             z-index: 1;
 
             &-before {
@@ -112,7 +110,7 @@
                 z-index: 1;
                 border: 1px solid @primary-color;
                 border-color: transparent transparent transparent @primary-color;
-                animation: switch-loading 1s linear;
+                animation: rotating 1s linear;
                 animation-iteration-count: infinite;
             }
         }
@@ -147,15 +145,5 @@
                 display: block;
             }
         }
-    }
-}
-
-@keyframes switch-loading {
-    0% {
-        transform: rotate(0);
-    }
-
-    100% {
-        transform: rotate(360deg);
     }
 }

@@ -190,8 +190,9 @@ class RbtSwitch extends Vue {
         super();
         let results;
         results =  /([0-9.]*)([a-z%]*)/g.exec(this.height);
+
         this.heightNumber = parseFloat(results[1] || '22');
-        this.heightUnit = results[2] === '' ? 'px' : results[2];
+        this.heightUnit = oneOf(results[2] , ['px' , 'rem' , 'em' , 'vw' , 'vh' , 'vi' , 'vb' , '%']) ?  results[2] : 'px';
     }
 
     private handChange(): void {
