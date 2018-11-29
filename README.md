@@ -105,11 +105,11 @@
 - drawer​ 抽屉
 - dropdown​ 下拉菜单
 - form​ 表单
-- grid​ 栅格 [yuan1998]
+- grid​ 栅格 `done`
 - icon​ 图标
 - image​ 图片
 - input​ 输入框
-- layout​ 布局 [yuan1998]
+- layout​ 布局 `done`
 - list​ 列表
 - menu 菜单
 - message 消息​弹窗
@@ -124,14 +124,14 @@
     * 支持存在trigger时自定定位
 - progress​ 进度条
 - radio-group​ 单选组
-- radio​ 单选
+- radio​ 单选 `ing`
 - rate​ 评分
 - scrollbar 滚动栏​
 - select​ 下拉选择
 - slider​ 滑块选择
 - spin​ 菊花加载
 - steps​ 步骤条
-- switch​ 开关
+- switch​ 开关 `done`
 - table​ 表格
 - tabs​ 选项卡
 - tag​ 标签
