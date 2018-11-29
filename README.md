@@ -104,7 +104,7 @@
 - divider​ 分割线
 - drawer​ 抽屉
 - dropdown​ 下拉菜单
-- form​ 表单
+- form​ 表单 `ing`
 - grid​ 栅格 `done`
 - icon​ 图标
 - image​ 图片
@@ -124,7 +124,7 @@
     * 支持存在trigger时自定定位
 - progress​ 进度条
 - radio-group​ 单选组
-- radio​ 单选 `ing`
+- radio​ 单选 `wait`
 - rate​ 评分
 - scrollbar 滚动栏​
 - select​ 下拉选择
