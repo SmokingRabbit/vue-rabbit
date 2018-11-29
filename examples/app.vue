@@ -52,6 +52,10 @@
                     {
                         name: 'Modal',
                         path: '/modal'
+                    },
+                    {
+                        name: 'Form',
+                        path: '/form'
                     }
                 ]
             };
