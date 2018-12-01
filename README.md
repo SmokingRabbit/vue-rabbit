@@ -106,6 +106,7 @@
 - dropdown​ 下拉菜单
 - form​ 表单 `ing`
 - grid​ 栅格 `done`
+    * Flex
 - icon​ 图标
 - image​ 图片
 - input​ 输入框
@@ -124,7 +125,7 @@
     * 支持存在trigger时自定定位
 - progress​ 进度条
 - radio-group​ 单选组
-- radio​ 单选 `wait`
+- radio​ 单选 `wait form`
 - rate​ 评分
 - scrollbar 滚动栏​
 - select​ 下拉选择
@@ -132,6 +133,12 @@
 - spin​ 菊花加载
 - steps​ 步骤条
 - switch​ 开关 `done`
+    * 自定颜色
+    * 自定文字
+    * 文字位置(内/外)
+    * change Event
+    * disabled和loading
+    * 自定 active/inactive Value.
 - table​ 表格
 - tabs​ 选项卡
 - tag​ 标签

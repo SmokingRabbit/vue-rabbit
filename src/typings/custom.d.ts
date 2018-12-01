@@ -10,7 +10,13 @@ declare global {
         interface Element extends VNode { }
         interface ElementClass extends Vue { }
         interface IntrinsicElements {
-            [elem: string]: any
+            [elem: string]: any;
         }
+    }
+}
+
+declare global {
+    interface Emitter extends Vue {
+        $children: any;
     }
 }

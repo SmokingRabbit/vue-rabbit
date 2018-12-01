@@ -103,10 +103,6 @@ class RbtSwitch extends Vue {
         this.currentValue = (val === this.activeValue);
     }
 
-    public mounted(): void {
-        console.log('Switch Mounted', this.form);
-    }
-
     private get switchDisable(): boolean {
         const { disabled , form , loading } = this;
         console.log(form);
