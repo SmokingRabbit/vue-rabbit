@@ -77,10 +77,6 @@
         ],
         "no-empty-interface": false,
         "no-eval": true,
-        "no-invalid-this": [
-            true,
-            "check-function-in-method"
-        ],
         "no-shadowed-variable": [
             true,
             {
