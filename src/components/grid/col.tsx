@@ -1,10 +1,17 @@
 import Vue, {CreateElement, VNode} from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component, Inject, Prop} from 'vue-property-decorator';
 import {oneOf, prefixCls} from '../../utils/assist';
 
 @Component
 
 class Col extends Vue {
+
+    @Inject({
+        from: 'rbtRow',
+        default: {}
+    })
+    public row !: any;
+
     @Prop({
         type: String,
         default: 'div'
@@ -168,15 +175,10 @@ class Col extends Vue {
     }
 
     public get gutterStyle(): object {
-        let parent: any = this.$parent;
-        let result: { [key: string]: string } = {};
+        let result: { paddingLeft?: string , paddingRight?: string } = {};
 
-        while (parent && parent.$options._componentTag !== `${prefixCls}row`) {
-            parent = parent.$parent;
-        }
-
-        if (parent.gutter) {
-            const val = `${parent.gutter / 2}px`;
+        if (this.row && this.row.gutter) {
+            const val = `${this.row.gutter / 2}px`;
             result = {
                 paddingLeft: val,
                 paddingRight: val,

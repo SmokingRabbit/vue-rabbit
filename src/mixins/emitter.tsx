@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
-function broadcast(componentName, eventName, params): void {
+function broadcast(this: any , componentName, eventName, params): void {
     this.$children.forEach(child => {
         const name = child.$options.name;
 

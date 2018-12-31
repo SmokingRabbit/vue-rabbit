@@ -7,6 +7,7 @@ import {oneOf, prefixCls} from '../../utils/assist';
 class Row extends Vue {
 
     @Provide()
+    public rbtRow = this;
 
     @Prop({
         type: String,

@@ -33,20 +33,20 @@ module.exports = {
                 use: [
                     'babel-loader',
                     {
-                        loader: 'ts-loader',
+                        loader: 'ts-loader'
                     }
                 ]
             },
             {
-                 test: /\.vue|js$/,
-                 enforce: 'pre',
-                 exclude: /node_modules/,
-                 use: [{
-                     loader: 'eslint-loader',
-                     options: {
-                         formatter: require('eslint-friendly-formatter')
-                     }
-                 }]
+                test: /\.vue|js$/,
+                enforce: 'pre',
+                exclude: /node_modules/,
+                use: [{
+                    loader: 'eslint-loader',
+                    options: {
+                        formatter: require('eslint-friendly-formatter')
+                    }
+                }]
             },
             {
                 test: /\.vue$/,
@@ -63,7 +63,7 @@ module.exports = {
                         loader: 'style-loader',
                         options: {
                             sourceMap: true
-                        },
+                        }
                     },
                     {
                         loader: 'css-loader',
@@ -108,4 +108,4 @@ module.exports = {
             syntax: 'less'
         })
     ]
-}
+};
