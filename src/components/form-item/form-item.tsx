@@ -84,7 +84,7 @@ class FormItem extends Vue {
             this.validateMessage = errors ? errors[0].message : '';
 
             callback(this.validateMessage, invalidFields);
-            // this.form && this.form.$emit('validate', this.prop, !errors, this.validateMessage || null);
+            this.form && this.form.callValidate('validate', this.prop, !errors, this.validateMessage || null);
         });
     }
 
@@ -121,10 +121,6 @@ class FormItem extends Vue {
     public mounted(): void {
         if (this.prop) {
             this.form.fieldAdd && this.form.fieldAdd(this);
-            this.validate('', (m , v) => {
-                console.log('m :', m);
-                console.log('v :', v);
-            });
         }
     }
 

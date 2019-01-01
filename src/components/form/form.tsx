@@ -1,6 +1,6 @@
-import {Component, Prop, Provide, Watch} from 'vue-property-decorator';
+import {Component, Emit, Prop, Provide, Watch} from 'vue-property-decorator';
 import Vue, {CreateElement, VNode} from 'vue';
-import {devWarn, oneOf, prefixCls} from '../../utils/assist';
+import {devWarn, objAssign, oneOf, prefixCls} from '../../utils/assist';
 
 @Component
 
@@ -45,7 +45,7 @@ class Form extends Vue {
     public disabled!: boolean;
 
     @Prop({
-        type: Boolean ,
+        type: Boolean,
         default: false,
     })
     public statusIcon!: boolean;
@@ -78,12 +78,21 @@ class Form extends Vue {
         type: String,
         default: 'off',
         validator(val): boolean {
-            return oneOf(val , ['off' , 'on']);
+            return oneOf(val, ['off', 'on']);
         }
     })
-    public autocomplete!: string;
+    public autocomplete!: 'off' | 'on';
 
     public fields: any[] = [];
+
+    public async mounted() {
+        try {
+            console.log('a :' , await this.validate());
+        }
+        catch (e) {
+            console.log('a :', e);
+        }
+    }
 
     public fieldAdd(field: any): void {
         field && this.fields.push(field);
@@ -93,8 +102,8 @@ class Form extends Vue {
         field && this.fields.splice(this.fields.indexOf(field), 1);
     }
 
-    public validate(callback: (valid: boolean) => void | undefined ): void {
-        const { model } = this;
+    public validate(callback?: any): void {
+        const {model} = this;
         if (!model) {
             devWarn('[Form]model is required for validate to work!');
             return;
@@ -103,15 +112,30 @@ class Form extends Vue {
         let promise;
         if (typeof callback !== 'function' && Promise) {
             promise = new Promise((resolve, reject) => {
-                callback = (valid) => {
-                    valid ? resolve(valid) : reject(valid);
+                callback = (vl) => {
+                    vl ? resolve(vl) : reject(vl);
                 };
             });
         }
 
+        let valid = true;
         if (this.fields.length === 0 && callback) {
-            callback(true);
+            callback(valid);
         }
+
+        let count = 0;
+        let invalidFields = {};
+        this.fields.forEach(field => {
+            field.validate('', (message, fieldItem) => {
+                if (message) {
+                    valid = false;
+                }
+                invalidFields = objAssign({}, invalidFields, fieldItem);
+                if (typeof callback === 'function' && ++count === this.fields.length) {
+                    callback(valid, invalidFields);
+                }
+            });
+        });
 
         if (promise) {
             return promise;
@@ -122,8 +146,8 @@ class Form extends Vue {
         const {inline, labelPosition} = this;
         return {
             [`${prefixCls}form`]: true,
-            [`${prefixCls}form-inline`] : inline,
-            [`${prefixCls}form-label-${labelPosition}`] : !!labelPosition,
+            [`${prefixCls}form-inline`]: inline,
+            [`${prefixCls}form-label-${labelPosition}`]: !!labelPosition,
         };
     }
 
@@ -140,6 +164,11 @@ class Form extends Vue {
     @Watch('fields')
     public onFieldsChange(v) {
         console.log('v :', v);
+    }
+
+    @Emit('validate')
+    public callValidate(...param) {
+        console.log('param :', param);
     }
 }
 

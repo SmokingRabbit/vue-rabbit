@@ -11,7 +11,7 @@
             return {
                 data: true,
                 model: {
-                    test: 'lonney',
+                    test: '',
                     testArr: [
                         '123',
                         '4455'
@@ -19,8 +19,7 @@
                 },
                 rules: {
                     test: {
-                        required: true,
-                        trigger: 'hahah'
+                        required: true
                     }
                 }
             };
