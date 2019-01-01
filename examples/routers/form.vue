@@ -1,7 +1,7 @@
 <template>
     <div>
-        <rbt-form disabled label-position="left">
-            <rbt-switch v-model="data"></rbt-switch>
+        <rbt-form :model="model" :rules="rules" disabled label-position="left">
+            <rbt-formitem prop="test" ></rbt-formitem>
         </rbt-form>
     </div>
 </template>
@@ -9,7 +9,20 @@
     export default {
         data () {
             return {
-                data: true
+                data: true,
+                model: {
+                    test: 'lonney',
+                    testArr: [
+                        '123',
+                        '4455'
+                    ]
+                },
+                rules: {
+                    test: {
+                        required: true,
+                        trigger: 'hahah'
+                    }
+                }
             };
         }
     };

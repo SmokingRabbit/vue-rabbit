@@ -1,6 +1,6 @@
-import {Component, Prop, Provide} from 'vue-property-decorator';
+import {Component, Prop, Provide, Watch} from 'vue-property-decorator';
 import Vue, {CreateElement, VNode} from 'vue';
-import {oneOf, prefixCls} from '../../utils/assist';
+import {devWarn, oneOf, prefixCls} from '../../utils/assist';
 
 @Component
 
@@ -85,24 +85,37 @@ class Form extends Vue {
 
     public fields: any[] = [];
 
-    public created(): void {
-        this.$on('form.field.add', (field: any): void => {
-            const {fields}  = this;
-            field && fields.push(field);
-        });
-
-        this.$on('form.field.remove' , (field: any): void => {
-            const { fields } = this;
-            field.prop && fields.splice(fields.indexOf(field) , 1);
-        });
+    public fieldAdd(field: any): void {
+        field && this.fields.push(field);
     }
 
-    public validate(callback: (arg: boolean) => void ): void {
+    public fieldRemove(field: any): void {
+        field && this.fields.splice(this.fields.indexOf(field), 1);
+    }
+
+    public validate(callback: (valid: boolean) => void | undefined ): void {
         const { model } = this;
         if (!model) {
+            devWarn('[Form]model is required for validate to work!');
             return;
         }
-        callback(true);
+
+        let promise;
+        if (typeof callback !== 'function' && Promise) {
+            promise = new Promise((resolve, reject) => {
+                callback = (valid) => {
+                    valid ? resolve(valid) : reject(valid);
+                };
+            });
+        }
+
+        if (this.fields.length === 0 && callback) {
+            callback(true);
+        }
+
+        if (promise) {
+            return promise;
+        }
     }
 
     public get className(): object {
@@ -116,6 +129,7 @@ class Form extends Vue {
 
     public render(h: CreateElement): VNode {
         const {$slots, className} = this;
+
         return (
             <form class={className}>
                 {$slots.default}
@@ -123,6 +137,10 @@ class Form extends Vue {
         );
     }
 
+    @Watch('fields')
+    public onFieldsChange(v) {
+        console.log('v :', v);
+    }
 }
 
 export default Form;

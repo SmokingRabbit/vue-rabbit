@@ -9,3 +9,4 @@ export { default as Switch } from './switch';
 export { default as Popover } from './popover';
 export { Modal } from './modal';
 export { default as Form } from './form';
+export { default as FormItem } from './form-item';
