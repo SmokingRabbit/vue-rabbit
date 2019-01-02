@@ -1,11 +1,11 @@
-import {Component, Inject, Prop, Provide} from 'vue-property-decorator';
-import Vue, {CreateElement, VNode} from 'vue';
-import {objAssign, prefixCls, propOfPath} from '../../utils/assist';
+import {Component, Inject, Prop, Provide, Mixins} from 'vue-property-decorator';
+import {CreateElement, VNode} from 'vue';
+import {cloneOf, objAssign, prefixCls, propOfPath} from '../../utils/assist';
 import AsyncValidator from 'async-validator';
+import Emitter from '../../mixins/emitter';
 
 @Component
-
-class FormItem extends Vue {
+class FormItem extends Mixins(Emitter) {
 
     @Provide()
     public rbtFormItem = this;
@@ -16,14 +16,10 @@ class FormItem extends Vue {
     })
     public form ?: any;
 
-    @Prop({
-        type: String
-    })
+    @Prop(String)
     public label?: string;
 
-    @Prop({
-        type: String
-    })
+    @Prop(String)
     public labelWidth?: string;
 
     @Prop({
@@ -38,14 +34,14 @@ class FormItem extends Vue {
     })
     public required?: boolean|undefined;
 
-    @Prop({
-        type: [Object, Array],
-    })
+    @Prop([Object, Array])
     public rules?: object | object[];
 
     public validateState: string = '';
     public validateMessage: string = '';
     public validateDisabled: boolean = false;
+
+    public initialValue: any;
 
     public get fieldValue(): any {
         const model = this.form.model;
@@ -94,6 +90,18 @@ class FormItem extends Vue {
         this.validateDisabled = false;
     }
 
+    public resetField(): void {
+        this.validateState = '';
+        this.validateMessage = '';
+
+        const prop = propOfPath(this.form.model, this.prop, true);
+
+        this.validateDisabled = true;
+        prop.object[prop.key] = cloneOf(this.initialValue);
+
+        this.broadcast('TimeSelect', 'resetField', this.initialValue);
+    }
+
     private getFilteredRule(trigger: string): any {
         const rules = this.getRules();
 
@@ -121,7 +129,28 @@ class FormItem extends Vue {
     public mounted(): void {
         if (this.prop) {
             this.form.fieldAdd && this.form.fieldAdd(this);
+
+            this.initialValue = cloneOf(this.fieldValue);
+
+            const rules = this.getRules();
+            if (rules.length || this.required !== undefined) {
+                this.$on('on.form.blur', this.onFieldBlur);
+                this.$on('on.form.change', this.onFieldChange);
+            }
         }
+    }
+
+    public onFieldBlur(): void {
+        this.validate('blur');
+    }
+
+    public onFieldChange(): void {
+        if (this.validateDisabled) {
+            this.validateDisabled = false;
+            return;
+        }
+
+        this.validate('change');
     }
 
     public beforeDestroy() {

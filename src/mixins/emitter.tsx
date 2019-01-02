@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
-function broadcast(this: any , componentName, eventName, params): void {
+function broadcast(this: any , componentName: string, eventName: string, params: any): void {
     this.$children.forEach(child => {
         const name = child.$options.name;
 
@@ -14,7 +14,7 @@ function broadcast(this: any , componentName, eventName, params): void {
 }
 
 @Component
-export class Emitter extends Vue {
+export default class Emitter extends Vue {
     public dispatch(componentName: string, eventName: string, params: any): void {
         let parent = this.$parent || this.$root;
         let name = parent.$options.name;

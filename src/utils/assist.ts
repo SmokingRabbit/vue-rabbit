@@ -46,3 +46,7 @@ export function propOfPath(obj: object , path: string , strict: boolean = false 
         value: tempObj ? tempObj[keyArr[i]] : null
     };
 }
+
+export function cloneOf(any: any): any {
+    return JSON.parse(JSON.stringify(any));
+}

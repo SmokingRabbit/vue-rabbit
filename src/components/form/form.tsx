@@ -18,24 +18,16 @@ class Form extends Vue {
     })
     public labelPosition!: 'top' | 'left' | 'right';
 
-    @Prop({
-        type: String,
-    })
+    @Prop(String)
     public labelWidth!: string;
 
-    @Prop({
-        type: Object,
-    })
+    @Prop(Object)
     public model!: object;
 
-    @Prop({
-        type: Object,
-    })
+    @Prop(Object)
     public rules!: object;
 
-    @Prop({
-        type: Boolean
-    })
+    @Prop(Boolean)
     public inline!: boolean;
 
     @Prop({
@@ -87,7 +79,7 @@ class Form extends Vue {
 
     public async mounted() {
         try {
-            console.log('a :' , await this.validate());
+            console.log('a :', await this.validate());
         }
         catch (e) {
             console.log('a :', e);
@@ -140,6 +132,38 @@ class Form extends Vue {
         if (promise) {
             return promise;
         }
+    }
+
+    public clearValidate(props: string[] | string = []): void {
+        const {fields: fieldsArr} = this;
+
+        const fields = props.length
+            ? (typeof props === 'string'
+                    ? fieldsArr.filter(field => props === field.prop)
+                    : fieldsArr.filter(field => props.indexOf(field.prop) > -1)
+            ) : this.fields;
+        fields.forEach(field => {
+            field.clearValidate();
+        });
+    }
+
+    public validateField(prop: string, cb: any): void {
+        const fieldItem = this.fields.filter(field => field.prop === prop)[0];
+        if (!fieldItem) {
+            throw new Error('must call validateField with valid prop string!');
+        }
+
+        fieldItem.validate('', cb);
+    }
+
+    public resetFields(): void {
+        if (!this.model) {
+            devWarn('[Form]model is required for resetFields to work.');
+            return;
+        }
+        this.fields.forEach(field => {
+            field.resetField();
+        });
     }
 
     public get className(): object {
