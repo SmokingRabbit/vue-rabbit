@@ -166,13 +166,9 @@ class FormItem extends Mixins(Emitter) {
     }
 
     public render(h: CreateElement): VNode {
-        const { $slots, className, fieldValue } = this;
+        const { $slots, className } = this;
         return (
             <div class={className}>
-                <div>
-                    123
-                    {fieldValue}
-                </div>
                 {$slots.default}
             </div>
         );

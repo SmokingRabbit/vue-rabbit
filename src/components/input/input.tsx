@@ -1,6 +1,6 @@
-import {Component, Inject, Prop} from 'vue-property-decorator';
-import Vue, {CreateElement, VNode} from 'vue';
-import {oneOf, prefixCls} from '../../utils/assist';
+import { Component, Inject, Prop } from 'vue-property-decorator';
+import Vue, { CreateElement, VNode } from 'vue';
+import { oneOf, prefixCls } from '../../utils/assist';
 
 @Component
 class Input extends Vue {
@@ -92,6 +92,8 @@ class Input extends Vue {
     public autofocus?: boolean;
 
     public hovering: boolean = false;
+    public focused: boolean = false;
+    public currentValue: string = this.value || '';
 
     private get isDisabled(): boolean {
         const { form , disabled } = this;
@@ -133,7 +135,7 @@ class Input extends Vue {
         };
     }
 
-    private get hasSlotsElement(h: CreateElement, name: string): VNode|void {
+    private hasSlotsElement(h: CreateElement, name: string): VNode|void {
         const {$slots, className} = this;
 
         if (!$slots[name]) {
@@ -149,10 +151,17 @@ class Input extends Vue {
 
     public render(h: CreateElement): VNode {
         const { className } = this;
+        const { hasSlotsElement } = this;
+
         return <div
             class={className['wrapper']}
         >
+            {hasSlotsElement(h, 'append')}
+            <input
+                type='text'
+                class={className['input']}
 
+            />
         </div>;
     }
 }

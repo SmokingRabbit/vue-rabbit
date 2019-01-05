@@ -1,0 +1,28 @@
+.scroll-bar() {
+    @thumb-background: #b4bccc;
+    @track-background: #fff;
+
+    &::-webkit-scrollbar {
+        z-index: 11;
+        width: 6px;
+
+        &-thumb {
+            border-radius: 5px;
+            width: 6px;
+            background: @thumb-background;
+        }
+
+        &-corner {
+            background: @track-background;
+        }
+
+        &-track {
+            background: @track-background;
+
+            &-piece {
+                background: @track-background;
+                width: 6px;
+            }
+        }
+    }
+}

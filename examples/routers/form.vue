@@ -2,7 +2,7 @@
     <div>
         <rbt-form ref="form1" :model="model" :rules="rules" disabled label-position="left">
             <rbt-formitem prop="test" >
-                <input type="text" v-model="model.test">
+                <rbt-input v-model="model.test" />
             </rbt-formitem>
         </rbt-form>
         <rbt-button @click="resetForm('form1')">reset</rbt-button>
