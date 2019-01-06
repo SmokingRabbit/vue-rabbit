@@ -1,6 +1,6 @@
 import Vue, {CreateElement, VNode} from 'vue';
 import {Component, Emit, Inject, Prop, Watch} from 'vue-property-decorator';
-import {oneOf, prefixCls} from '../../utils/assist';
+import {explodeLen, oneOf, prefixCls} from '../../utils/assist';
 
 @Component
 
@@ -189,11 +189,10 @@ class RbtSwitch extends Vue {
 
     public constructor() {
         super();
-        let results;
-        results =  /([0-9.]*)([a-z%]*)/g.exec(this.height);
+        const results = explodeLen(this.height);
 
-        this.heightNumber = parseFloat(results[1] || '22');
-        this.heightUnit = oneOf(results[2] , ['px' , 'rem' , 'em' , 'vw' , 'vh' , 'vi' , 'vb' , '%']) ?  results[2] : 'px';
+        this.heightNumber = results.value || 22;
+        this.heightUnit = oneOf(results.len , ['px' , 'rem' , 'em' , 'vw' , 'vh' , 'vi' , 'vb' , '%']) ?  results.len : 'px';
     }
 
     private handChange(): void {

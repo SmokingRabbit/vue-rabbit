@@ -1,0 +1,44 @@
+
+.@{prefix}form-item_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    margin-bottom: 22px;
+
+    .@{prefix}form-item_label {
+        flex: none;
+        display: inline-block;
+        flex-basis: 100%;
+        vertical-align: middle;
+        float: left;
+        font-size: @font-size-default;
+        color: #606266;
+        line-height: 40px;
+        box-sizing: border-box;
+    }
+
+    .@{prefix}form-item_position- {
+        &top {
+            padding: 0 0 12px 0;
+        }
+
+        &outside {
+            padding: 0 12px 0 0;
+        }
+
+        &inside {
+            padding: 0 0 0 12px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    }
+
+    .@{prefix}form-item_content {
+        flex: auto;
+        display: inline-block;
+    }
+}

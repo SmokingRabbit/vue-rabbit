@@ -50,3 +50,17 @@ export function propOfPath(obj: object , path: string , strict: boolean = false 
 export function cloneOf(any: any): any {
     return JSON.parse(JSON.stringify(any));
 }
+
+export function isNumeric(obj: any): boolean {
+    return !Array.isArray( obj ) && (obj - parseFloat( obj ) + 1) >= 0;
+}
+
+export function explodeLen(str: string): any {
+    let results;
+    results =  /([0-9.]*)([a-z%]*)/g.exec(str);
+
+    return {
+        value: parseFloat(results[1]),
+        len: results[2]
+    };
+}

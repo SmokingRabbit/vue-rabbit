@@ -1,0 +1,45 @@
+.@{prefix}input_wrapper {
+    position: relative;
+    display: inline-block;
+    font-size: @font-size-default;
+    width: 100%;
+
+    &-input {
+        .scroll-bar;
+
+        .@{prefix}input_inner {
+            -webkit-appearance: none;
+            background-color: @light-color;
+            background-image: none;
+            border-radius: @border-radius;
+            border: 1px solid @border-color;
+            box-sizing: border-box;
+            color: #606266;
+            display: inline-block;
+            font-size: inherit;
+            outline: none;
+            padding: 0 15px;
+            transition: @border-color-transition;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+
+            &-right {
+                text-align: right;
+            }
+
+            &::placeholder {
+                color: #c0c4cc;
+            }
+
+            &:hover {
+                border-color: #c0c4cc;
+            }
+
+            &:focus {
+                outline: none;
+                border-color: #409eff;
+            }
+        }
+    }
+}

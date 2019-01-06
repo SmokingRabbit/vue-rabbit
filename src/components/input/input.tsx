@@ -1,6 +1,6 @@
-import { Component, Inject, Prop } from 'vue-property-decorator';
+import {Component, Emit, Inject, Prop} from 'vue-property-decorator';
 import Vue, { CreateElement, VNode } from 'vue';
-import { oneOf, prefixCls } from '../../utils/assist';
+import {explodeLen, isNumeric, oneOf, prefixCls} from '../../utils/assist';
 
 @Component
 class Input extends Vue {
@@ -23,7 +23,7 @@ class Input extends Vue {
         type: [String, Number],
         default: '40px'
     })
-    public size!: string|number;
+    public size!: string | number;
 
     @Prop({
         type: String,
@@ -54,6 +54,9 @@ class Input extends Vue {
 
     @Prop(String)
     public suffixIcon?: string;
+
+    @Prop(Boolean)
+    public fillet?: boolean;
 
     @Prop({
         type: Number,
@@ -91,9 +94,13 @@ class Input extends Vue {
     @Prop(Boolean)
     public autofocus?: boolean;
 
+    @Prop(Boolean)
+    public textRight?: boolean;
+
     public hovering: boolean = false;
     public focused: boolean = false;
     public currentValue: string = this.value || '';
+    public inputPaddingLeft: string = '';
 
     private get isDisabled(): boolean {
         const { form , disabled } = this;
@@ -113,12 +120,30 @@ class Input extends Vue {
         return !!($slots.suffix || suffixIcon || clearable);
     }
 
+    public formItemLabelWidth(): any {
+        const {formItem} = this;
+
+        if (formItem.labelPosition !== 'inside') {
+            return;
+        }
+        const value = formItem._labelWidth || formItem.getLabelItemWidth;
+
+        if (!value) {
+            this.$nextTick(() => {
+                this.formItemLabelWidth();
+            });
+        }
+
+        const results = explodeLen(value);
+        this.inputPaddingLeft = `${results.value + 10}${results.len || 'px'}`;
+    }
+
     private get className(): object {
-        const { type, isDisabled, hasSuffix, hasPrefix } = this;
+        const { type, isDisabled, hasSuffix, hasPrefix, textRight } = this;
         return {
             wrapper: {
                 [`${prefixCls}input_wrapper`]: true,
-                [`${prefixCls}input_wrapper-${type}`]: true,
+                [`${prefixCls}input_wrapper-${ type === 'textarea' ? 'textarea' : 'input' }`]: true,
                 [`${prefixCls}input_disabled`]: isDisabled,
                 [`${prefixCls}input_suffix`]: hasSuffix,
                 [`${prefixCls}input_prefix`]: hasPrefix,
@@ -130,7 +155,25 @@ class Input extends Vue {
                 [`${prefixCls}input_prepend`]: true,
             },
             input: {
-                [`${prefixCls}input_inner`]: true
+                [`${prefixCls}input_inner`]: true,
+                [`${prefixCls}input_inner-right`]: textRight
+            }
+        };
+    }
+
+    public get styleList(): object {
+        const {size, fillet, formItemLabelWidth} = this;
+        const sz = isNumeric(size) ? `${size}px` : size;
+
+        this.$nextTick(() => {
+            formItemLabelWidth();
+        });
+        return {
+            input: {
+                height: sz ,
+                lineHeight: sz ,
+                borderRadius: fillet && sz,
+                paddingLeft: this.inputPaddingLeft
             }
         };
     }
@@ -150,19 +193,22 @@ class Input extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const { className } = this;
-        const { hasSlotsElement } = this;
+        const { className, styleList, value, type } = this;
+        const { hasSlotsElement, handleInput } = this;
 
-        return <div
-            class={className['wrapper']}
-        >
+        return <div class={className['wrapper']}>
             {hasSlotsElement(h, 'append')}
-            <input
-                type='text'
-                class={className['input']}
-
-            />
+            <input style={styleList['input']}
+                   type={type}
+                   value={value}
+                   oninput={handleInput}
+                   class={className['input']}/>
         </div>;
+    }
+
+    @Emit('input')
+    private handleInput(): any {
+        return this.value;
     }
 }
 

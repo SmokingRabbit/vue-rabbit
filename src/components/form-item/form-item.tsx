@@ -1,6 +1,6 @@
 import {Component, Inject, Prop, Provide, Mixins} from 'vue-property-decorator';
 import {CreateElement, VNode} from 'vue';
-import {cloneOf, objAssign, prefixCls, propOfPath} from '../../utils/assist';
+import {cloneOf, objAssign, oneOf, prefixCls, propOfPath} from '../../utils/assist';
 import AsyncValidator from 'async-validator';
 import Emitter from '../../mixins/emitter';
 
@@ -14,13 +14,29 @@ class FormItem extends Mixins(Emitter) {
         from: 'rbtForm',
         default: {}
     })
-    public form ?: any;
+    public form?: any;
 
     @Prop(String)
     public label?: string;
 
     @Prop(String)
     public labelWidth?: string;
+
+    @Prop({
+        type: String,
+        validator(val: any): boolean {
+            return oneOf(val, ['outside', 'inside', 'top']);
+        }
+    })
+    public labelPosition?: 'outside' | 'inside' | 'top';
+
+    @Prop({
+        type: String,
+        validator(val: any): boolean {
+            return oneOf(val, ['left', 'right', 'center']);
+        }
+    })
+    public labelAlign?: 'left' | 'right' | 'center';
 
     @Prop({
         type: String,
@@ -32,7 +48,7 @@ class FormItem extends Mixins(Emitter) {
         type: [Boolean],
         default: undefined
     })
-    public required?: boolean|undefined;
+    public required?: boolean | undefined;
 
     @Prop([Object, Array])
     public rules?: object | object[];
@@ -46,14 +62,14 @@ class FormItem extends Mixins(Emitter) {
     public get fieldValue(): any {
         const model = this.form.model;
 
-        if (!model || !this.prop){
+        if (!model || !this.prop) {
             return;
         }
         const cache = propOfPath(model, this.prop, true);
         return cache.value;
     }
 
-    public validate(trigger: string , callback: any = null ): any {
+    public validate(trigger: string, callback: any = null): any {
         this.validateDisabled = false;
         const rules = this.getFilteredRule(trigger);
         if ((!rules || rules.length === 0) && this.required === undefined) {
@@ -75,7 +91,7 @@ class FormItem extends Mixins(Emitter) {
         const model = {};
 
         model[this.prop] = this.fieldValue;
-        validator.validate(model, { firstFields: true }, (errors, invalidFields) => {
+        validator.validate(model, {firstFields: true}, (errors, invalidFields) => {
             this.validateState = !errors ? 'success' : 'error';
             this.validateMessage = errors ? errors[0].message : '';
 
@@ -159,17 +175,82 @@ class FormItem extends Mixins(Emitter) {
         }
     }
 
+    private get _labelPosition(): string {
+        const r = this.labelPosition || this.form.labelPosition;
+        return r || 'top';
+    }
+
+    private get _labelAlign(): string {
+        const r = this.labelAlign || this.form.labelAlign;
+        return r || 'left';
+    }
+
+    public get _labelWidth(): any {
+        const {_labelPosition, labelWidth} = this;
+
+        if (_labelPosition === 'top') {
+            return false;
+        }
+
+        return labelWidth;
+    }
+
+    public get getLabelItemWidth(): any {
+        const {$refs} = this;
+        const el: any = $refs['labelItem'];
+
+        return el && el.offsetWidth;
+    }
+
     public get className(): object {
+        const {_labelPosition, _labelAlign} = this;
         return {
-            [`${prefixCls}form-item`]: true,
+            wrapper: {
+                [`${prefixCls}form-item_wrapper`]: true,
+            },
+            label: {
+                [`${prefixCls}form-item_label`]: true,
+                [`${prefixCls}form-item_position-${_labelPosition}`]: true,
+                [`${prefixCls}align-${_labelAlign}`]: true,
+            },
+            content: {
+                [`${prefixCls}form-item_content`]: true
+            }
         };
     }
 
-    public render(h: CreateElement): VNode {
-        const { $slots, className } = this;
+    public get styleList(): object {
+        const { _labelWidth, _labelPosition } = this;
+
+        return {
+            label: {
+                [`${_labelPosition === 'inside' ? 'width' : 'flexBasis'}`]: (_labelWidth === undefined) ? 'auto' : _labelWidth,
+            }
+        };
+    }
+
+    public labelHtml(h: CreateElement): VNode|null {
+        const {$slots, className, label, styleList} = this;
+
+        if (!$slots.label && !label) {
+            return null;
+        }
+
         return (
-            <div class={className}>
-                {$slots.default}
+            <label ref='labelItem' style={styleList['label']} class={className['label']}>
+                {$slots.label || label}
+            </label>
+        );
+    }
+
+    public render(h: CreateElement): VNode {
+        const {$slots, className, labelHtml} = this;
+        return (
+            <div class={className['wrapper']}>
+                {labelHtml(h)}
+                <div class={className['content']}>
+                    {$slots.default}
+                </div>
             </div>
         );
     }

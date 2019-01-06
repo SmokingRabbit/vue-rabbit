@@ -13,10 +13,20 @@ class Form extends Vue {
         type: String,
         default: 'top',
         validator(val): boolean {
-            return oneOf(val, ['top', 'left', 'right']);
+            console.log('val :', val);
+            return oneOf(val, ['outside', 'inside', 'top']);
         }
     })
-    public labelPosition!: 'top' | 'left' | 'right';
+    public labelPosition!: 'top' | 'outside' | 'inside';
+
+    @Prop({
+        type: String,
+        default: 'left',
+        validator(val: any): boolean {
+            return oneOf(val, ['left', 'right', 'center']);
+        }
+    })
+    public labelAlign?: 'left' | 'right' | 'center';
 
     @Prop(String)
     public labelWidth!: string;

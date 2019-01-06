@@ -1,7 +1,33 @@
 <template>
     <div>
-        <rbt-form ref="form1" :model="model" :rules="rules" disabled label-position="left">
+        <rbt-form ref="form1" :model="model" :rules="rules" disabled>
+            <h1>
+                Basis
+            </h1>
+            <rbt-formitem prop="test" label="Your Name : " >
+                <rbt-input v-model="model.test" />
+            </rbt-formitem>
+            <rbt-formitem prop="test" label="Your Name : " >
+                <rbt-input v-model="model.test" fillet />
+            </rbt-formitem>
+            <rbt-formitem prop="test" label="Your Name : " >
+                <rbt-input v-model="model.test" fillet text-right />
+            </rbt-formitem>
+
+
+            <rbt-formitem prop="test" label="Your Email : " label-position="outside" >
+                <rbt-input v-model="model.test" fillet text-right />
+            </rbt-formitem>
             <rbt-formitem prop="test" >
+                <rbt-input v-model="model.test" fillet text-right />
+            </rbt-formitem>
+
+
+            <rbt-formitem prop="test" label="This is : " label-position="inside">
+                <rbt-input v-model="model.test" fillet text-right />
+            </rbt-formitem>
+
+            <rbt-formitem prop="test" label-position="inside" label-align="right" label="this is your ppt :">
                 <rbt-input v-model="model.test" />
             </rbt-formitem>
         </rbt-form>
