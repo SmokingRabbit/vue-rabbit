@@ -1,6 +1,6 @@
-import {Component, Emit, Inject, Prop} from 'vue-property-decorator';
-import Vue, { CreateElement, VNode } from 'vue';
-import {explodeLen, isNumeric, oneOf, prefixCls} from '../../utils/assist';
+import {Component, Emit, Inject, Prop, Watch} from 'vue-property-decorator';
+import Vue, {CreateElement, VNode} from 'vue';
+import {explodeLen, isKorean, isNumeric, oneOf, prefixCls} from '../../utils/assist';
 
 @Component
 class Input extends Vue {
@@ -29,10 +29,10 @@ class Input extends Vue {
         type: String,
         default: 'none',
         validator(val) {
-            return oneOf(val , ['none', 'both', 'horizontal', 'vertical']);
+            return oneOf(val, ['none', 'both', 'horizontal', 'vertical']);
         }
     })
-    public resize?: 'none'| 'both'| 'horizontal'| 'vertical';
+    public resize?: 'none' | 'both' | 'horizontal' | 'vertical';
 
     @Prop(Number)
     public maxlength?: number;
@@ -65,19 +65,19 @@ class Input extends Vue {
     public rows?: number;
 
     @Prop({
-        type: [Boolean , Object],
+        type: [Boolean, Object],
         default: false
     })
-    public autosize?: boolean|object;
+    public autosize?: boolean | object;
 
     @Prop({
         type: String,
         default: 'off',
         validator(val): boolean {
-            return oneOf(val , ['off', 'on']);
+            return oneOf(val, ['off', 'on']);
         }
     })
-    public autocomplete!: 'off'|'on';
+    public autocomplete!: 'off' | 'on';
 
     @Prop(String)
     public name?: string;
@@ -99,23 +99,26 @@ class Input extends Vue {
 
     public hovering: boolean = false;
     public focused: boolean = false;
-    public currentValue: string = this.value || '';
     public inputPaddingLeft: string = '';
 
+    public currentValue: string = this.value || '';
+    public valueBeforeComposition: any;
+    public isOnComposition: any;
+
     private get isDisabled(): boolean {
-        const { form , disabled } = this;
+        const {form, disabled} = this;
 
         return disabled || form.disabled;
     }
 
     private get hasPrefix(): boolean {
-        const { $slots, prefixIcon } = this;
+        const {$slots, prefixIcon} = this;
 
         return !!($slots.prefix || prefixIcon);
     }
 
     private get hasSuffix(): boolean {
-        const { $slots, suffixIcon, clearable } = this;
+        const {$slots, suffixIcon, clearable} = this;
 
         return !!($slots.suffix || suffixIcon || clearable);
     }
@@ -139,7 +142,7 @@ class Input extends Vue {
     }
 
     private get className(): object {
-        const { type, isDisabled, hasSuffix, hasPrefix, textRight } = this;
+        const {type, isDisabled, hasSuffix, hasPrefix, textRight} = this;
         return {
             wrapper: {
                 [`${prefixCls}input_wrapper`]: true,
@@ -170,15 +173,15 @@ class Input extends Vue {
         });
         return {
             input: {
-                height: sz ,
-                lineHeight: sz ,
+                height: sz,
+                lineHeight: sz,
                 borderRadius: fillet && sz,
                 paddingLeft: this.inputPaddingLeft
             }
         };
     }
 
-    private hasSlotsElement(h: CreateElement, name: string): VNode|void {
+    private hasSlotsElement(h: CreateElement, name: string): VNode | void {
         const {$slots, className} = this;
 
         if (!$slots[name]) {
@@ -193,22 +196,63 @@ class Input extends Vue {
     }
 
     public render(h: CreateElement): VNode {
-        const { className, styleList, value, type } = this;
-        const { hasSlotsElement, handleInput } = this;
+        const {className, styleList, currentValue, type} = this;
+        const {hasSlotsElement, handleInput} = this;
 
         return <div class={className['wrapper']}>
             {hasSlotsElement(h, 'append')}
             <input style={styleList['input']}
                    type={type}
-                   value={value}
-                   oninput={handleInput}
+                   value={currentValue}
+                   onInput={handleInput}
                    class={className['input']}/>
         </div>;
     }
 
     @Emit('input')
-    private handleInput(): any {
-        return this.value;
+    private handleInput(evt): any {
+        const value = evt.target.value;
+        this.setCurrentValue(value);
+
+        if (this.isOnComposition) {
+            return;
+        }
+        return value;
+    }
+
+    public handleComposition(event: any): void {
+        if (event.type === 'compositionend') {
+            this.isOnComposition = false;
+            this.currentValue = this.valueBeforeComposition;
+            this.valueBeforeComposition = null;
+            this.handleInput(event);
+        } else {
+            const text = event.target.value;
+            const lastCharacter = text[text.length - 1] || '';
+            this.isOnComposition = !isKorean(lastCharacter);
+            if (this.isOnComposition && event.type === 'compositionstart') {
+                this.valueBeforeComposition = text;
+            }
+        }
+    }
+
+    public setCurrentValue(value): void {
+        if (this.isOnComposition && value === this.valueBeforeComposition) {
+            return;
+        }
+        this.currentValue = value;
+        if (this.isOnComposition) {
+            return;
+        }
+        // this.$nextTick(this.resizeTextarea);
+        // if (this.validateEvent && this.currentValue === this.value) {
+        //     this.dispatch('ElFormItem', 'el.form.change', [value]);
+        // }
+    }
+
+    @Watch('value')
+    public onValueChange(val: any): void {
+        this.setCurrentValue(val);
     }
 }
 

@@ -20,7 +20,7 @@ export function objAssign( ...ags): object {
 
 export function propOfPath(obj: object , path: string , strict: boolean = false ): {object: any , key: any , value: any} {
     let tempObj = obj;
-    path = path.replace(/\[(\w+)\]/g, '.$1');
+    path = path.replace(/\[(\w+)]/g, '.$1');
     const keyArr = path.replace(/^\./, '').split('.');
 
     let i = 0;
@@ -63,4 +63,9 @@ export function explodeLen(str: string): any {
         value: parseFloat(results[1]),
         len: results[2]
     };
+}
+
+export function isKorean(text: string): boolean {
+    const reg = /([(\uAC00-\uD7AF)|(\u3130-\u318F)])+/gi;
+    return reg.test(text);
 }

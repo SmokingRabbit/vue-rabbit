@@ -40,7 +40,7 @@
             return {
                 data: true,
                 model: {
-                    test: '23',
+                    test: '2019 power up',
                     testArr: [
                         '123',
                         '4455'

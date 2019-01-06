@@ -56,6 +56,10 @@
                     {
                         name: 'Form',
                         path: '/form'
+                    },
+                    {
+                        name: 'Input',
+                        path: '/input'
                     }
                 ]
             };

@@ -13,7 +13,6 @@ class Form extends Vue {
         type: String,
         default: 'top',
         validator(val): boolean {
-            console.log('val :', val);
             return oneOf(val, ['outside', 'inside', 'top']);
         }
     })
